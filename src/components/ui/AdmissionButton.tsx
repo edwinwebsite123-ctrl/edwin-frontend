@@ -326,34 +326,62 @@ function AdmissionModal({ isOpen, onClose, onSuccess, prefillCourse = '' }: Admi
     if (!validateForm()) return;
     setIsSubmitting(true);
 
-    const fullName = formData.lastName.trim() 
-      ? `${formData.firstName} ${formData.lastName}`.trim() 
-      : formData.firstName.trim();
+    try {
+      const payload = {
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        email: formData.email,
+        mobile_number: formData.mobile,
+        place: formData.place,
+        interested_course: formData.course,
+        course_mode: formData.courseMode === "online" ? "Online" : "Offline",
+        select_center: formData.center || "",
+        additional_message: formData.message || "",
+      };
 
-    // Simulate API
-    await new Promise((res) => setTimeout(res, 900));
+      const response = await fetch( `${process.env.NEXT_PUBLIC_API_URL}/api/applications/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
 
-    // Here you would send formData to API
-    console.log('Submitted admission form:', formData);
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Server error:", errorData);
+        alert("Submission failed. Please check your data and try again.");
+        setIsSubmitting(false);
+        return;
+      }
 
-    // Reset form (keep course cleared so next open doesn't keep previous, but provider prefill will reapply)
-    setFormData({
-      firstName: '',
-      lastName: '',
-      email: '',
-      mobile: '',
-      place: '',
-      course: '',
-      courseMode: '',
-      center: '',
-      message: '',
-    });
-    setErrors({});
-    setIsSubmitting(false);
+      const data = await response.json();
+      console.log("✅ Application saved:", data);
 
-    // Close this modal and notify provider to show success
-    onClose();
-    onSuccess(fullName);
+      const fullName = `${formData.firstName} ${formData.lastName}`.trim();
+
+      // Reset form
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        mobile: "",
+        place: "",
+        course: "",
+        courseMode: "",
+        center: "",
+        message: "",
+      });
+
+      setErrors({});
+      setIsSubmitting(false);
+      onClose();
+      onSuccess(fullName);
+    } catch (error) {
+      console.error("Network error:", error);
+      alert("Network error. Please try again later.");
+      setIsSubmitting(false);
+    }
   };
 
   if (!isOpen) return null;
