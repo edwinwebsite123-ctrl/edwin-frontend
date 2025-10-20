@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { ChevronDown, X } from "lucide-react";
 import Link from "next/link";
-import { AdmissionProvider, EnrollButton, StartLearningButton } from "./AdmissionButton";
+import { AdmissionProvider, StartLearningButton } from "./AdmissionButton";
 
 export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(2);

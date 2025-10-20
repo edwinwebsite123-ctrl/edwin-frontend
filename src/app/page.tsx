@@ -4,7 +4,6 @@ import Link from 'next/link'
 import HeroSectionThree from '@/components/ui/Herotthree'
 import Navbar from '@/components/ui/navigation-menu'
 import MarqueeAccreditation from '@/components/ui/Marquee'
-import CourseCardList from '@/components/ui/CourseCardList'
 
 
 import { useState, useEffect } from 'react';

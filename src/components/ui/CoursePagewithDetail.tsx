@@ -1,11 +1,11 @@
 'use client'
 import React, { useState, useMemo } from 'react';
-import { motion, AnimatePresence, Easing } from 'framer-motion';
+import { motion, Easing } from 'framer-motion';
 import { 
   BookOpen, Award, Users, TrendingUp, Code, Briefcase, Heart, 
   Palette, GraduationCap, ArrowRight, Clock, Star, Laptop, 
-  HeartPulse, Brush, Globe, Menu, X, Search, Filter,
-  PlayCircle, CheckCircle, Target, Zap, Shield, Trophy, User
+  HeartPulse, Brush, X, Search,
+  PlayCircle, CheckCircle, Target, Shield, Trophy, User
 } from 'lucide-react';
 import Navbar from '@/components/ui/navigation-menu';
 import Footer from '@/components/ui/Footer';

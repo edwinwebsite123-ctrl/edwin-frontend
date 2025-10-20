@@ -11,7 +11,6 @@ import {
   Briefcase,
   BookOpen,
   Users,
-  Star,
   Award,
   Target,
   ChevronRight,

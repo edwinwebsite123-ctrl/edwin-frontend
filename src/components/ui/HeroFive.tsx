@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { ChevronRight, BookOpen, Users, Award, TrendingUp, GraduationCap, Sparkles } from 'lucide-react';
+import { ChevronRight, BookOpen, Users, Award, TrendingUp, Sparkles } from 'lucide-react';
 
 const EdwinAcademyCarousel = () => {
   const [activeIndex, setActiveIndex] = useState(0);

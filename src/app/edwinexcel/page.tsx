@@ -9,12 +9,9 @@ import {
   DollarSign,
   CheckCircle,
   Phone,
-  Mail,
-  MapPin,
   ArrowRight,
   Star,
   Users,
-  TrendingUp,
   Target,
   Shield,
   Briefcase,
@@ -22,11 +19,8 @@ import {
   FileCheck,
   Zap,
   ChevronDown,
-  Menu,
-  X,
   Calendar,
   BadgeCheck,
-  MessageCircle
 } from 'lucide-react';
 import Footer from '@/components/ui/Footer';
 import Navbar from '@/components/ui/navigation-menu';

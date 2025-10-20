@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ChevronLeft, ChevronRight, Code, BarChart3, Megaphone, Brain, Users, Trophy, Target, Zap } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Code, BarChart3, Megaphone, Brain, Users, Target, Zap } from 'lucide-react';
 
 // Academy Carousel Component
 const AcademyCarousel = () => {

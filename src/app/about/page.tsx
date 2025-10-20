@@ -8,8 +8,6 @@ import {
   BookOpen,
   Lightbulb,
   TrendingUp,
-  CheckCircle,
-  ArrowRight,
   Globe,
   Briefcase,
   Code,
@@ -20,11 +18,7 @@ import {
   Rocket,
   Building2,
   Sparkles,
-  Clock,
-  HeadphonesIcon,
-  FileCheck,
   Network,
-  ChevronRight,
   Eye,
 } from 'lucide-react';
 import Navbar from '@/components/ui/navigation-menu';

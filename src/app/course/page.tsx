@@ -13,9 +13,7 @@ import {
   HeartPulse,
   Brush,
   GraduationCap,
-  Filter,
   X,
-  ChevronDown,
 } from 'lucide-react';
 import { allCoursesData } from '../.././data/courses';
 import Navbar from '@/components/ui/navigation-menu';
