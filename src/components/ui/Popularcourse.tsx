@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Brain, Building, Users, ArrowRight, TrendingUp, Check, Clock, BookOpen, Star } from "lucide-react";
+import Image from "next/image";
 
 const courses = [
   { 
@@ -180,9 +181,11 @@ export default function PopularCourses() {
 
                   {/* Background Image */}
                   <div className="absolute inset-0 z-10">
-                    <img
+                    <Image
                       src={course.image}
                       alt={course.title}
+                      width={400}
+                      height={460}
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent"></div>

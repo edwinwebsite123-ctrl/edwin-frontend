@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import {
   ArrowLeft,
@@ -295,11 +296,13 @@ export default function CourseDetail() {
             <aside className="lg:col-span-1">
               <div className="sticky top-24 bg-white rounded-xl sm:rounded-2xl shadow-xl border-2 border-gray-100 overflow-hidden hover:shadow-2xl transition-shadow">
                 <div className="relative">
-                  <img
+                  <Image
                     src={course.image}
                     alt={`${course.title} course thumbnail`}
+                    width={400}
+                    height={224}
                     className="w-full h-48 sm:h-56 object-cover"
-                    loading="lazy"
+                    priority={false}
                   />
                   {/* <div className="absolute top-3 sm:top-4 right-3 sm:right-4 px-2.5 sm:px-3 py-1 sm:py-1.5 bg-[#9BF900] text-[#1725BB] text-xs font-bold rounded-full shadow-lg">
                     POPULAR

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface FacultyCardProps {
@@ -17,9 +18,11 @@ const FacultyCard = ({ name, title, facultyImage }: FacultyCardProps) => {
       
       {/* Faculty Image */}
       <div className="absolute inset-0 flex items-center justify-center z-10 px-4">
-        <img 
+        <Image 
           src={facultyImage || "/api/placeholder/320/420"}
           alt={name}
+          width={320}
+          height={420}
           className="w-full h-full object-cover drop-shadow-2xl"
         />
       </div>

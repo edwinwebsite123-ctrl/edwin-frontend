@@ -10,6 +10,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 const courses = [
   {
@@ -136,9 +137,11 @@ export default function CourseCategoriesSection() {
                 <div className="relative h-[380px] sm:h-[420px] rounded-2xl overflow-hidden bg-black transition-all duration-400 hover:shadow-2xl hover:-translate-y-2">
                   {/* Background Image */}
                   <div className="absolute inset-0 z-10">
-                    <img
+                    <Image
                       src={course.image}
                       alt={course.title}
+                      width={400}
+                      height={420}
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/85 to-black/30 opacity-80 transition-opacity duration-400 group-hover:opacity-60"></div>
@@ -148,9 +151,11 @@ export default function CourseCategoriesSection() {
                   <div className="absolute top-0 right-8 bottom-0 flex items-center justify-center z-20 w-[140px] h-[240px]">
                     <div className="relative w-full h-full">
                       {/* Background side-logo.png */}
-                      <img
+                      <Image
                         src="/side-logo.png"
                         alt="overlay background"
+                        width={140}
+                        height={240}
                         className="absolute inset-0 w-full h-full object-cover opacity-30"
                       />
                       {/* Icon */}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Sparkles, Plus, X } from 'lucide-react';
+import Image from 'next/image';
 
 export default function EdwinTalks() {
   const [posters, setPosters] = useState([
@@ -84,9 +85,11 @@ export default function EdwinTalks() {
               className="group bg-white rounded-lg overflow-hidden border border-gray-200 hover:border-gray-300 transition-all duration-300 hover:shadow-xl"
             >
               <div className="aspect-[4/5] relative overflow-hidden bg-gray-100">
-                <img
+                <Image
                   src={poster.image}
                   alt={poster.title}
+                  width={400}
+                  height={500}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>

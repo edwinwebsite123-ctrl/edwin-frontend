@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 export default function EdwinAcademySections() {
   return (
     <div className="w-full bg-white">
@@ -23,9 +25,11 @@ export default function EdwinAcademySections() {
           {/* Founder Card 1 */}
           <div className="group relative w-full sm:w-[350px] md:w-[400px] rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-2">
             <div className="relative h-96 sm:h-[450px] lg:h-[520px] overflow-hidden">
-              <img
+              <Image
                 src="/fac/ameen.jpeg"
                 alt="Muhammed Ameen B"
+                width={400}
+                height={520}
                 className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500"></div>
@@ -43,9 +47,11 @@ export default function EdwinAcademySections() {
           {/* Founder Card 2 */}
           <div className="group relative w-full sm:w-[350px] md:w-[400px] rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-2">
             <div className="relative h-96 sm:h-[450px] lg:h-[520px] overflow-hidden">
-              <img
+              <Image
                 src="/fac/jamshir.png"
                 alt="Jamsheer E"
+                width={400}
+                height={520}
                 className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500"></div>

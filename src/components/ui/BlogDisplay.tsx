@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 
 export default function BlogCarousel() {
@@ -165,9 +166,11 @@ export default function BlogCarousel() {
                     >
                       {/* Image Container */}
                       <div className="relative w-full aspect-[4/3] overflow-hidden bg-gray-100">
-                        <img
+                        <Image
                           src={blog.image}
                           alt={blog.title}
+                          width={600}
+                          height={450}
                           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                         />
                       </div>

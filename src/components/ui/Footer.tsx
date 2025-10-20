@@ -1,4 +1,5 @@
 import { Facebook, Linkedin, Instagram, Mail, Phone, MapPin, Youtube } from 'lucide-react';
+import Image from 'next/image';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -76,9 +77,11 @@ export default function Footer() {
           {/* Company Info */}
           <div className="space-y-6">
             <div>
-              <img 
+              <Image 
                 src="/logo/nav-logo.png" 
                 alt="Edwin Academy - Professional Training Institute"
+                width={120}
+                height={48}
                 className="h-10 sm:h-12 w-auto mb-4"
                 onError={(e) => {
                   (e.target as HTMLImageElement).style.display = 'none';

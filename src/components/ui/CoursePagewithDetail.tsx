@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import Navbar from '@/components/ui/navigation-menu';
 import Footer from '@/components/ui/Footer';
+import Image from 'next/image';
 
 // --- EXPANDED COURSE DATA (Combined from previous turn for Detail Page) ---
 const allCoursesData = [
@@ -769,9 +770,11 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
               <SectionTitle title="Meet Your Instructor" Icon={User} />
               <div className="p-6 bg-white rounded-xl shadow-lg border border-gray-100 text-center">
                 <div className="w-24 h-24 mx-auto mb-4 bg-gray-200 rounded-full overflow-hidden border-4 border-[#1725BB]">
-                  <img 
+                  <Image 
                     src={course.instructor.image} 
                     alt={course.instructor.name} 
+                    width={96}
+                    height={96}
                     className="w-full h-full object-cover" 
                     onError={(e) => { (e.target as HTMLImageElement).onerror = null; (e.target as HTMLImageElement).src="/instructor-default.jpg"; }} 
                   />
@@ -1125,9 +1128,11 @@ const CoursesPage = () => {
                 >
                   <div className="relative h-[480px] rounded-2xl overflow-hidden bg-black shadow-lg transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
                     <div className="absolute inset-0 z-10">
-                      <img
+                      <Image
                         src={course.image}
                         alt={course.title}
+                        width={400}
+                        height={480}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-black/30 transition-opacity duration-500 group-hover:from-black/90"></div>

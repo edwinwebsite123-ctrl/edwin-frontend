@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import Image from 'next/image';
 
 interface GalleryImage {
   id: number;
@@ -77,9 +78,11 @@ const GalleryPage = () => {
                 animation: `fadeInScale 0.8s ease-out ${index * 0.08}s both`
               }}
             >
-              <img
+              <Image
                 src={image.src}
                 alt={image.title}
+                width={400}
+                height={300}
                 className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500">
@@ -136,9 +139,11 @@ const GalleryPage = () => {
           {/* Main Image */}
           <div className="h-full flex items-center justify-center p-4 md:p-20" onClick={e => e.stopPropagation()}>
             <div className="max-w-7xl w-full">
-              <img
+              <Image
                 src={selectedImage.src}
                 alt={selectedImage.title}
+                width={1200}
+                height={800}
                 className="w-full h-auto max-h-[80vh] object-contain rounded-lg shadow-2xl animate-zoomIn"
               />
               <div className="mt-8 text-center">

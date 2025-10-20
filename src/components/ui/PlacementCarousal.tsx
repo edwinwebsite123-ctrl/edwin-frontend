@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
+import Image from 'next/image';
 
 const placements = [
   {
@@ -161,9 +162,11 @@ export default function PlacementCarousel() {
 
                   {/* Student Image */}
                   <div className="absolute top-32 sm:top-32 left-1/2 -translate-x-1/2 z-10 w-[320px] h-[320px] sm:w-[320px] sm:h-[320px]">
-                    <img
+                    <Image
                       src={placement.studentImage}
                       alt={placement.name}
+                      width={320}
+                      height={320}
                       className="w-full h-full object-contain drop-shadow-2xl filter grayscale"
                     />
                   </div>
