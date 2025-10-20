@@ -118,7 +118,7 @@ function AdmissionModalPortal() {
           onSuccess={(name: string) => {
             // notify parent provider
             notifySuccess(name);
-            // close modal handled inside onSuccess caller (we'll let modal call onClose itself or provider)
+            // close modal handled inside onSuccess caller (we&apos;ll let modal call onClose itself or provider)
           }}
           prefillCourse={preselectedCourse}
         />,

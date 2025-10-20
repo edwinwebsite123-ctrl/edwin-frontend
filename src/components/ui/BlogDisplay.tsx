@@ -111,7 +111,7 @@ export default function BlogCarousel() {
             }}
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight uppercase">
-              What we've
+              What we&apos;ve
               <br className="sm:hidden" />
               <span className="sm:ml-2">Been up to lately</span>
             </h2>

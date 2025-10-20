@@ -208,7 +208,7 @@ interface ServiceProps {
 
           {/* Description */}
           <p className="text-xl text-white/90 mb-6 leading-relaxed max-w-2xl mx-auto">
-            Since our founding, we've been dedicated to bridging the gap between education and industry, empowering students with skills that matter in today's competitive job market.
+            Since our founding, we&apos;ve been dedicated to bridging the gap between education and industry, empowering students with skills that matter in today's competitive job market.
           </p>
 
           {/* Secondary text */}

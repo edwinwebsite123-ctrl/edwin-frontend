@@ -1018,7 +1018,7 @@ const CoursesPage = () => {
           >
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Why Choose Edwin Academy?</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              We're committed to providing quality education with real-world applications
+              We&apos;re committed to providing quality education with real-world applications
             </p>
           </motion.div>
 

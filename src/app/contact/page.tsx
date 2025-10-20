@@ -97,7 +97,7 @@ export default function ContactPage() {
               Get in Touch
             </h1>
             <p className="text-lg text-white/80 leading-relaxed max-w-2xl mx-auto">
-              We're here to help you take the next step in your career journey.
+              We&apos;re here to help you take the next step in your career journey.
             </p>
           </motion.div>
         </div>
@@ -116,7 +116,7 @@ export default function ContactPage() {
           >
             <div className="bg-white border border-gray-200 rounded-2xl p-8 lg:p-10">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">Send a Message</h2>
-              <p className="text-gray-600 mb-8">We'll respond within 24 hours</p>
+              <p className="text-gray-600 mb-8">We&apos;ll respond within 24 hours</p>
               
               <div className="space-y-5">
                 <div className="grid md:grid-cols-2 gap-5">

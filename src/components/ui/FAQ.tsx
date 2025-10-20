@@ -55,7 +55,7 @@ export default function FAQSection() {
             Got Questions?
           </h1>
           <p className="text-2xl sm:text-3xl font-bold text-gray-900">
-            We've got Answers
+            We&apos;ve got Answers
           </p>
         </div>
 
