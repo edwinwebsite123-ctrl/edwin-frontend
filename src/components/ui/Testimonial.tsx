@@ -79,7 +79,7 @@ export default function TestimonialSection() {
       prev === 0 ? testimonials.length - cardsPerView : prev - 1
     );
 
-  const goToSlide = (index) => setCurrentIndex(index);
+  const goToSlide = (index: number) => setCurrentIndex(index);
 
   return (
     <div ref={sectionRef} className="relative overflow-hidden bg-black">

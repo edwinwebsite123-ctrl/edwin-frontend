@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 
 const EdwinAcademyCategories = () => {
-  const [hoveredCard, setHoveredCard] = useState(null);
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
   const categories = [
     {
@@ -91,7 +91,22 @@ const EdwinAcademyCategories = () => {
     }
   ];
 
-  const handleCategoryClick = (category) => {
+  interface Category {
+    id: number;
+    name: string;
+    shortName: string;
+    courses: number;
+    icon: React.ElementType;
+    color: string;
+    bgColor: string;
+    lightBg: string;
+    description: string;
+    duration: string;
+    level: string;
+    slug: string;
+  }
+
+  const handleCategoryClick = (category: Category) => {
     console.log(`Navigating to ${category.name} courses`);
     alert(`Redirecting to ${category.name} courses...`);
   };

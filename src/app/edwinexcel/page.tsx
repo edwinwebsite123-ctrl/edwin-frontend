@@ -37,7 +37,8 @@ export default function EdwinExcelPage() {
   const [activeTab, setActiveTab] = useState('ug');
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeFaq, setActiveFaq] = useState(null);
+  const [activeFaq, setActiveFaq] = useState<string | null>(null);
+
 
   useEffect(() => {
     setIsVisible(true);
@@ -291,7 +292,8 @@ export default function EdwinExcelPage() {
   ];
 
   // small helper to toggle FAQ
-  const toggleFaq = (i) => setActiveFaq(activeFaq === i ? null : i);
+  const toggleFaq = (i: string) => setActiveFaq(activeFaq === i ? null : i);
+
 
   return (
     <div className="min-h-screen bg-white text-gray-800">
@@ -535,7 +537,7 @@ export default function EdwinExcelPage() {
                     </div>
 
                     {/* Button */}
-                    <EnrollButton />
+                    <EnrollButton course={program.name}>Enroll Now</EnrollButton>
                   </div>
                 </div>
               </div>
@@ -749,11 +751,11 @@ export default function EdwinExcelPage() {
                 const idx = i;
                 return (
                   <div key={idx} className="mb-4 bg-white rounded-xl border border-gray-200 overflow-hidden hover:border-blue-300 transition-colors">
-                    <button onClick={() => toggleFaq(idx)} className="w-full text-left flex items-center justify-between p-6">
+                    <button onClick={() => toggleFaq(idx.toString())} className="w-full text-left flex items-center justify-between p-6">
                       <span className="font-semibold text-gray-900 pr-4">{f.q}</span>
-                      <ChevronDown className={`w-5 h-5 text-gray-400 transform transition-transform flex-shrink-0 ${activeFaq === idx ? 'rotate-180' : 'rotate-0'}`} />
+                      <ChevronDown className={`w-5 h-5 text-gray-400 transform transition-transform flex-shrink-0 ${activeFaq === idx.toString() ? 'rotate-180' : 'rotate-0'}`} />
                     </button>
-                    <div className={`px-6 text-gray-600 leading-relaxed transition-all duration-300 ${activeFaq === idx ? 'pb-6 max-h-96' : 'max-h-0 overflow-hidden'}`}>
+                    <div className={`px-6 text-gray-600 leading-relaxed transition-all duration-300 ${activeFaq === idx.toString() ? 'pb-6 max-h-96' : 'max-h-0 overflow-hidden'}`}>
                       <p>{f.a}</p>
                     </div>
                   </div>
@@ -766,11 +768,11 @@ export default function EdwinExcelPage() {
                 const idx = i + Math.ceil(faqs.length / 2);
                 return (
                   <div key={idx} className="mb-4 bg-white rounded-xl border border-gray-200 overflow-hidden hover:border-blue-300 transition-colors">
-                    <button onClick={() => toggleFaq(idx)} className="w-full text-left flex items-center justify-between p-6">
+                    <button onClick={() => toggleFaq(idx.toString())} className="w-full text-left flex items-center justify-between p-6">
                       <span className="font-semibold text-gray-900 pr-4">{f.q}</span>
-                      <ChevronDown className={`w-5 h-5 text-gray-400 transform transition-transform flex-shrink-0 ${activeFaq === idx ? 'rotate-180' : 'rotate-0'}`} />
+                      <ChevronDown className={`w-5 h-5 text-gray-400 transform transition-transform flex-shrink-0 ${activeFaq === idx.toString() ? 'rotate-180' : 'rotate-0'}`} />
                     </button>
-                    <div className={`px-6 text-gray-600 leading-relaxed transition-all duration-300 ${activeFaq === idx ? 'pb-6 max-h-96' : 'max-h-0 overflow-hidden'}`}>
+                    <div className={`px-6 text-gray-600 leading-relaxed transition-all duration-300 ${activeFaq === idx.toString() ? 'pb-6 max-h-96' : 'max-h-0 overflow-hidden'}`}>
                       <p>{f.a}</p>
                     </div>
                   </div>

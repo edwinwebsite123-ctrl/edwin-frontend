@@ -81,8 +81,8 @@ export default function Footer() {
                 alt="Edwin Academy - Professional Training Institute"
                 className="h-10 sm:h-12 w-auto mb-4"
                 onError={(e) => {
-                  e.target.style.display = 'none';
-                  e.target.nextSibling.style.display = 'flex';
+                  (e.target as HTMLImageElement).style.display = 'none';
+                  ((e.target as HTMLImageElement).nextSibling as HTMLElement).style.display = 'flex';
                 }}
               />
               <div style={{ display: 'none' }} className="flex items-center gap-2 mb-4">

@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, Easing } from 'framer-motion';
 import { 
   BookOpen, Award, Users, TrendingUp, Code, Briefcase, Heart, 
   Palette, GraduationCap, ArrowRight, Clock, Star, Laptop, 
@@ -539,7 +539,14 @@ const fallbackCourse = {
 
 // --- COURSE DETAIL PAGE COMPONENTS (Moved here for single-file structure) ---
 
-const DetailCard = ({ Icon, title, value, colorClass }) => (
+interface DetailCardProps {
+  Icon: React.ElementType;
+  title: string;
+  value: string;
+  colorClass: { bg: string; text: string; };
+}
+
+const DetailCard: React.FC<DetailCardProps> = ({ Icon, title, value, colorClass }) => (
   <motion.div 
     className="flex items-center space-x-4 p-4 lg:p-6 bg-white rounded-xl shadow-md border border-gray-100"
     initial={{ opacity: 0, x: -20 }}
@@ -556,14 +563,24 @@ const DetailCard = ({ Icon, title, value, colorClass }) => (
   </motion.div>
 );
 
-const SectionTitle = ({ title, Icon }) => (
+interface SectionTitleProps {
+  title: string;
+  Icon: React.ElementType;
+}
+
+const SectionTitle: React.FC<SectionTitleProps> = ({ title, Icon }) => (
     <div className="flex items-center space-x-3 mb-6">
         <Icon className="w-7 h-7 text-[#1725BB]" />
         <h2 className="text-2xl font-bold text-gray-900">{title}</h2>
     </div>
 );
 
-const CourseDetailPage = ({ courseId, onBack }) => {
+interface CourseDetailPageProps {
+  courseId: string;
+  onBack: () => void;
+}
+
+const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack }) => {
   
   const course = useMemo(() => {
     return allCoursesData.find(c => c.id === courseId) || fallbackCourse;
@@ -597,7 +614,7 @@ const CourseDetailPage = ({ courseId, onBack }) => {
 
   const headerVariants = {
     hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: 'easeOut' } }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0, 0.71, 0.2, 1.01] as unknown as Easing[] } }
   };
   
   const contentVariants = {
@@ -756,7 +773,7 @@ const CourseDetailPage = ({ courseId, onBack }) => {
                     src={course.instructor.image} 
                     alt={course.instructor.name} 
                     className="w-full h-full object-cover" 
-                    onError={(e) => { e.target.onerror = null; e.target.src="/instructor-default.jpg"; }} 
+                    onError={(e) => { (e.target as HTMLImageElement).onerror = null; (e.target as HTMLImageElement).src="/instructor-default.jpg"; }} 
                   />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900">{course.instructor.name}</h3>
@@ -820,7 +837,7 @@ const CoursesPage = () => {
   const [activeCategory, setActiveCategory] = useState('all');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCourseId, setSelectedCourseId] = useState(null); // State for dynamic routing simulation
+  const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null); // State for dynamic routing simulation
 
   const allCourses = allCoursesData; // Use the expanded data array
 
@@ -858,7 +875,7 @@ const CoursesPage = () => {
   };
 
   // Function to simulate navigation to the detail page
-  const handleCourseClick = (courseId) => {
+  const handleCourseClick = (courseId: string) => {
     setSelectedCourseId(courseId);
   };
   

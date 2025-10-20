@@ -19,10 +19,32 @@ import {
 } from 'lucide-react';
 import { allCoursesData } from '../.././data/courses';
 import Navbar from '@/components/ui/navigation-menu';
-import Link from 'next/link';
-import Footer from '@/components/ui/Footer';
+ import Link from 'next/link';
+ import Footer from '@/components/ui/Footer';
 
-export default function CoursesPage() {
+ // Define the Course interface
+ interface Course {
+   id: string;
+   title: string;
+   shortDescription: string;
+   category: string;
+   duration: string;
+   level: string;
+   mode: string;
+   certification: string;
+   image: string;
+   overview: string;
+   modules: { title: string; content: string[]; }[];
+   careerOpportunities: string[];
+   tools: string[];
+   highlights: string[];
+   description?: string;
+   students?: number;
+   rating?: number;
+   slug?: string;
+ }
+
+ export default function CoursesPage() {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('all');
@@ -43,7 +65,7 @@ export default function CoursesPage() {
 
   // Filtered and sorted courses
   const filteredCourses = useMemo(() => {
-    let courses = [...allCoursesData];
+     let courses: Course[] = allCoursesData as Course[];
 
     // Category filter
     if (activeCategory !== 'all') {

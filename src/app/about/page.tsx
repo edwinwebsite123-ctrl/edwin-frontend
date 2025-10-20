@@ -139,7 +139,13 @@ export default function AboutPage() {
 
   
 
-  const ServiceCard = ({ service }) => {
+interface ServiceProps {
+  icon: React.ElementType;
+  title: string;
+  desc: string;
+}
+
+  const ServiceCard = ({ service }: { service: ServiceProps }) => {
     const Icon = service.icon;
     return (
       <div className="group h-full">

@@ -29,10 +29,11 @@ const testimonials = [
 ];
 
 export default function VideoTestimonialsSection() {
-  const [playingId, setPlayingId] = useState(null);
-  const videoRefs = useRef({});
+  const [playingId, setPlayingId] = useState<number | null>(null);
+  const videoRefs = useRef<{ [key: number]: HTMLVideoElement | null }>({});
 
-  const togglePlay = (id) => {
+  const togglePlay = (id: number | null) => {
+    if (id === null) return;
     const video = videoRefs.current[id];
     if (!video) return;
 
@@ -43,7 +44,7 @@ export default function VideoTestimonialsSection() {
       if (playingId && videoRefs.current[playingId]) {
         videoRefs.current[playingId].pause();
       }
-      video.play().catch(() => {});
+      video.play().catch(() => { });
       setPlayingId(id);
     }
   };
@@ -96,7 +97,9 @@ export default function VideoTestimonialsSection() {
               <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-gray-900 shadow-lg transition-transform duration-300 hover:scale-[1.03]">
                 {/* Video */}
                 <video
-                  ref={(el) => (videoRefs.current[person.id] = el)}
+                  ref={(el) => {
+                    videoRefs.current[person.id] = el;
+                  }}
                   className="absolute inset-0 w-full h-full object-cover"
                   loop
                   playsInline
@@ -105,6 +108,7 @@ export default function VideoTestimonialsSection() {
                 >
                   <source src={person.video} type="video/mp4" />
                 </video>
+
 
                 {/* Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>

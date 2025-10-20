@@ -7,7 +7,7 @@ import Link from "next/link";
 import { AdmissionProvider, EnrollButton, StartLearningButton } from "./AdmissionButton";
 
 export default function FAQSection() {
-  const [openIndex, setOpenIndex] = useState(2);
+  const [openIndex, setOpenIndex] = useState<number | null>(2);
 
   const faqs = [
     {
@@ -42,7 +42,7 @@ export default function FAQSection() {
     },
   ];
 
-  const toggleFAQ = (index) => {
+  const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
@@ -113,10 +113,10 @@ export default function FAQSection() {
                   className="text-white font-semibold px-10 sm:px-8 py-3 rounded-full transition-all duration-200 transform hover:scale-105 "
                   style={{ backgroundColor: "#FF6002" }}
                   onMouseEnter={(e) =>
-                    (e.target.style.backgroundColor = "#E55502")
+                    ((e.target as HTMLElement).style.backgroundColor = "#E55502")
                   }
                   onMouseLeave={(e) =>
-                    (e.target.style.backgroundColor = "#FF6002")
+                    ((e.target as HTMLElement).style.backgroundColor = "#FF6002")
                   }
                 >
                   Explore Our Course

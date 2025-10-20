@@ -2,8 +2,14 @@
 import React, { useState } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
+interface GalleryImage {
+  id: number;
+  src: string;
+  title: string;
+}
+
 const GalleryPage = () => {
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const galleryImages = [
@@ -24,19 +30,19 @@ const GalleryPage = () => {
     { id: 15, src: 'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=1200', title: 'Music Room' },
   ];
 
-  const openLightbox = (image, index) => {
+  const openLightbox = (image: GalleryImage, index: number) => {
     setSelectedImage(image);
     setCurrentIndex(index);
   };
 
-  const nextImage = (e) => {
+  const nextImage = (e: React.MouseEvent) => {
     e.stopPropagation();
     const newIndex = (currentIndex + 1) % galleryImages.length;
     setCurrentIndex(newIndex);
     setSelectedImage(galleryImages[newIndex]);
   };
 
-  const prevImage = (e) => {
+  const prevImage = (e: React.MouseEvent) => {
     e.stopPropagation();
     const newIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
     setCurrentIndex(newIndex);

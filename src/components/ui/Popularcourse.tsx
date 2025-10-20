@@ -43,7 +43,7 @@ const courses = [
 ];
 
 export default function PopularCourses() {
-  const [hoveredId, setHoveredId] = useState(null);
+  const [hoveredId, setHoveredId] = useState<number | null>(null);
   const statsRef = useRef(null);
   const isStatsInView = useInView(statsRef, { once: true, amount: 0.3 });
   
@@ -90,7 +90,7 @@ export default function PopularCourses() {
     return () => clearInterval(timer);
   }, [isStatsInView]);
 
-  const easeOutQuart = (x) => {
+  const easeOutQuart = (x: number) => {
     return 1 - Math.pow(1 - x, 4);
   };
 

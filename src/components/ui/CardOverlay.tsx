@@ -57,7 +57,7 @@ const courses = [
 ];
 
 export default function CourseCategoriesSection() {
-  const [hoveredId, setHoveredId] = useState(null);
+  const [hoveredId, setHoveredId] = useState<number | null>(null);
 
   return (
     <section className="bg-white py-16 sm:py-20 lg:py-24 px-4 sm:px-6">

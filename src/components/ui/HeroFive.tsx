@@ -4,7 +4,7 @@ import { ChevronRight, BookOpen, Users, Award, TrendingUp, GraduationCap, Sparkl
 const EdwinAcademyCarousel = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const [hoveredCard, setHoveredCard] = useState(null);
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
   const cards = [
     {
@@ -199,7 +199,7 @@ const EdwinAcademyCarousel = () => {
     return () => clearInterval(interval);
   }, [isAutoPlaying, nextSlide]);
 
-  const handleUserInteraction = (callback) => {
+  const handleUserInteraction = (callback: () => void) => {
     setIsAutoPlaying(false);
     callback();
     setTimeout(() => setIsAutoPlaying(true), 10000);

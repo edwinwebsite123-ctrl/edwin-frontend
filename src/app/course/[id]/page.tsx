@@ -348,7 +348,7 @@ export default function CourseDetail() {
                   </div>
 
                   <AdmissionProvider>
-                    <EnrollButton/>
+                    <EnrollButton course={course.id} children={null}/>
                   </AdmissionProvider>
 
                   <div className="flex items-center justify-center gap-2 text-xs text-gray-500 pt-2">

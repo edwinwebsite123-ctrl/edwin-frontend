@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { ArrowRight, X, CheckCircle2, ChevronDown } from 'lucide-react';
 
@@ -20,15 +20,28 @@ import { ArrowRight, X, CheckCircle2, ChevronDown } from 'lucide-react';
 /* =========================
    Admission Context & Hook
    ========================= */
-const AdmissionContext = createContext(null);
+interface AdmissionOptions { course?: string; }
 
-export function AdmissionProvider({ children }) {
+interface AdmissionContextType {
+  openModal: (options?: AdmissionOptions) => void;
+  closeModal: () => void;
+  modalOpen: boolean;
+  preselectedCourse: string;
+  closeSuccess: () => void;
+  successOpen: boolean;
+  submittedName: string;
+  notifySuccess: (fullName: string) => void;
+}
+
+const AdmissionContext = createContext<AdmissionContextType | null>(null);
+
+export function AdmissionProvider({ children }: { children: ReactNode }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [preselectedCourse, setPreselectedCourse] = useState('');
   const [successOpen, setSuccessOpen] = useState(false);
   const [submittedName, setSubmittedName] = useState('');
 
-  const openModal = useCallback((options = {}) => {
+  const openModal = useCallback((options: AdmissionOptions = {}) => {
     // options: { course: 'Course Name' }
     if (options.course) setPreselectedCourse(options.course);
     else setPreselectedCourse('');
@@ -42,7 +55,7 @@ export function AdmissionProvider({ children }) {
     setPreselectedCourse('');
   }, []);
 
-  const notifySuccess = useCallback((fullName) => {
+  const notifySuccess = useCallback((fullName: string) => {
     // Called by modal after successful submit
     setSubmittedName(fullName);
     setSuccessOpen(true);
@@ -102,7 +115,7 @@ function AdmissionModalPortal() {
         <AdmissionModal
           isOpen={modalOpen}
           onClose={closeModal}
-          onSuccess={(name) => {
+          onSuccess={(name: string) => {
             // notify parent provider
             notifySuccess(name);
             // close modal handled inside onSuccess caller (we'll let modal call onClose itself or provider)
@@ -130,7 +143,13 @@ function SuccessModalPortal() {
 /* =========================
    SuccessModal (Portal-friendly)
    ========================= */
-function SuccessModal({ isOpen, onClose, name }) {
+interface SuccessModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  name: string;
+}
+
+function SuccessModal({ isOpen, onClose, name }: SuccessModalProps) {
   useEffect(() => {
     if (!isOpen) return;
     // trap body scroll when modal open
@@ -198,8 +217,37 @@ function SuccessModal({ isOpen, onClose, name }) {
 /* =========================
    AdmissionModal (Portal-friendly)
    ========================= */
-function AdmissionModal({ isOpen, onClose, onSuccess, prefillCourse = '' }) {
-  const [formData, setFormData] = useState({
+interface AdmissionModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSuccess: (name: string) => void;
+  prefillCourse?: string; // Optional, as it has a default value
+}
+
+function AdmissionModal({ isOpen, onClose, onSuccess, prefillCourse = '' }: AdmissionModalProps) {
+  interface AdmissionFormData {
+    firstName: string;
+    lastName: string;
+    email: string;
+    mobile: string;
+    place: string;
+    course: string;
+    courseMode: string;
+    center: string;
+    message: string;
+  }
+
+  interface AdmissionFormErrors {
+    firstName?: string;
+    email?: string;
+    mobile?: string;
+    place?: string;
+    courseMode?: string;
+    center?: string;
+    [key: string]: string | undefined;
+  }
+
+  const [formData, setFormData] = useState<AdmissionFormData>({
     firstName: '',
     lastName: '',
     email: '',
@@ -210,7 +258,7 @@ function AdmissionModal({ isOpen, onClose, onSuccess, prefillCourse = '' }) {
     center: '',
     message: '',
   });
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<AdmissionFormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const courses = [
@@ -242,7 +290,7 @@ function AdmissionModal({ isOpen, onClose, onSuccess, prefillCourse = '' }) {
   }, [isOpen]);
 
   const validateForm = () => {
-    const newErrors = {};
+    const newErrors: AdmissionFormErrors = {};
     
     // Required fields: firstName, mobile, place
     if (!formData.firstName.trim()) newErrors.firstName = 'First name is required';
@@ -264,7 +312,7 @@ function AdmissionModal({ isOpen, onClose, onSuccess, prefillCourse = '' }) {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -535,7 +583,7 @@ function AdmissionModal({ isOpen, onClose, onSuccess, prefillCourse = '' }) {
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
-                rows="3"
+                rows={3}
                 placeholder="Tell us more about your learning goals..."
                 className="w-full px-4 py-2.5 text-sm text-gray-900 bg-white border-2 border-gray-200 hover:border-gray-300 rounded-xl focus:ring-2 focus:ring-[#1725BB] focus:border-[#1725BB] outline-none resize-none transition-all placeholder:text-gray-400"
               />
@@ -606,7 +654,13 @@ export function StartLearningButton({ className = '' }) {
  *
  *  Usage: <EnrollButton course="Web Development" />
  */
-export function EnrollButton({ course, children, className = '' }) {
+interface EnrollButtonProps {
+  course: string;
+  children?: ReactNode;
+  className?: string;
+}
+
+export function EnrollButton({ course, children, className = '' }: EnrollButtonProps) {
   const { openModal } = useAdmission();
   
   const label = children || `Enroll Now`;

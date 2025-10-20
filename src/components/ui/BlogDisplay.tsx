@@ -93,7 +93,7 @@ export default function BlogCarousel() {
     );
   };
 
-  const goToSlide = (index) => {
+  const goToSlide = (index: number) => {
     setCurrentIndex(index);
   };
 

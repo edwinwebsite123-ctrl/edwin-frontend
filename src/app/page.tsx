@@ -29,14 +29,14 @@ export default function HeroSection() {
   const [menuState, setMenuState] = React.useState(false)
 
   // Counter animation hook
-  const useCounter = (end, duration = 2000, start = 0) => {
+  const useCounter = (end: number, duration: number = 2000, start: number = 0) => {
     const [count, setCount] = useState(start);
 
     useEffect(() => {
-      let startTime;
-      let animationFrame;
+      let startTime: number | undefined;
+      let animationFrame: number;
 
-      const animate = (currentTime) => {
+      const animate = (currentTime: number) => {
         if (!startTime) startTime = currentTime;
         const progress = (currentTime - startTime) / duration;
 
@@ -56,7 +56,15 @@ export default function HeroSection() {
   };
 
   // Stat Card Component
-  const StatCard = ({ icon, value, label, suffix = '+', delay = 0 }) => {
+  interface StatCardProps {
+    icon: React.ReactNode;
+    value: number;
+    label: string;
+    suffix?: string;
+    delay?: number;
+  }
+
+  const StatCard = ({ icon, value, label, suffix = '+', delay = 0 }: StatCardProps) => {
     const [isVisible, setIsVisible] = useState(false);
     const count = useCounter(isVisible ? value : 0, 2000);
 

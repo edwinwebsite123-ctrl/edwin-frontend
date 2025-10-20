@@ -102,7 +102,7 @@ export default function PlacementCarousel() {
     );
   };
 
-  const goToSlide = (index) => {
+  const goToSlide = (index: number) => {
     setCurrentIndex(index);
   };
 

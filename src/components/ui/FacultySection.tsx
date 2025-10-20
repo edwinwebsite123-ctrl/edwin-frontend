@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-const FacultyCard = ({ name, title, facultyImage }) => {
+interface FacultyCardProps {
+  name: string;
+  title: string;
+  facultyImage: string;
+}
+
+const FacultyCard = ({ name, title, facultyImage }: FacultyCardProps) => {
   return (
     <div 
       className="relative h-[420px] sm:h-[450px] rounded-2xl sm:rounded-3xl overflow-hidden hover:-translate-y-2 transition-all duration-500 group mx-auto"
@@ -103,7 +109,7 @@ export default function FacultySection() {
     );
   };
 
-  const goToSlide = (index) => {
+  const goToSlide = (index: number) => {
     setCurrentIndex(index);
   };
 
