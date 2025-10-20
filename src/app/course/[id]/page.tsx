@@ -48,7 +48,7 @@ export default function CourseDetail() {
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-2">Course Not Found</h1>
-          <p className="text-gray-600 mb-6">The course you're looking for doesn't exist.</p>
+          <p className="text-gray-600 mb-6">The course you&apos;re looking for doesn&apos;t exist.</p>
           <button
             onClick={() => router.push('/course')}
             className="px-6 py-3 bg-[#1725BB] text-white rounded-lg hover:bg-[#0f1a8f] transition"
@@ -184,9 +184,9 @@ export default function CourseDetail() {
               {/* Key Highlights */}
               <section className="bg-gradient-to-br from-gray-50 to-white rounded-xl sm:rounded-2xl border border-gray-100 p-4 sm:p-6 md:p-8 shadow-sm">
                 <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-1 sm:mb-2 break-words">
-                  What You'll Master
+                  What You&apos;ll Master
                 </h2>
-                <p className="text-xs sm:text-sm text-gray-500 mb-6 sm:mb-8">Key skills and knowledge you'll gain</p>
+                <p className="text-xs sm:text-sm text-gray-500 mb-6 sm:mb-8">Key skills and knowledge you&apos;ll gain</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   {course.highlights.map((point, idx) => (
                     <motion.div
@@ -275,7 +275,7 @@ export default function CourseDetail() {
                 <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-1 sm:mb-2 break-words">
                   Tools & Technologies
                 </h2>
-                <p className="text-xs sm:text-sm text-gray-500 mb-6 sm:mb-8">Industry-standard tools you'll use</p>
+                <p className="text-xs sm:text-sm text-gray-500 mb-6 sm:mb-8">Industry-standard tools you&apos;ll use</p>
                 <div className="flex flex-wrap gap-2 sm:gap-3">
                   {course.tools.map((tool, i) => (
                     <span
@@ -347,7 +347,7 @@ export default function CourseDetail() {
                   </div>
 
                   <AdmissionProvider>
-                    <EnrollButton course={course.id} children={null}/>
+                    <EnrollButton course={course.id} />
                   </AdmissionProvider>
 
                   <div className="flex items-center justify-center gap-2 text-xs text-gray-500 pt-2">

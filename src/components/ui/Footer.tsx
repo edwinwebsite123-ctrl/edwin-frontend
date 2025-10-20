@@ -65,7 +65,7 @@ export default function Footer() {
             Shape Your Future.
           </h2>
           <p className="text-gray-400 text-sm sm:text-base lg:text-lg max-w-3xl">
-            Empowering students with industry-relevant skills and knowledge. Transform your career with Edwin Academy's comprehensive training programs designed for the modern workforce.
+            Empowering students with industry-relevant skills and knowledge. Transform your career with Edwin Academy&apos;s comprehensive training programs designed for the modern workforce.
           </p>
         </div>
       </div>

@@ -315,7 +315,7 @@ export default function EdwinExcelPage() {
             </h1>
 
             <p className="text-lg sm:text-xl text-slate-700 mb-4 max-w-3xl mx-auto leading-relaxed">
-              Earn your <strong>Bachelor's or Master's degree in 12 months</strong> from prestigious Indian universities
+              Earn your <strong>Bachelor&apos;s or Master&apos;s degree in 12 months</strong> from prestigious Indian universities
             </p>
             
             <div className="flex flex-wrap items-center justify-center gap-3 text-sm text-slate-600 mb-10 max-w-3xl mx-auto">
@@ -540,7 +540,7 @@ export default function EdwinExcelPage() {
         </div>
 
         <div className="text-center mt-16 bg-white rounded-2xl p-10 shadow-sm border border-gray-100">
-          <p className="text-gray-600 mb-6 text-lg">Can't find your program? We offer many more courses!</p>
+          <p className="text-gray-600 mb-6 text-lg">Can&apos;t find your program? We offer many more courses!</p>
           <a 
             href="tel:+917356774901" 
             className="inline-flex items-center space-x-2 bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-blue-700 transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5"

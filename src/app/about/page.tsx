@@ -208,7 +208,7 @@ interface ServiceProps {
 
           {/* Description */}
           <p className="text-xl text-white/90 mb-6 leading-relaxed max-w-2xl mx-auto">
-            Since our founding, we&apos;ve been dedicated to bridging the gap between education and industry, empowering students with skills that matter in today's competitive job market.
+            Since our founding, we&apos;ve been dedicated to bridging the gap between education and industry, empowering students with skills that matter in today&apos;s competitive job market.
           </p>
 
           {/* Secondary text */}
@@ -258,7 +258,7 @@ interface ServiceProps {
                 Edwin Academy is a leading provider of quality education and job-oriented training that helps students pursue their dream careers. We are consistently involved in identifying the latest trends, possibilities, and technology-oriented advancements.
               </p>
               <p className="text-lg text-gray-600 leading-relaxed">
-                We don't just build a simple support structure for education but empower our students to bring out their true potential and transform themselves into a productive workforce. With the optimal mix of support resources and qualified trainers, Edwin Academy stands as one of the best education providers that understand the dynamics of demanding careers and their evolving requirements.
+                We don&apos;t just build a simple support structure for education but empower our students to bring out their true potential and transform themselves into a productive workforce. With the optimal mix of support resources and qualified trainers, Edwin Academy stands as one of the best education providers that understand the dynamics of demanding careers and their evolving requirements.
               </p>
             </div>
             
