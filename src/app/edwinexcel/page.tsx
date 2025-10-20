@@ -24,14 +24,14 @@ import {
 } from 'lucide-react';
 import Footer from '@/components/ui/Footer';
 import Navbar from '@/components/ui/navigation-menu';
-import AdmissionFormButton, { AdmissionProvider, EnrollButton, StartLearningButton } from '@/components/ui/AdmissionButton';
+import { AdmissionProvider, EnrollButton, StartLearningButton } from '@/components/ui/AdmissionButton';
 import Image from 'next/image';
 
 export default function EdwinExcelPage() {
   const [isVisible, setIsVisible] = useState(false);
   const [activeTab, setActiveTab] = useState('ug');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeFaq, setActiveFaq] = useState<string | null>(null);
 
 

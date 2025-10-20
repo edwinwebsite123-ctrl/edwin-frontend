@@ -47,6 +47,7 @@ import Navbar from '@/components/ui/navigation-menu';
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('all');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [showFilters, setShowFilters] = useState(false);
   const [selectedLevel, setSelectedLevel] = useState('all');
   const [sortBy, setSortBy] = useState('popular');
@@ -120,14 +121,14 @@ import Navbar from '@/components/ui/navigation-menu';
     (selectedLevel !== 'all' ? 1 : 0) +
     (searchQuery ? 1 : 0);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.08 } },
-  };
-  const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
-    visible: { y: 0, opacity: 1, transition: { duration: 0.6 } },
-  };
+  // const containerVariants = {
+  //   hidden: { opacity: 0 },
+  //   visible: { opacity: 1, transition: { staggerChildren: 0.08 } },
+  // };
+  // const itemVariants = {
+  //   hidden: { y: 30, opacity: 0 },
+  //   visible: { y: 0, opacity: 1, transition: { duration: 0.6 } },
+  // };
 
   return (
     <>

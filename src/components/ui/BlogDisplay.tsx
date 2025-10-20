@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback  } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 
@@ -24,8 +24,9 @@ export default function BlogCarousel() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Intersection Observer for animations
+
   useEffect(() => {
+    const currentSection = sectionRef.current;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -35,24 +36,18 @@ export default function BlogCarousel() {
       { threshold: 0.1 }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    if (currentSection) {
+      observer.observe(currentSection);
     }
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+      if (currentSection) {
+        observer.unobserve(currentSection);
       }
     };
   }, []);
 
-  // Autoplay
-  useEffect(() => {
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [currentIndex, cardsPerView]);
+
 
   const blogs = [
     {
@@ -82,11 +77,19 @@ export default function BlogCarousel() {
     }
   ];
 
-  const nextSlide = () => {
-    setCurrentIndex((prev) =>
-      prev + 1 >= blogs.length - cardsPerView + 1 ? 0 : prev + 1
-    );
-  };
+  const nextSlide = useCallback(() => {
+  setCurrentIndex((prev) =>
+    prev + 1 >= blogs.length - cardsPerView + 1 ? 0 : prev + 1
+  );
+}, [cardsPerView, blogs.length]);
+
+// Autoplay
+useEffect(() => {
+  const interval = setInterval(() => {
+    nextSlide();
+  }, 5000);
+  return () => clearInterval(interval);
+}, [nextSlide]);
 
   const prevSlide = () => {
     setCurrentIndex((prev) =>
@@ -104,7 +107,7 @@ export default function BlogCarousel() {
       <section className="w-full px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
-          <div 
+          <div
             className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 sm:mb-12 gap-4 transition-all duration-1000"
             style={{
               opacity: isVisible ? 1 : 0,
@@ -116,7 +119,7 @@ export default function BlogCarousel() {
               <br className="sm:hidden" />
               <span className="sm:ml-2">Been up to lately</span>
             </h2>
-            
+
             {/* Desktop Navigation Buttons */}
             <div className="hidden sm:flex gap-3">
               <button
@@ -226,11 +229,10 @@ export default function BlogCarousel() {
                   <button
                     key={index}
                     onClick={() => goToSlide(index)}
-                    className={`transition-all duration-300 rounded-full ${
-                      currentIndex === index
+                    className={`transition-all duration-300 rounded-full ${currentIndex === index
                         ? 'w-8 sm:w-10 h-2.5 sm:h-3 bg-gray-900'
                         : 'w-2.5 sm:w-3 h-2.5 sm:h-3 bg-gray-300 hover:bg-gray-400'
-                    }`}
+                      }`}
                     aria-label={`Go to blog ${index + 1}`}
                   />
                 )

@@ -115,7 +115,7 @@ const AcademyCarousel = () => {
             transform: `translateX(-${currentIndex * (100 / cardsPerView.desktop)}%)`,
           }}
         >
-          {courses.map((course, index) => (
+          {courses.map((course) => (
             <div
               key={course.id}
               className="flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-3"

@@ -44,7 +44,9 @@ const courses = [
 ];
 
 export default function PopularCourses() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [hoveredId, setHoveredId] = useState<number | null>(null);
+  
   const statsRef = useRef(null);
   const isStatsInView = useInView(statsRef, { once: true, amount: 0.3 });
   
@@ -136,9 +138,7 @@ export default function PopularCourses() {
         {/* Course Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 xs:gap-5 sm:gap-6 lg:gap-7 relative">
           {courses.map((course, idx) => {
-            const Icon = course.icon;
-            const isHovered = hoveredId === course.id;
-            
+         
             return (
               <motion.div
                 key={course.id}

@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import { useRouter } from "next/navigation";
 import {
   Menu,
   X,
@@ -75,7 +74,6 @@ const courseCategories = [
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeCat, setActiveCat] = useState<string | null>(null);
-  const router = useRouter();
 
   const dropdownVariants = {
     hidden: { opacity: 0, y: -10 },

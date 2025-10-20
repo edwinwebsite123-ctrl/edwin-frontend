@@ -5,8 +5,6 @@ import HeroSectionThree from '@/components/ui/Herotthree'
 import Navbar from '@/components/ui/navigation-menu'
 import MarqueeAccreditation from '@/components/ui/Marquee'
 
-
-import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import BannerCTA from '@/components/ui/BannerCTA'
 import CardOverlay from '@/components/ui/CardOverlay'
@@ -25,63 +23,62 @@ import EventPopup from '@/components/ui/EventPopup'
 
 
 export default function HeroSection() {
-  const [menuState, setMenuState] = React.useState(false)
 
-  // Counter animation hook
-  const useCounter = (end: number, duration: number = 2000, start: number = 0) => {
-    const [count, setCount] = useState(start);
+  // // Counter animation hook
+  // const useCounter = (end: number, duration: number = 2000, start: number = 0) => {
+  //   const [count, setCount] = useState(start);
 
-    useEffect(() => {
-      let startTime: number | undefined;
-      let animationFrame: number;
+  //   useEffect(() => {
+  //     let startTime: number | undefined;
+  //     let animationFrame: number;
 
-      const animate = (currentTime: number) => {
-        if (!startTime) startTime = currentTime;
-        const progress = (currentTime - startTime) / duration;
+  //     const animate = (currentTime: number) => {
+  //       if (!startTime) startTime = currentTime;
+  //       const progress = (currentTime - startTime) / duration;
 
-        if (progress < 1) {
-          setCount(Math.floor(start + (end - start) * progress));
-          animationFrame = requestAnimationFrame(animate);
-        } else {
-          setCount(end);
-        }
-      };
+  //       if (progress < 1) {
+  //         setCount(Math.floor(start + (end - start) * progress));
+  //         animationFrame = requestAnimationFrame(animate);
+  //       } else {
+  //         setCount(end);
+  //       }
+  //     };
 
-      animationFrame = requestAnimationFrame(animate);
-      return () => cancelAnimationFrame(animationFrame);
-    }, [end, duration, start]);
+  //     animationFrame = requestAnimationFrame(animate);
+  //     return () => cancelAnimationFrame(animationFrame);
+  //   }, [end, duration, start]);
 
-    return count;
-  };
+  //   return count;
+  // };
 
-  // Stat Card Component
-  interface StatCardProps {
-    icon: React.ReactNode;
-    value: number;
-    label: string;
-    suffix?: string;
-    delay?: number;
-  }
+  // // Stat Card Component
+  // interface StatCardProps {
+  //   icon: React.ReactNode;
+  //   value: number;
+  //   label: string;
+  //   suffix?: string;
+  //   delay?: number;
+  // }
 
-  const StatCard = ({ icon, value, label, suffix = '+', delay = 0 }: StatCardProps) => {
-    const [isVisible, setIsVisible] = useState(false);
-    const count = useCounter(isVisible ? value : 0, 2000);
+  // const StatCard = ({ icon, value, label, suffix = '+', delay = 0 }: StatCardProps) => {
+  //   const [isVisible, setIsVisible] = useState(false);
+  //   const count = useCounter(isVisible ? value : 0, 2000);
 
-    useEffect(() => {
-      const timer = setTimeout(() => setIsVisible(true), delay);
-      return () => clearTimeout(timer);
-    }, [delay]);
+  //   useEffect(() => {
+  //     const timer = setTimeout(() => setIsVisible(true), delay);
+  //     return () => clearTimeout(timer);
+  //   }, [delay]);
 
-    return (
-      <div className="flex flex-col items-center text-center">
-        <div className="text-blue-600 mb-3">{icon}</div>
-        <div className="text-4xl md:text-5xl font-bold text-blue-600 mb-1">
-          {count.toLocaleString()}{suffix}
-        </div>
-        <div className="text-gray-700 text-sm md:text-base font-medium">{label}</div>
-      </div>
-    );
-  };
+  //   return (
+  //     <div className="flex flex-col items-center text-center">
+  //       <div className="text-blue-600 mb-3">{icon}</div>
+  //       <div className="text-4xl md:text-5xl font-bold text-blue-600 mb-1">
+  //         {count.toLocaleString()}{suffix}
+  //       </div>
+  //       <div className="text-gray-700 text-sm md:text-base font-medium">{label}</div>
+  //     </div>
+  //   );
+  // };
 
   return (
     <>

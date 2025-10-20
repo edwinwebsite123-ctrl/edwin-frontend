@@ -838,7 +838,6 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
 
 const CoursesPage = () => {
   const [activeCategory, setActiveCategory] = useState('all');
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null); // State for dynamic routing simulation
 

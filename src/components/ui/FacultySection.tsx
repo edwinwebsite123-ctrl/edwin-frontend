@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -10,15 +10,15 @@ interface FacultyCardProps {
 
 const FacultyCard = ({ name, title, facultyImage }: FacultyCardProps) => {
   return (
-    <div 
+    <div
       className="relative h-[420px] sm:h-[450px] rounded-2xl sm:rounded-3xl overflow-hidden hover:-translate-y-2 transition-all duration-500 group mx-auto"
     >
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-all duration-500" />
-      
+
       {/* Faculty Image */}
       <div className="absolute inset-0 flex items-center justify-center z-10 px-4">
-        <Image 
+        <Image
           src={facultyImage || "/api/placeholder/320/420"}
           alt={name}
           width={320}
@@ -26,10 +26,10 @@ const FacultyCard = ({ name, title, facultyImage }: FacultyCardProps) => {
           className="w-full h-full object-cover drop-shadow-2xl"
         />
       </div>
-      
+
       {/* Gradient Overlay */}
       <div className="absolute inset-0 z-20 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-      
+
       {/* Text Overlay */}
       <div className="absolute bottom-0 left-0 right-0 z-30 p-4 sm:p-6 text-center text-white">
         <h3 className="font-semibold text-base sm:text-lg mb-1">{name}</h3>
@@ -92,19 +92,20 @@ export default function FacultySection() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  const nextSlide = useCallback(() => {
+    setCurrentIndex((prev) =>
+      prev + 1 >= facultyMembers.length - cardsPerView + 1 ? 0 : prev + 1
+    );
+  }, [cardsPerView, facultyMembers.length]);
+
   // Autoplay
   useEffect(() => {
     const interval = setInterval(() => {
       nextSlide();
     }, 4000);
     return () => clearInterval(interval);
-  }, [currentIndex, cardsPerView]);
+  }, [nextSlide]);
 
-  const nextSlide = () => {
-    setCurrentIndex((prev) =>
-      prev + 1 >= facultyMembers.length - cardsPerView + 1 ? 0 : prev + 1
-    );
-  };
 
   const prevSlide = () => {
     setCurrentIndex((prev) =>
@@ -117,7 +118,7 @@ export default function FacultySection() {
   };
 
   return (
-    <section 
+    <section
       className="w-full py-12 sm:py-20 px-4"
     //   style={{
     //     backgroundImage: 'url("/fac/bg.jpg")',
@@ -192,11 +193,10 @@ export default function FacultySection() {
                 <button
                   key={index}
                   onClick={() => goToSlide(index)}
-                  className={`transition-all duration-300 rounded-full ${
-                    currentIndex === index
+                  className={`transition-all duration-300 rounded-full ${currentIndex === index
                       ? 'w-8 sm:w-10 h-2.5 sm:h-3 bg-gray-800'
                       : 'w-2.5 sm:w-3 h-2.5 sm:h-3 bg-gray-400 hover:bg-gray-500'
-                  }`}
+                    }`}
                   aria-label={`Go to slide ${index + 1}`}
                 />
               )

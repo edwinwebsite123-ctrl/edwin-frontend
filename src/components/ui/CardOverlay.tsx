@@ -58,6 +58,7 @@ const courses = [
 ];
 
 export default function CourseCategoriesSection() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [hoveredId, setHoveredId] = useState<number | null>(null);
 
   return (
@@ -121,7 +122,7 @@ export default function CourseCategoriesSection() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-7">
           {courses.map((course, idx) => {
             const Icon = course.icon;
-            const isHovered = hoveredId === course.id;
+            // const isHovered = hoveredId === course.id;
 
             return (
               <motion.div

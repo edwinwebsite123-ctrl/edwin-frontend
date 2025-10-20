@@ -7,9 +7,7 @@ import {
   GraduationCap,
   ArrowRight,
   Users,
-  BookOpen,
   Award,
-  Target,
   Building2,
   Clock,
   CheckCircle

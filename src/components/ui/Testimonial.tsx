@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function TestimonialSection() {
@@ -29,12 +29,6 @@ export default function TestimonialSection() {
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
-
-  // Autoplay
-  useEffect(() => {
-    const interval = setInterval(() => nextSlide(), 5000);
-    return () => clearInterval(interval);
-  }, [currentIndex, cardsPerView]);
 
   const testimonials = [
     {
@@ -69,10 +63,16 @@ export default function TestimonialSection() {
     },
   ];
 
-  const nextSlide = () =>
-    setCurrentIndex((prev) =>
-      prev + 1 >= testimonials.length - cardsPerView + 1 ? 0 : prev + 1
-    );
+ const nextSlide = useCallback(() => {
+  setCurrentIndex((prev) =>
+    prev + 1 >= testimonials.length - cardsPerView + 1 ? 0 : prev + 1
+  );
+}, [cardsPerView, testimonials.length]);
+
+useEffect(() => {
+  const interval = setInterval(nextSlide, 5000);
+  return () => clearInterval(interval);
+}, [nextSlide])
 
   const prevSlide = () =>
     setCurrentIndex((prev) =>

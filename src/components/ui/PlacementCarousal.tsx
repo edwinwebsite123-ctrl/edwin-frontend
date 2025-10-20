@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback  } from 'react';
 import { ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
 import Image from 'next/image';
 
@@ -84,18 +84,18 @@ export default function PlacementCarousel() {
   }, []);
 
   // Autoplay
-  useEffect(() => {
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 4000);
-    return () => clearInterval(interval);
-  }, [currentIndex, cardsPerView]);
+ const nextSlide = useCallback(() => {
+  setCurrentIndex((prev) =>
+    prev + 1 >= placements.length - cardsPerView + 1 ? 0 : prev + 1
+  );
+}, [cardsPerView]); // Removed placements.length
 
-  const nextSlide = () => {
-    setCurrentIndex((prev) =>
-      prev + 1 >= placements.length - cardsPerView + 1 ? 0 : prev + 1
-    );
-  };
+useEffect(() => {
+  const interval = setInterval(() => {
+    nextSlide();
+  }, 4000);
+  return () => clearInterval(interval);
+}, [nextSlide]); 
 
   const prevSlide = () => {
     setCurrentIndex((prev) =>

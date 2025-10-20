@@ -189,9 +189,9 @@ const EdwinAcademyCarousel = () => {
     setActiveIndex((prev) => (prev + 1) % cards.length);
   }, [cards.length]);
 
-  const prevSlide = useCallback(() => {
-    setActiveIndex((prev) => (prev - 1 + cards.length) % cards.length);
-  }, [cards.length]);
+  // const prevSlide = useCallback(() => {
+  //   setActiveIndex((prev) => (prev - 1 + cards.length) % cards.length);
+  // }, [cards.length]);
 
   useEffect(() => {
     if (!isAutoPlaying) return;

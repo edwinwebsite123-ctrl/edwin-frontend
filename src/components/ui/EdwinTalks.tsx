@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sparkles, Plus, X } from 'lucide-react';
+import { Sparkles, X } from 'lucide-react';
 import Image from 'next/image';
 
 export default function EdwinTalks() {
