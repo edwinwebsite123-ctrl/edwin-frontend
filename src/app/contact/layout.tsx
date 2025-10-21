@@ -10,6 +10,9 @@ export const metadata: Metadata = {
     "Kannur Calicut Kochi academy",
     "Contact Edwin Academy",
   ],
+  alternates: {
+    canonical: "https://www.edwinacademy.com/contact",
+  },
   openGraph: {
     title: "Contact Edwin Academy | Locations in Kannur, Calicut & Kochi",
     description:

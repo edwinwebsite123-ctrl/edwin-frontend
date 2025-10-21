@@ -11,6 +11,9 @@ export const metadata: Metadata = {
     "IT courses Kerala",
     "Job-ready training",
   ],
+  alternates: {
+    canonical: "https://www.edwinacademy.com/course",
+  },
   openGraph: {
     title: "Explore Career-Building Courses | Edwin Academy",
     description:

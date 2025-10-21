@@ -10,6 +10,9 @@ export const metadata: Metadata = {
     "Training institute Kerala",
     "Career learning Kerala",
   ],
+  alternates: {
+    canonical: "https://www.edwinacademy.com/about",
+  },
   openGraph: {
     title: "About Edwin Academy | Building Confident Professionals",
     description:

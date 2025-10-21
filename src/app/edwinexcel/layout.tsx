@@ -10,6 +10,9 @@ export const metadata: Metadata = {
     "Professional training",
     "Skill development courses",
   ],
+  alternates: {
+    canonical: "https://www.edwinacademy.com/edwin-excel",
+  },
   openGraph: {
     title: "Edwin Excel | Future-Ready Career Program by Edwin Academy",
     description:

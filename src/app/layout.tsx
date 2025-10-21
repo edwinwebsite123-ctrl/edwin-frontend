@@ -27,7 +27,7 @@ const encodeSans = localFont({
 export const metadata: Metadata = {
   title: "Edwin Academy | Career-Focused Training Institute in Kerala",
   description:
-    "Edwin Academy offers industry-aligned professional programs to help learners build confidence and skills for real-world careers. Located in Kannur, Calicut, and Kochi.",
+    "Edwin Academy provides industry-focused professional programs that empower learners with real-world skills and confidence in Kannur, Calicut, and Kochi.",
   keywords: [
     "Edwin Academy",
     "Edwin Academy Kannur",

@@ -10,6 +10,9 @@ export const metadata: Metadata = {
     "Career support",
     "Recruiters Kerala",
   ],
+  alternates: {
+    canonical: "https://www.edwinacademy.com/placements",
+  },
   openGraph: {
     title: "Placements | Career Opportunities with Edwin Academy",
     description:
