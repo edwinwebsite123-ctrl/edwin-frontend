@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact | Edwin Academy",
+  title: "Contact Edwin Academy | Get in Touch With Us",
   description:
     "Get in touch with Edwin Academy. Visit our centers in Kannur, Calicut, and Kochi or contact us via phone or social media.",
   keywords: [

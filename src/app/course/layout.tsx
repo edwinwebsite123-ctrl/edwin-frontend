@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Courses | Edwin Academy",
+  title: "Online Courses & Career Programs | Edwin Academy",
   description:
     "Explore industry-aligned courses at Edwin Academy designed to build real-world skills in technology, business, and creative fields.",
   keywords: [
