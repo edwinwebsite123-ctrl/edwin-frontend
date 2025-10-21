@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { ChevronRight, BookOpen, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
 const EdwinAcademyCarousel = () => {
   // ----- State -----
@@ -99,7 +100,7 @@ const EdwinAcademyCarousel = () => {
       isFullImage: true,
       // **Important**: provide two images for better results on tablet/phone vs desktop
       imgDesktop: '/hero/banner-1.jpg',
-      imgMobile: '/hero/banner-mobile.png' // upload this mobile-optimized image
+      imgMobile: '/hero/mob.jpeg' // upload this mobile-optimized image
     },
 
     {
@@ -203,7 +204,8 @@ const EdwinAcademyCarousel = () => {
             <p className="text-gray-600 text-xs xs:text-sm sm:text-base lg:text-lg mb-3 xs:mb-4 sm:mb-6 leading-relaxed">
               Get expert courses, mentorship, certifications, and career placement — all in one comprehensive learning solution
             </p>
-            <button
+            <Link href={'/course'}>
+              <button
               className="cursor-pointer group inline-flex items-center gap-2 xs:gap-3 px-4 xs:px-5 sm:px-6 lg:px-8 py-2.5 xs:py-3 lg:py-4 bg-[#FF6002] hover:bg-[#e65502] text-white rounded-full font-semibold text-xs xs:text-sm lg:text-base transition-all duration-300 whitespace-nowrap"
             >
               Explore Our Courses
@@ -211,6 +213,7 @@ const EdwinAcademyCarousel = () => {
                 <ArrowRight className="w-3 h-3 xs:w-4 xs:h-4 lg:w-5 lg:h-5" strokeWidth={3} />
               </span>
             </button>
+            </Link>
           </div>
         </div>
 
@@ -260,7 +263,7 @@ const EdwinAcademyCarousel = () => {
                                   sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
                                   priority={true} // active slide should load immediately
                                   loading="eager"
-                                  quality={85}
+                                  quality={100}
                                 />
                               </div>
                             )}
@@ -349,7 +352,7 @@ const EdwinAcademyCarousel = () => {
                                     sizes="(max-width: 768px) 100vw, 50vw"
                                     priority={isNext ? true : false}
                                     loading={isNext ? 'eager' : 'lazy'}
-                                    quality={80}
+                                    quality={100}
                                   />
                                   {/* subtle overlay */}
                                   <div className="absolute inset-0 bg-gradient-to-t from-blue-900/30 via-transparent to-transparent pointer-events-none" />
@@ -431,7 +434,7 @@ const EdwinAcademyCarousel = () => {
                         sizes="100vw"
                         priority
                         loading="eager"
-                        quality={80}
+                        quality={100}
                       />
                     </div>
                   );
@@ -508,7 +511,7 @@ const EdwinAcademyCarousel = () => {
                             sizes="100vw"
                             priority
                             loading="eager"
-                            quality={80}
+                            quality={100}
                           />
                         </div>
                       ) : card.isFullVideo && card.videoSrc ? (

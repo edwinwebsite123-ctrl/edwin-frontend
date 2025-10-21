@@ -20,12 +20,14 @@ import {
   Sparkles,
   Network,
   Eye,
+  ChevronRight,
 } from 'lucide-react';
 import Navbar from '@/components/ui/navigation-menu';
 import Footer from '@/components/ui/Footer';
-import EdwinAcademySections from '@/components/ui/EdwinTeam';
 import { AdmissionProvider, StartLearningButton } from '@/components/ui/AdmissionButton';
 import TestimonialSection from '@/components/ui/Testimonial';
+import AboutFounder from '@/components/ui/AboutFounder';
+import Link from 'next/link';
 
 export default function AboutPage() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -294,7 +296,7 @@ export default function AboutPage() {
             </div>
           </div>
         </section>
-        <EdwinAcademySections />
+        <AboutFounder/>
 
         <section className="relative py-20 lg:py-28 overflow-hidden">
           {/* Subtle Background Pattern */}
@@ -437,9 +439,14 @@ export default function AboutPage() {
                 <p className="text-[#1725BB]/80 text-sm sm:text-base md:text-lg mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed">
                   Join thousands of students and professionals who have achieved their goals through our comprehensive learning solutions.
                 </p>
-                <button className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-[#FF6002] hover:bg-[#e55a01] text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg shadow-[#FF6002]/30">
-                  Get Started Today
+                <Link href="/course">
+                <button className="group inline-flex items-center gap-3 px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded-full font-semibold text-sm sm:text-base shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                  Discover Courses
+                  <span className="flex items-center justify-center w-6 h-6 bg-white/20 rounded-full group-hover:translate-x-1 transition-transform duration-300">
+                    <ChevronRight className="w-4 h-4" strokeWidth={3} />
+                  </span>
                 </button>
+              </Link>
               </div>
             </div>
           </div>

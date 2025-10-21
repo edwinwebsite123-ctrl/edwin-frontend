@@ -10,7 +10,6 @@ import BannerCTA from '@/components/ui/BannerCTA'
 import CardOverlay from '@/components/ui/CardOverlay'
 import PopularCourses from '@/components/ui/Popularcourse'
 import { ArrowRight } from 'lucide-react'
-import VideoTestimonialsSection from '@/components/ui/VideoTest'
 import PlacementCarousel from '@/components/ui/PlacementCarousal'
 import FacultySection from '@/components/ui/FacultySection'
 import EdwinAcademySections from '@/components/ui/EdwinTeam'
@@ -18,7 +17,7 @@ import FAQSection from '@/components/ui/FAQ'
 import TestimonialSection from '@/components/ui/Testimonial'
 import Footer from '@/components/ui/Footer'
 import EdwinTalks from '@/components/ui/EdwinTalks'
-import EventPopup from '@/components/ui/EventPopup'
+
 
 
 
@@ -226,11 +225,11 @@ export default function HeroSection() {
       
 
       {/* <CourseCardList/> */}
-      <EventPopup/>
+      {/* <EventPopup/> */}
       <CardOverlay />
       <BannerCTA />
 
-      <VideoTestimonialsSection />
+      {/* <VideoTestimonialsSection /> */}
       <PlacementCarousel />
       <EdwinTalks />
       <FacultySection />

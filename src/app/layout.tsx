@@ -48,16 +48,16 @@ export const metadata: Metadata = {
   authors: [{ name: "Edwin Academy" }],
   creator: "Edwin Academy",
   publisher: "Edwin Academy",
-  metadataBase: new URL("https://www.edwinacademy.in"),
+  metadataBase: new URL("https://www.edwinacademy.com"),
   openGraph: {
     title: "Edwin Academy | Future-Ready Professional Training",
     description:
       "Learn with confidence at Edwin Academy — where knowledge meets opportunity. Explore our industry-driven courses in Kannur, Calicut, and Kochi.",
-    url: "https://www.edwinacademy.in",
+    url: "https://www.edwinacademy.com",
     siteName: "Edwin Academy",
     images: [
       {
-        url: "https://www.edwinacademy.in/og-image.jpg",
+        url: "https://www.edwinacademy.com/nav-logo.png",
         width: 1200,
         height: 630,
         alt: "Edwin Academy - Learn with Confidence",
@@ -72,10 +72,10 @@ export const metadata: Metadata = {
     description:
       "Edwin Academy shapes confident professionals with real-world expertise. Join our programs designed by industry experts.",
     creator: "@edwinacademyofficial",
-    images: ["https://www.edwinacademy.in/og-image.jpg"],
+    images: ["https://www.edwinacademy.com/nav-logo.png"],
   },
   alternates: {
-    canonical: "https://www.edwinacademy.in",
+    canonical: "https://www.edwinacademy.com",
   },
   verification: {
     google: "YOUR_GOOGLE_SITE_VERIFICATION_CODE", // Add from Google Search Console
@@ -98,8 +98,8 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "EducationalOrganization",
               name: "Edwin Academy",
-              url: "https://www.edwinacademy.in",
-              logo: "https://www.edwinacademy.in/logo.png",
+              url: "https://www.edwinacademy.com",
+              logo: "https://www.edwinacademy.com/nav-logo.png",
               sameAs: [
                 "https://www.linkedin.com/company/edwinacademy/",
                 "https://www.instagram.com/edwinacademyofficial",

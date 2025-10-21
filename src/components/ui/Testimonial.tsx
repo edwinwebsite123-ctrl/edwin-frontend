@@ -32,34 +32,34 @@ export default function TestimonialSection() {
 
   const testimonials = [
     {
-      text: "This was the most well-managed project I've been a part of. The communication was exceptional.",
-      name: "Nikh Khosla",
-      role: "CEO - Seneca (US)",
+      text: "Skill enhancement and personal growth at Edwin played a key role in my placement. The support of Jamsheer Sir, Ameen Sir, Arya Ma'am, and the team made allthe difference.",
+      name: "AYOOB P",
+      role: "HR Management",
+      image: "AP",
+    },
+    {
+      text: "Guidance from Dr. Aswathy and the Edwin team helped me excel in the AAPC exam. The program combined top-notch education with practical insights.",
+      name: "DR. INDUJA JAYAKUMAR",
+      role: "Medical Coding",
+      image: "IJ",
+    },
+    {
+      text: "The HR program at Edwin equipped me with vital skills, both theoretical and practical. Thanks to Arya Ma’am, Jamsheer Sir, Ameen Sir, and Rafna Ma’am for their support.",
+      name: "AHAMMED SINAN C K",
+      role: "HR Management",
+      image: "AS",
+    },
+    {
+      text: "Edwin’s training, experienced faculty, and placement support prepared me for the industry. The academy’s commitment to student success is unmatched.",
+      name: "NASNA K T",
+      role: "Hospital Management",
       image: "NK",
     },
     {
-      text: "Edwin Academy transformed my career! I landed my dream job within 3 months of graduation.",
-      name: "Sarah Johnson",
-      role: "Software Engineer - Tech Corp",
-      image: "SJ",
-    },
-    {
-      text: "The hands-on approach and real-world projects gave me confidence throughout my journey.",
-      name: "Michael Chen",
-      role: "Data Analyst - Analytics Pro",
-      image: "MC",
-    },
-    {
-      text: "Outstanding experience! The practical training and exposure prepared me perfectly for my career.",
-      name: "Priya Sharma",
-      role: "Product Manager - Tech Innovations",
-      image: "PS",
-    },
-    {
-      text: "The mentorship program was exceptional. Real-world projects boosted my confidence for interviews.",
-      name: "James Wilson",
-      role: "UX Designer - Creative Studios",
-      image: "JW",
+      text: "Practical sessions like mock interviews and presentations boosted my confidence and helped me secure a placement. Special thanks to Jamsheer Sir, Ameen Sir, and Rafna Ma'am.",
+      name: "ABDUL MUSAVIR",
+      role: "HR Management",
+      image: "AM",
     },
   ];
 

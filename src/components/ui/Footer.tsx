@@ -7,22 +7,25 @@ export default function Footer() {
   const quickLinks = [
     { name: 'Home', href: '/', ariaLabel: 'Go to homepage' },
     { name: 'About Us', href: '/about', ariaLabel: 'Learn about Edwin Academy' },
-    { name: 'Privacy Policy', href: '/privacy-policy', ariaLabel: 'Read our privacy policy' },
-    { name: 'Terms & Conditions', href: '/terms', ariaLabel: 'Read terms and conditions' },
+    { name: 'Edwin Excel', href: '/edwinexcel', ariaLabel: 'Learn about Edwin Excel' },
+    
   ];
 
   const courses = [
-    { name: 'Human Resource Management', href: '/course/hr-management', ariaLabel: 'Learn full stack development' },
-    { name: 'Hospital Management', href: '/course/hospital-management', ariaLabel: 'Explore data science courses' },
+    { name: 'Human Resource Management', href: '/course/hr-management', ariaLabel: 'Learn Human Resource Management' },
+    { name: 'Hospital Management', href: '/course/hospital-management', ariaLabel: 'Learn Hospital Management' },
     { name: 'Ai integrated Digital Marketing', href: '/course/ai-digital-marketing', ariaLabel: 'Study digital marketing' },
     { name: ' Ai integrated Medical Coding', href: '/course/ai-medical-coding', ariaLabel: 'Medical coding certification' },
+    { name: ' Data Science', href: '/course/data-science', ariaLabel: 'Explore data science courses ' },
+    { name: ' Learn Python', href: '/course/python-programming', ariaLabel: 'Explore python development courses ' },
+    { name: ' UG/PG Course', href: '/edwinexcel', ariaLabel: 'Under Gradiate and Post Graduate Courses' },
   ];
 
   const resources = [
     { name: 'Testimonials', href: '/testimonials', ariaLabel: 'Read student testimonials' },
-    { name: 'Blog', href: '/blog', ariaLabel: 'Visit our blog' },
     { name: 'Contact', href: '/contact', ariaLabel: 'Contact Edwin Academy' },
-    { name: 'Careers', href: '/careers', ariaLabel: 'Career opportunities' },
+    { name: 'Placements', href: '/placements', ariaLabel: 'Our Placement Stories' },
+    
   ];
 
   const socialLinks = [

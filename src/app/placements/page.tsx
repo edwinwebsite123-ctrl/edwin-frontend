@@ -1,9 +1,10 @@
 'use client';
 
 import Image from 'next/image';
-import { Sparkles, Award } from 'lucide-react';
+import { Sparkles, Award, ChevronRight } from 'lucide-react';
 import Navbar from '@/components/ui/navigation-menu';
 import Footer from '@/components/ui/Footer';
+import Link from 'next/link';
 
 // ======== Placement Data ========
 const placements = [
@@ -187,7 +188,7 @@ export default function PlacementPage() {
               </div>
 
               {/* Student Image */}
-              <div className="absolute top-28 sm:top-32 left-1/2 -translate-x-1/2 z-10 w-[280px] h-[280px] sm:w-[320px] sm:h-[320px]">
+              <div className="absolute top-28 sm:top-32 left-1/2 -translate-x-1/2 z-10 w-[320px] h-[320px] sm:w-[320px] sm:h-[320px]">
                 <Image
                   src={placement.studentImage}
                   alt={placement.name}
@@ -333,12 +334,14 @@ export default function PlacementPage() {
             Join Edwin Academy today and take your first step toward a successful and fulfilling career.
           </p>
           
-          <a
-            href="/admissions"
-            className="inline-block bg-[#FF6002] hover:bg-[#e85500] text-white font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-full transition-all duration-300 text-sm sm:text-base"
-          >
-            Apply Now
-          </a>
+          <Link href="/contact">
+                <button className="group inline-flex items-center gap-3 px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded-full font-semibold text-sm sm:text-base shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                  Apply Now
+                  <span className="flex items-center justify-center w-6 h-6 bg-white/20 rounded-full group-hover:translate-x-1 transition-transform duration-300">
+                    <ChevronRight className="w-4 h-4" strokeWidth={3} />
+                  </span>
+                </button>
+              </Link>
         </div>
       </section>
     </div>

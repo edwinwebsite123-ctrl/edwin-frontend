@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { ChevronDown, X } from "lucide-react";
+import { ChevronDown, ChevronRight, X } from "lucide-react";
 import Link from "next/link";
-import { AdmissionProvider, StartLearningButton } from "./AdmissionButton";
+
 
 export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(2);
@@ -108,23 +108,15 @@ export default function FAQSection() {
                 and knowledge. Find the perfect course for you.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link href={'/course'}>
-                  <button
-                  className="text-white font-semibold px-10 sm:px-8 py-3 rounded-full transition-all duration-200 transform hover:scale-105 "
-                  style={{ backgroundColor: "#FF6002" }}
-                  onMouseEnter={(e) =>
-                    ((e.target as HTMLElement).style.backgroundColor = "#E55502")
-                  }
-                  onMouseLeave={(e) =>
-                    ((e.target as HTMLElement).style.backgroundColor = "#FF6002")
-                  }
-                >
-                  Explore Our Course
+                <Link href="/course">
+                <button className="group inline-flex items-center gap-3 px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded-full font-semibold text-sm sm:text-base shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                  Discover Courses
+                  <span className="flex items-center justify-center w-6 h-6 bg-white/20 rounded-full group-hover:translate-x-1 transition-transform duration-300">
+                    <ChevronRight className="w-4 h-4" strokeWidth={3} />
+                  </span>
                 </button>
-                </Link>
-                <AdmissionProvider>
-                  <StartLearningButton/>
-                </AdmissionProvider>
+              </Link>
+                
               </div>
             </div>
 

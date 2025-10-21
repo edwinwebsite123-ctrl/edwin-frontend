@@ -44,34 +44,34 @@ export default function FacultySection() {
   const [cardsPerView, setCardsPerView] = useState(3);
 
   const facultyMembers = [
-    {
+   {
       name: "Vineetha",
       title: "Head of Healthcare Department, Edwin Academy",
-      facultyImage: "/fac/1 (1).jpeg",
+      facultyImage: "/fac/vineetha.jpeg",
       bgImage: "/placements/bg.png"
     },
     {
       name: "Soniya N",
       title: "HR Trainer",
-      facultyImage: "/fac/1 (2).jpeg",
+      facultyImage: "/fac/soniya.jpeg",
       bgImage: "/placements/bg.png"
     },
     {
       name: "Dr. Anupriya N",
       title: "Public Health & Ayurveda Specialist",
-      facultyImage: "/fac/1 (3).jpeg",
+      facultyImage: "/fac/anupriya.jpeg",
       bgImage: "/placements/bg.png"
     },
     {
       name: "Sharath K",
       title: "HR Faculty, Edwin Academy",
-      facultyImage: "/fac/1 (4).jpeg",
+      facultyImage: "/fac/sharath.jpeg",
       bgImage: "/placements/bg.png"
     },
     {
       name: "Shilpa Ghosh P V",
       title: "Senior HRM Faculty",
-      facultyImage: "/fac/1 (5).jpeg",
+      facultyImage: "/fac/shilpa.jpg",
       bgImage: "/placements/bg.png"
     }
   ];

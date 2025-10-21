@@ -26,6 +26,7 @@ import Footer from '@/components/ui/Footer';
 import Navbar from '@/components/ui/navigation-menu';
 import { AdmissionProvider, EnrollButton, StartLearningButton } from '@/components/ui/AdmissionButton';
 import Image from 'next/image';
+import EdwinExcelTestimonial from '@/components/ui/EdwinExcelTestimonial';
 
 export default function EdwinExcelPage() {
   const [isVisible, setIsVisible] = useState(false);
@@ -239,11 +240,11 @@ export default function EdwinExcelPage() {
     { icon: Calendar, text: 'Flexible Schedule' }
   ];
 
-  const testimonials = [
-    { name: 'Priya Menon', role: 'MBA Graduate', text: 'Completed my MBA while working full-time. The flexible online classes and excellent faculty support made it possible. Now I have better career prospects!', rating: 5, location: 'Kochi, Kerala' },
-    { name: 'Rajesh Kumar', role: 'B.Com Graduate', text: 'Edwin Excel gave me a second chance at education. The affordable fees and quality teaching helped me complete my degree. Highly satisfied!', rating: 5, location: 'Kannur, Kerala' },
-    { name: 'Anjali Sharma', role: 'MCA Student', text: 'The quality of education and continuous support from the team is outstanding. Study materials are excellent and exams are well-structured.', rating: 5, location: 'Calicut, Kerala' }
-  ];
+  // const testimonials = [
+  //   { name: 'Priya Menon', role: 'MBA Graduate', text: 'Completed my MBA while working full-time. The flexible online classes and excellent faculty support made it possible. Now I have better career prospects!', rating: 5, location: 'Kochi, Kerala' },
+  //   { name: 'Rajesh Kumar', role: 'B.Com Graduate', text: 'Edwin Excel gave me a second chance at education. The affordable fees and quality teaching helped me complete my degree. Highly satisfied!', rating: 5, location: 'Kannur, Kerala' },
+  //   { name: 'Anjali Sharma', role: 'MCA Student', text: 'The quality of education and continuous support from the team is outstanding. Study materials are excellent and exams are well-structured.', rating: 5, location: 'Calicut, Kerala' }
+  // ];
 
   const process = [
     { step: 1, title: 'Choose Your Course', desc: 'Browse our UG/PG programs and select the one that fits your career goals', icon: Target },
@@ -343,11 +344,11 @@ export default function EdwinExcelPage() {
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
               <a
-                href="tel:+917356774901"
+                href="tel:+917736911702"
                 className="group flex items-center space-x-3 bg-[#FF6002] text-white px-8 py-4 rounded-lg font-semibold text-base hover:bg-[#ec5a06] hover:shadow-lg transition-all duration-300"
               >
                 <Phone className="w-5 h-5" />
-                <span>+91 73567 74901</span>
+                <span>+91 77369 11702</span>
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </a>
               <a
@@ -545,7 +546,7 @@ export default function EdwinExcelPage() {
         <div className="text-center mt-16 bg-white rounded-2xl p-10 shadow-sm border border-gray-100">
           <p className="text-gray-600 mb-6 text-lg">Can&apos;t find your program? We offer many more courses!</p>
           <a 
-            href="tel:+917356774901" 
+            href="tel:+917736911702" 
             className="inline-flex items-center space-x-2 bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-blue-700 transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5"
           >
             <span>Contact us for complete course list</span>
@@ -588,9 +589,9 @@ export default function EdwinExcelPage() {
               </ul>
 
               <div className="flex items-center gap-4">
-                <a href="tel:+917356774901" className="bg-white text-green-700 px-6 py-3 rounded-full font-semibold shadow hover:shadow-lg">
+                {/* <a href="tel:+917356774901" className="bg-white text-green-700 px-6 py-3 rounded-full font-semibold shadow hover:shadow-lg">
                   Enroll for NIOS
-                </a>
+                </a> */}
                 <a href="#contact" className="inline-flex items-center space-x-2  rounded-full hover:bg-white/10 transition">
                   <AdmissionProvider>
                     <div>
@@ -706,33 +707,7 @@ export default function EdwinExcelPage() {
       </section>
 
       {/* Testimonials Section */}
-      <section id="testimonials" className="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50">
-        <div className="max-w-7xl mx-auto text-center mb-16">
-          <h3 className="text-3xl md:text-4xl font-bold mb-3 text-gray-900 uppercase">What our students say</h3>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">Real stories from learners who upgraded their careers with Edwin Excel</p>
-        </div>
-
-        <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
-          {testimonials.map((t, i) => (
-            <div key={i} className="bg-white p-8 rounded-xl shadow-sm border border-gray-200 hover:shadow-lg transition-all duration-300">
-              <div className="flex items-start gap-4 mb-6">
-                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center shadow-md flex-shrink-0">
-                  <span className="font-semibold text-white text-sm">{t.name.split(' ').map(n=>n[0]).slice(0,2).join('')}</span>
-                </div>
-                <div>
-                  <p className="font-semibold text-gray-900">{t.name}</p>
-                  <p className="text-sm text-gray-500">{t.role}</p>
-                  <p className="text-xs text-gray-400 mt-1">{t.location}</p>
-                </div>
-              </div>
-              <p className="text-gray-700 leading-relaxed mb-6">{t.text}</p>
-              <div className="flex items-center gap-1">
-                {Array.from({ length: t.rating }).map((_, s) => <Star key={s} className="w-5 h-5 fill-yellow-400 text-yellow-400" />)}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+      <EdwinExcelTestimonial/>
 
       {/* FAQ Section */}
       <section className="py-24 px-4 sm:px-6 lg:px-8 bg-white">
