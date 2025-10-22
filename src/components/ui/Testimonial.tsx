@@ -63,16 +63,16 @@ export default function TestimonialSection() {
     },
   ];
 
- const nextSlide = useCallback(() => {
-  setCurrentIndex((prev) =>
-    prev + 1 >= testimonials.length - cardsPerView + 1 ? 0 : prev + 1
-  );
-}, [cardsPerView, testimonials.length]);
+  const nextSlide = useCallback(() => {
+    setCurrentIndex((prev) =>
+      prev + 1 >= testimonials.length - cardsPerView + 1 ? 0 : prev + 1
+    );
+  }, [cardsPerView, testimonials.length]);
 
-useEffect(() => {
-  const interval = setInterval(nextSlide, 5000);
-  return () => clearInterval(interval);
-}, [nextSlide])
+  useEffect(() => {
+    const interval = setInterval(nextSlide, 5000);
+    return () => clearInterval(interval);
+  }, [nextSlide])
 
   const prevSlide = () =>
     setCurrentIndex((prev) =>
@@ -131,8 +131,8 @@ useEffect(() => {
                       cardsPerView === 1
                         ? '100%'
                         : cardsPerView === 2
-                        ? 'calc(50% - 0.75rem)'
-                        : 'calc(33.333% - 1rem)',
+                          ? 'calc(50% - 0.75rem)'
+                          : 'calc(33.333% - 1rem)',
                     opacity: isVisible ? 1 : 0,
                     transform: isVisible ? 'translateY(0)' : 'translateY(50px)',
                     transition: `all 0.8s ease-out ${index * 0.15}s`,
@@ -198,15 +198,16 @@ useEffect(() => {
                 <button
                   key={index}
                   onClick={() => goToSlide(index)}
-                  className={`transition-all duration-300 rounded-full ${
-                    currentIndex === index
+                  aria-label={`Go to slide ${index + 1}`} // <- Accessibility fix
+                  className={`transition-all duration-300 rounded-full ${currentIndex === index
                       ? 'w-6 sm:w-8 h-2 bg-[#9BF900]'
                       : 'w-2 sm:w-3 h-2 bg-white/40 hover:bg-white/60'
-                  }`}
+                    }`}
                 />
               )
             )}
           </div>
+
         </div>
       </section>
 

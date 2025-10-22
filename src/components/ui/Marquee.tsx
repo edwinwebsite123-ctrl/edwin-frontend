@@ -124,7 +124,7 @@ const MarqueeAccreditation = () => {
                         width={accreditation.width}
                         height={accreditation.height}
                         className="object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
-                        priority={index < 13}
+                        priority={index < 3}
                       />
                     </div>
                   </div>

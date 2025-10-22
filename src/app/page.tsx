@@ -215,7 +215,7 @@ export default function HeroSection() {
                 alt="Innovation and Technology - Future of education"
                 fill
                 className="object-cover"
-                priority
+                loading="lazy"
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-transparent"></div>
