@@ -91,6 +91,7 @@ export default function EdwinTalks() {
                   width={400}
                   height={500}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
                 />
               </div>
               

@@ -194,6 +194,7 @@ export default function PlacementPage() {
                   alt={placement.name}
                   fill
                   className="object-contain drop-shadow-2xl grayscale group-hover:grayscale-0 transition-all duration-500"
+                  loading="lazy"
                 />
               </div>
 

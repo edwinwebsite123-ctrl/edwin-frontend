@@ -144,6 +144,7 @@ export default function CourseCategoriesSection() {
                       width={400}
                       height={420}
                       className="w-full h-full object-cover"
+                      loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/85 to-black/30 opacity-80 transition-opacity duration-400 group-hover:opacity-60"></div>
                   </div>
@@ -158,6 +159,7 @@ export default function CourseCategoriesSection() {
                         width={140}
                         height={240}
                         className="absolute inset-0 w-full h-full object-cover opacity-30"
+                        loading="lazy"
                       />
                       {/* Icon */}
                       <div className="absolute inset-0 flex items-center justify-center pb-12">

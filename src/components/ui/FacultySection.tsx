@@ -24,6 +24,7 @@ const FacultyCard = ({ name, title, facultyImage }: FacultyCardProps) => {
           width={320}
           height={420}
           className="w-full h-full object-cover drop-shadow-2xl"
+          loading="lazy"
         />
       </div>
 

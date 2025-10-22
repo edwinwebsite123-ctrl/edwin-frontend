@@ -187,6 +187,7 @@ export default function PopularCourses() {
                       width={400}
                       height={460}
                       className="w-full h-full object-cover"
+                      loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent"></div>
                   </div>

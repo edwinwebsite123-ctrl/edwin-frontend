@@ -100,7 +100,7 @@ const EdwinAcademyCarousel = () => {
       isFullImage: true,
       // **Important**: provide two images for better results on tablet/phone vs desktop
       imgDesktop: '/hero/banner-1.jpg',
-      imgMobile: '/hero/mob.jpeg' // upload this mobile-optimized image
+      imgMobile: '/hero/banner-mobile.png' // upload this mobile-optimized image
     },
 
     {

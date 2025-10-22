@@ -31,6 +31,7 @@ export default function EdwinAcademySections() {
                 width={400}
                 height={520}
                 className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500"></div>
               <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 text-center transform translate-y-0 group-hover:-translate-y-2 transition-transform duration-500">
@@ -53,6 +54,7 @@ export default function EdwinAcademySections() {
                 width={400}
                 height={520}
                 className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500"></div>
               <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 text-center transform translate-y-0 group-hover:-translate-y-2 transition-transform duration-500">

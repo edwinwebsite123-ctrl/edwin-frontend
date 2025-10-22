@@ -168,6 +168,7 @@ useEffect(() => {
                       width={320}
                       height={320}
                       className="w-full h-full object-contain drop-shadow-2xl filter grayscale"
+                      loading="lazy"
                     />
                   </div>
 

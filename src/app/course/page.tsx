@@ -368,6 +368,7 @@ import Navbar from '@/components/ui/navigation-menu';
                         width={400}
                         height={460}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        loading="lazy"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent" />
                     </div>

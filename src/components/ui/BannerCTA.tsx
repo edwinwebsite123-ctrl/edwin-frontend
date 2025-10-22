@@ -17,7 +17,7 @@ export default function HeroSection() {
             alt="Student learning"
             fill
             className="object-cover"
-            priority
+            loading="lazy"
           />
           {/* Dark Overlay */}
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30"></div>

@@ -487,6 +487,7 @@ export default function EdwinExcelPage() {
                       width={400}
                       height={460}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent" />
                   </div>
@@ -765,11 +766,11 @@ export default function EdwinExcelPage() {
             "@context": "https://schema.org",
             "@type": "EducationalOrganization",
             "name": "Edwin Excel",
-            "url": "https://yourdomain.com/edwin-excel",
-            "logo": "https://yourdomain.com/images/edwin-excel-logo.png",
+            "url": "https://www.edwinacademy.com/edwinexcel",
+            "logo": "https://www.edwinacademy.com/images/nav-logo.png",
             "contactPoint": [{
               "@type": "ContactPoint",
-              "telephone": "+91 73567 74901",
+              "telephone": "+91 77369 11702",
               "contactType": "customer service",
               "areaServed": "IN",
               "availableLanguage": ["English", "Malayalam","Hindi"]
