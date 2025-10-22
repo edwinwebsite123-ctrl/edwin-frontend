@@ -262,12 +262,19 @@ function AdmissionModal({ isOpen, onClose, onSuccess, prefillCourse = '' }: Admi
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const courses = [
-    'Web Development',
+    'Human Resource Management',
+    'Ai Integrated Digital Marketing',
+    'Ai Integrated Medical Coding',
+    'Hospital Management',
     'Data Science',
-    'Digital Marketing',
-    'Graphic Design',
-    'Mobile App Development',
-    'UI/UX Design',
+    'Python Programming',
+    'Professional Accounting',
+    'Online UG - PG Programs',
+    'Logistics & Supply Chain Management',
+    'Graphic Designing & Video Editing',
+    'Fashion Designing',
+    'Makeup Artist',
+    
   ];
   const centers = ['Kannur', 'Calicut', 'Kochi'];
 

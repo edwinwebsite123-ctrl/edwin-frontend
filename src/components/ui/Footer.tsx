@@ -8,52 +8,49 @@ export default function Footer() {
     { name: 'Home', href: '/', ariaLabel: 'Go to homepage' },
     { name: 'About Us', href: '/about', ariaLabel: 'Learn about Edwin Academy' },
     { name: 'Edwin Excel', href: '/edwinexcel', ariaLabel: 'Learn about Edwin Excel' },
-    
   ];
 
   const courses = [
     { name: 'Human Resource Management', href: '/course/hr-management', ariaLabel: 'Learn Human Resource Management' },
     { name: 'Hospital Management', href: '/course/hospital-management', ariaLabel: 'Learn Hospital Management' },
     { name: 'Ai integrated Digital Marketing', href: '/course/ai-digital-marketing', ariaLabel: 'Study digital marketing' },
-    { name: ' Ai integrated Medical Coding', href: '/course/ai-medical-coding', ariaLabel: 'Medical coding certification' },
-    { name: ' Data Science', href: '/course/data-science', ariaLabel: 'Explore data science courses ' },
-    { name: ' Learn Python', href: '/course/python-programming', ariaLabel: 'Explore python development courses ' },
-    { name: ' UG/PG Course', href: '/edwinexcel', ariaLabel: 'Under Gradiate and Post Graduate Courses' },
+    { name: 'Ai integrated Medical Coding', href: '/course/ai-medical-coding', ariaLabel: 'Medical coding certification' },
+    { name: 'Data Science', href: '/course/data-science', ariaLabel: 'Explore data science courses' },
+    { name: 'Learn Python', href: '/course/python-programming', ariaLabel: 'Explore python development courses' },
+    { name: 'UG/PG Course', href: '/edwinexcel', ariaLabel: 'Under Graduate and Post Graduate Courses' },
   ];
 
   const resources = [
     { name: 'Testimonials', href: '/testimonials', ariaLabel: 'Read student testimonials' },
     { name: 'Contact', href: '/contact', ariaLabel: 'Contact Edwin Academy' },
     { name: 'Placements', href: '/placements', ariaLabel: 'Our Placement Stories' },
-    
   ];
 
   const socialLinks = [
-    { 
-      name: 'Facebook', 
-      icon: Facebook, 
+    {
+      name: 'Facebook',
+      icon: Facebook,
       href: 'https://www.facebook.com/edwinacademyindia',
-      ariaLabel: 'Follow us on Facebook'
+      ariaLabel: 'Follow us on Facebook',
     },
-    { 
-      name: 'LinkedIn', 
-      icon: Linkedin, 
+    {
+      name: 'LinkedIn',
+      icon: Linkedin,
       href: 'https://www.linkedin.com/company/edwinacademy/',
-      ariaLabel: 'Connect with us on LinkedIn'
+      ariaLabel: 'Connect with us on LinkedIn',
     },
-    { 
-      name: 'Instagram', 
-      icon: Instagram, 
+    {
+      name: 'Instagram',
+      icon: Instagram,
       href: 'https://www.instagram.com/edwinacademyofficial?igsh=c251bjVtcW9tMHQ2&utm_source=qr',
-      ariaLabel: 'Follow us on Instagram'
+      ariaLabel: 'Follow us on Instagram',
     },
-    { 
-      name: 'Youtube', 
-      icon: Youtube, 
+    {
+      name: 'Youtube',
+      icon: Youtube,
       href: 'https://youtube.com/@edwinacademyofficial7586?si=AWlTUgw-4ABn8RGr',
-      ariaLabel: 'Follow us on Twitter'
+      ariaLabel: 'Follow us on Youtube',
     },
-    
   ];
 
   return (
@@ -69,7 +66,8 @@ export default function Footer() {
             Shape Your Future.
           </h2>
           <p className="text-gray-400 text-sm sm:text-base lg:text-lg max-w-3xl">
-            Empowering students with industry-relevant skills and knowledge. Transform your career with Edwin Academy&apos;s comprehensive training programs designed for the modern workforce.
+            Empowering students with industry-relevant skills and knowledge. Transform your career with Edwin Academy&apos;s
+            comprehensive training programs designed for the modern workforce.
           </p>
         </div>
       </div>
@@ -80,12 +78,12 @@ export default function Footer() {
           {/* Company Info */}
           <div className="space-y-6">
             <div>
-              <Image 
-                src="/logo/nav-logo.png" 
+              <Image
+                src="/logo/nav-logo.png"
                 alt="Edwin Academy - Professional Training Institute"
-                width={120}
-                height={48}
-                className="h-10 sm:h-12 w-auto mb-4"
+                width={180} // Increased size
+                height={72}
+                className="h-14 sm:h-16 w-auto mb-4"
                 onError={(e) => {
                   (e.target as HTMLImageElement).style.display = 'none';
                   ((e.target as HTMLImageElement).nextSibling as HTMLElement).style.display = 'flex';
@@ -98,38 +96,53 @@ export default function Footer() {
                 <span className="text-xl font-bold">Edwin Academy</span>
               </div>
               <p className="text-gray-400 text-sm leading-relaxed">
-                Leading professional training institute offering industry-certified courses in technology, healthcare, and business domains.
+                Leading professional training institute offering industry-certified courses in technology, healthcare, and business
+                domains.
               </p>
             </div>
 
             {/* Contact Info */}
-            <address className="not-italic space-y-3">
+            <address className="not-italic space-y-4">
               <div className="flex items-start gap-3 text-sm">
                 <MapPin className="w-5 h-5 text-[#9BF900] flex-shrink-0 mt-0.5" aria-hidden="true" />
-                <span className="text-gray-300">
-                  Edwin Academy, Office
-                  <br />
-                  Calicut, Kerala, India
+                <span className="text-gray-300 leading-relaxed">
+                   Kannur: 9th Floor, Thana Square, Kannur
                 </span>
               </div>
-              <div className="flex items-center gap-3 text-sm">
+
+              <div className="flex items-start gap-3 text-sm">
+                <MapPin className="w-5 h-5 text-[#9BF900] flex-shrink-0 mt-0.5" aria-hidden="true" />
+                <span className="text-gray-300 leading-relaxed">
+                  Calicut: 2nd Floor, The Ladder Link Road, Calicut
+                </span>
+              </div>
+
+              <div className="flex items-start gap-3 text-sm">
+                <MapPin className="w-5 h-5 text-[#9BF900] flex-shrink-0 mt-0.5" aria-hidden="true" />
+                <span className="text-gray-300 leading-relaxed">
+                  Kochi: 6th Floor, Kandamkulathi Tower, MG Road, Kochi
+                </span>
+              </div>
+
+              <div className="flex items-center gap-3 text-sm pt-2">
                 <Mail className="w-5 h-5 text-[#9BF900] flex-shrink-0" aria-hidden="true" />
-                <a 
-                  href="mailto:info@edwinacademy.com" 
+                <a
+                  href="mailto:info@edwinacademy.com"
                   className="text-gray-300 hover:text-[#9BF900] transition-colors duration-300"
                   aria-label="Email Edwin Academy"
                 >
                   info@edwinacademy.com
                 </a>
               </div>
+
               <div className="flex items-center gap-3 text-sm">
                 <Phone className="w-5 h-5 text-[#9BF900] flex-shrink-0" aria-hidden="true" />
-                <a 
-                  href="tel:+919383848800" 
+                <a
+                  href="tel:+917736911702"
                   className="text-gray-300 hover:text-[#9BF900] transition-colors duration-300"
                   aria-label="Call Edwin Academy"
                 >
-                 +91 77369 11702 , +91 70251 43536
+                  +91 77369 11702 , +91 70251 43536
                 </a>
               </div>
             </address>
@@ -197,10 +210,14 @@ export default function Footer() {
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             {/* Copyright */}
             <p className="text-gray-400 text-sm text-center sm:text-left">
-              © {currentYear} Edwin Academy. All rights reserved. | 
-              <a href="/privacy-policy" className="hover:text-[#9BF900] ml-1 transition-colors duration-300">Privacy Policy</a>
+              © {currentYear} Edwin Academy. All rights reserved. {' '}
+              {/* <a href="/privacy-policy" className="hover:text-[#9BF900] ml-1 transition-colors duration-300">
+                Privacy Policy
+              </a>
               <span className="mx-2">|</span>
-              <a href="/terms" className="hover:text-[#9BF900] transition-colors duration-300">Terms & Conditions</a>
+              <a href="/terms" className="hover:text-[#9BF900] transition-colors duration-300">
+                Terms & Conditions
+              </a> */}
             </p>
 
             {/* Social Links */}
@@ -225,35 +242,39 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Schema.org structured data for SEO */}
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "EducationalOrganization",
-          "name": "Edwin Academy",
-          "description": "Leading professional training institute offering industry-certified courses in technology, healthcare, and business domains",
-          "url": "https://www.edwinacademy.com",
-          "logo": "https://www.edwinacademy.com/logo.png",
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Calicut",
-            "addressRegion": "Kerala",
-            "addressCountry": "IN"
-          },
-          "contactPoint": {
-            "@type": "ContactPoint",
-            "telephone": "+91-9838848800",
-            "contactType": "customer service",
-            "email": "info@edwinacademy.com"
-          },
-          "sameAs": [
-            "https://facebook.com/edwinacademy",
-            "https://linkedin.com/company/edwinacademy",
-            "https://instagram.com/edwinacademy",
-            "https://twitter.com/edwinacademy"
-          ]
-        })}
-      </script>
+      {/* Schema.org structured data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'EducationalOrganization',
+            name: 'Edwin Academy',
+            description:
+              'Leading professional training institute offering industry-certified courses in technology, healthcare, and business domains',
+            url: 'https://www.edwinacademy.com',
+            logo: 'https://www.edwinacademy.com/nav-logo.png',
+            address: {
+              '@type': 'PostalAddress',
+              addressLocality: 'Calicut',
+              addressRegion: 'Kerala',
+              addressCountry: 'IN',
+            },
+            contactPoint: {
+              '@type': 'ContactPoint',
+              telephone: '+91-7736911702',
+              contactType: 'customer service',
+              email: 'info@edwinacademy.com',
+            },
+            sameAs: [
+              'https://facebook.com/edwinacademy',
+              'https://linkedin.com/company/edwinacademy',
+              'https://instagram.com/edwinacademy',
+              'https://youtube.com/@edwinacademyofficial7586',
+            ],
+          }),
+        }}
+      />
     </footer>
   );
 }

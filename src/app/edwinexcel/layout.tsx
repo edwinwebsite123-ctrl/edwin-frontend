@@ -11,13 +11,13 @@ export const metadata: Metadata = {
     "Skill development courses",
   ],
   alternates: {
-    canonical: "https://www.edwinacademy.com/edwin-excel",
+    canonical: "https://www.edwinacademy.com/edwinexcel",
   },
   openGraph: {
     title: "Edwin Excel | Future-Ready Career Program by Edwin Academy",
     description:
       "Transform your career with Edwin Excel — an exclusive program combining skills, mentoring, and placements.",
-    url: "https://www.edwinacademy.com/edwin-excel",
+    url: "https://www.edwinacademy.com/edwinexcel",
   },
 };
 

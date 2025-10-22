@@ -338,7 +338,9 @@ export default function AboutPage() {
                 </div>
 
                 <p className="text-lg text-gray-600 leading-relaxed">
-                  To cultivate ambition, creativity, and 21st-century skills in every learner — providing high-quality, affordable education that prepares them to succeed in a world full of challenges.
+                  Edwin Academy aims to empower youth through skill-based, career-focused education.
+We prepare students to meet global industry standards with strong communication skills, professional confidence, and real-world knowledge — shaping them for success in their professional journey and life.
+Our mission is to make quality training accessible, inspire continuous learning, and create professionals who lead with competence and character.
                 </p>
               </div>
 
@@ -360,7 +362,8 @@ export default function AboutPage() {
                   </div>
 
                   <p className="text-lg text-white/95 leading-relaxed">
-                    To nurture a community of inspired and skilled individuals who lead with purpose, embrace innovation, and contribute positively to society through knowledge and creativity.
+                    Vision
+To become the world’s largest and most trusted career-training platform — delivering the latest industry-aligned programs, eliminating unemployment, and shaping confident professionals ready to thrive on the global stage.
                   </p>
                 </div>
               </div>
