@@ -31,9 +31,9 @@ export const metadata: Metadata = {
   keywords: [
     "Edwin Academy",
     "Edwin Academy Kannur",
-     "Edwin Academy Kerala",
-      "Edwin Academy Kozhikode",
-       "Edwin Academy Kochi",
+    "Edwin Academy Kerala",
+    "Edwin Academy Kozhikode",
+    "Edwin Academy Kochi",
     "Career training Kerala",
     "Professional courses",
     "Skill development",
@@ -45,10 +45,11 @@ export const metadata: Metadata = {
     "Digital marketing training",
     "Placement training",
   ],
-  authors: [{ name: "Edwin Academy" }],
+  authors: [{ name: "Edwin Academy", url: "https://www.edwinacademy.com" }],
   creator: "Edwin Academy",
   publisher: "Edwin Academy",
   metadataBase: new URL("https://www.edwinacademy.com"),
+  
   openGraph: {
     title: "Edwin Academy | Future-Ready Professional Training",
     description:
@@ -57,7 +58,7 @@ export const metadata: Metadata = {
     siteName: "Edwin Academy",
     images: [
       {
-        url: "https://www.edwinacademy.com/nav-logo.png",
+        url: "https://www.edwinacademy.com/logo-main.webp",
         width: 1200,
         height: 630,
         alt: "Edwin Academy - Learn with Confidence",
@@ -66,21 +67,46 @@ export const metadata: Metadata = {
     locale: "en_IN",
     type: "website",
   },
+
   twitter: {
     card: "summary_large_image",
     title: "Edwin Academy | Career-Focused Learning in Kerala",
     description:
       "Edwin Academy shapes confident professionals with real-world expertise. Join our programs designed by industry experts.",
     creator: "@edwinacademyofficial",
-    images: ["https://www.edwinacademy.com/nav-logo.png"],
+    images: ["https://www.edwinacademy.com/logo-main.webp"],
   },
+
   alternates: {
     canonical: "https://www.edwinacademy.com",
   },
+
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
+
   verification: {
     google: "YOUR_GOOGLE_SITE_VERIFICATION_CODE", // Add from Google Search Console
+    
+  },
+
+  category: "Education",
+  generator: "Next.js",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
   },
 };
+
 
 export default function RootLayout({
   children,
@@ -99,7 +125,7 @@ export default function RootLayout({
               "@type": "EducationalOrganization",
               name: "Edwin Academy",
               url: "https://www.edwinacademy.com",
-              logo: "https://www.edwinacademy.com/nav-logo.png",
+              logo: "https://www.edwinacademy.com/logo-main.webp",
               sameAs: [
                 "https://www.linkedin.com/company/edwinacademy/",
                 "https://www.instagram.com/edwinacademyofficial",
