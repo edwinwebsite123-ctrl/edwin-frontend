@@ -3,6 +3,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { ArrowRight, X, CheckCircle2, ChevronDown } from 'lucide-react';
+import { useCourses } from '@/data/api';
 
 /**
  * FULL file implementation:
@@ -112,18 +113,18 @@ function AdmissionModalPortal() {
 
   return typeof document !== 'undefined'
     ? createPortal(
-        <AdmissionModal
-          isOpen={modalOpen}
-          onClose={closeModal}
-          onSuccess={(name: string) => {
-            // notify parent provider
-            notifySuccess(name);
-            // close modal handled inside onSuccess caller (we&apos;ll let modal call onClose itself or provider)
-          }}
-          prefillCourse={preselectedCourse}
-        />,
-        document.body
-      )
+      <AdmissionModal
+        isOpen={modalOpen}
+        onClose={closeModal}
+        onSuccess={(name: string) => {
+          // notify parent provider
+          notifySuccess(name);
+          // close modal handled inside onSuccess caller (we&apos;ll let modal call onClose itself or provider)
+        }}
+        prefillCourse={preselectedCourse}
+      />,
+      document.body
+    )
     : null;
 }
 
@@ -134,9 +135,9 @@ function SuccessModalPortal() {
 
   return typeof document !== 'undefined'
     ? createPortal(
-        <SuccessModal isOpen={successOpen} onClose={closeSuccess} name={submittedName} />,
-        document.body
-      )
+      <SuccessModal isOpen={successOpen} onClose={closeSuccess} name={submittedName} />,
+      document.body
+    )
     : null;
 }
 
@@ -261,21 +262,21 @@ function AdmissionModal({ isOpen, onClose, onSuccess, prefillCourse = '' }: Admi
   const [errors, setErrors] = useState<AdmissionFormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const courses = [
-    'Human Resource Management',
-    'Ai Integrated Digital Marketing',
-    'Ai Integrated Medical Coding',
-    'Hospital Management',
-    'Data Science',
-    'Python Programming',
-    'Professional Accounting',
-    'Online UG - PG Programs',
-    'Logistics & Supply Chain Management',
-    'Graphic Designing & Video Editing',
-    'Fashion Designing',
-    'Makeup Artist',
-    
-  ];
+  const { courses: coursesData, loading, error } = useCourses();
+
+  let courseOptions: string[] = [];
+
+  if (loading) {
+    // You can optionally show a placeholder option
+    courseOptions = ['Loading...'];
+  } else if (error) {
+    // Optionally show an error message
+    courseOptions = ['Failed to load courses'];
+  } else if (coursesData && coursesData.length > 0) {
+    courseOptions = coursesData.map((c) => c.title);
+  }
+
+
   const centers = ['Kannur', 'Calicut', 'Kochi'];
 
   // Apply prefilled course when modal opens or when prefillCourse changes
@@ -298,18 +299,18 @@ function AdmissionModal({ isOpen, onClose, onSuccess, prefillCourse = '' }: Admi
 
   const validateForm = () => {
     const newErrors: AdmissionFormErrors = {};
-    
+
     // Required fields: firstName, mobile, place
     if (!formData.firstName.trim()) newErrors.firstName = 'First name is required';
     if (!formData.mobile.trim()) newErrors.mobile = 'Mobile number is required';
     else if (!/^\d{10}$/.test(formData.mobile.replace(/\s/g, ''))) newErrors.mobile = 'Please enter a valid 10-digit number';
     if (!formData.place.trim()) newErrors.place = 'Place is required';
-    
+
     // Optional validations (only validate if filled)
     if (formData.email.trim() && !/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = 'Please enter a valid email';
     }
-    
+
     // If offline mode is selected, center becomes required
     if (formData.courseMode === 'offline' && !formData.center) {
       newErrors.center = 'Please select a center for offline mode';
@@ -346,7 +347,7 @@ function AdmissionModal({ isOpen, onClose, onSuccess, prefillCourse = '' }: Admi
         additional_message: formData.message || "",
       };
 
-      const response = await fetch( `${process.env.NEXT_PUBLIC_API_URL}/api/applications/`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/applications/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -439,9 +440,8 @@ function AdmissionModal({ isOpen, onClose, onSuccess, prefillCourse = '' }: Admi
                   value={formData.firstName}
                   onChange={handleChange}
                   placeholder="Enter first name"
-                  className={`w-full px-4 py-2.5 text-sm text-gray-900 bg-white border-2 rounded-xl focus:ring-2 focus:ring-[#1725BB] focus:border-[#1725BB] outline-none transition-all placeholder:text-gray-400 ${
-                    errors.firstName ? 'border-red-500' : 'border-gray-200 hover:border-gray-300'
-                  }`}
+                  className={`w-full px-4 py-2.5 text-sm text-gray-900 bg-white border-2 rounded-xl focus:ring-2 focus:ring-[#1725BB] focus:border-[#1725BB] outline-none transition-all placeholder:text-gray-400 ${errors.firstName ? 'border-red-500' : 'border-gray-200 hover:border-gray-300'
+                    }`}
                 />
                 {errors.firstName && <p className="text-red-500 text-xs mt-1.5">⚠ {errors.firstName}</p>}
               </div>
@@ -471,9 +471,8 @@ function AdmissionModal({ isOpen, onClose, onSuccess, prefillCourse = '' }: Admi
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="your.email@example.com"
-                className={`w-full px-4 py-2.5 text-sm text-gray-900 bg-white border-2 rounded-xl focus:ring-2 focus:ring-[#1725BB] focus:border-[#1725BB] outline-none transition-all placeholder:text-gray-400 ${
-                  errors.email ? 'border-red-500' : 'border-gray-200 hover:border-gray-300'
-                }`}
+                className={`w-full px-4 py-2.5 text-sm text-gray-900 bg-white border-2 rounded-xl focus:ring-2 focus:ring-[#1725BB] focus:border-[#1725BB] outline-none transition-all placeholder:text-gray-400 ${errors.email ? 'border-red-500' : 'border-gray-200 hover:border-gray-300'
+                  }`}
               />
               {errors.email && <p className="text-red-500 text-xs mt-1.5">⚠ {errors.email}</p>}
             </div>
@@ -490,9 +489,8 @@ function AdmissionModal({ isOpen, onClose, onSuccess, prefillCourse = '' }: Admi
                   value={formData.mobile}
                   onChange={handleChange}
                   placeholder="10-digit number"
-                  className={`w-full px-4 py-2.5 text-sm text-gray-900 bg-white border-2 rounded-xl focus:ring-2 focus:ring-[#1725BB] focus:border-[#1725BB] outline-none transition-all placeholder:text-gray-400 ${
-                    errors.mobile ? 'border-red-500' : 'border-gray-200 hover:border-gray-300'
-                  }`}
+                  className={`w-full px-4 py-2.5 text-sm text-gray-900 bg-white border-2 rounded-xl focus:ring-2 focus:ring-[#1725BB] focus:border-[#1725BB] outline-none transition-all placeholder:text-gray-400 ${errors.mobile ? 'border-red-500' : 'border-gray-200 hover:border-gray-300'
+                    }`}
                 />
                 {errors.mobile && <p className="text-red-500 text-xs mt-1.5">⚠ {errors.mobile}</p>}
               </div>
@@ -506,9 +504,8 @@ function AdmissionModal({ isOpen, onClose, onSuccess, prefillCourse = '' }: Admi
                   value={formData.place}
                   onChange={handleChange}
                   placeholder="Your city"
-                  className={`w-full px-4 py-2.5 text-sm text-gray-900 bg-white border-2 rounded-xl focus:ring-2 focus:ring-[#1725BB] focus:border-[#1725BB] outline-none transition-all placeholder:text-gray-400 ${
-                    errors.place ? 'border-red-500' : 'border-gray-200 hover:border-gray-300'
-                  }`}
+                  className={`w-full px-4 py-2.5 text-sm text-gray-900 bg-white border-2 rounded-xl focus:ring-2 focus:ring-[#1725BB] focus:border-[#1725BB] outline-none transition-all placeholder:text-gray-400 ${errors.place ? 'border-red-500' : 'border-gray-200 hover:border-gray-300'
+                    }`}
                 />
                 {errors.place && <p className="text-red-500 text-xs mt-1.5">⚠ {errors.place}</p>}
               </div>
@@ -527,7 +524,7 @@ function AdmissionModal({ isOpen, onClose, onSuccess, prefillCourse = '' }: Admi
                   className="w-full px-4 py-2.5 pr-10 text-sm text-gray-900 bg-gradient-to-br from-white to-gray-50 border-2 border-gray-200 hover:border-[#1725BB]/30 hover:shadow-md rounded-xl focus:ring-2 focus:ring-[#1725BB] focus:border-[#1725BB] outline-none transition-all appearance-none cursor-pointer shadow-sm"
                 >
                   <option value="">Choose your course</option>
-                  {courses.map((course) => (
+                  {courseOptions.map((course) => (
                     <option key={course} value={course} className="text-gray-900 py-2">
                       {course}
                     </option>
@@ -535,9 +532,8 @@ function AdmissionModal({ isOpen, onClose, onSuccess, prefillCourse = '' }: Admi
                 </select>
                 <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
                   <ChevronDown
-                    className={`w-5 h-5 transition-all duration-200 ${
-                      formData.course ? 'text-[#1725BB]' : 'text-gray-400 group-hover:text-[#1725BB]'
-                    }`}
+                    className={`w-5 h-5 transition-all duration-200 ${formData.course ? 'text-[#1725BB]' : 'text-gray-400 group-hover:text-[#1725BB]'
+                      }`}
                   />
                 </div>
               </div>
@@ -592,9 +588,8 @@ function AdmissionModal({ isOpen, onClose, onSuccess, prefillCourse = '' }: Admi
                     name="center"
                     value={formData.center}
                     onChange={handleChange}
-                    className={`w-full px-4 py-2.5 text-sm text-gray-900 bg-white border-2 rounded-xl focus:ring-2 focus:ring-[#1725BB] focus:border-[#1725BB] outline-none transition-all appearance-none cursor-pointer ${
-                      errors.center ? 'border-red-500' : 'border-gray-200 hover:border-gray-300'
-                    } ${!formData.center && 'text-gray-400'}`}
+                    className={`w-full px-4 py-2.5 text-sm text-gray-900 bg-white border-2 rounded-xl focus:ring-2 focus:ring-[#1725BB] focus:border-[#1725BB] outline-none transition-all appearance-none cursor-pointer ${errors.center ? 'border-red-500' : 'border-gray-200 hover:border-gray-300'
+                      } ${!formData.center && 'text-gray-400'}`}
                   >
                     <option value="">Choose your center</option>
                     {centers.map((c) => (
@@ -697,20 +692,20 @@ interface EnrollButtonProps {
 
 export function EnrollButton({ course, children, className = '' }: EnrollButtonProps) {
   const { openModal } = useAdmission();
-  
+
   const label = children || `Enroll Now`;
   return (
     <button
       onClick={() => openModal({ course })}
       className={`inline-flex items-center justify-center gap-2.5 px-4 py-2 bg-[#FF6002] text-white rounded-lg font-semibold text-sm hover:bg-[#ff7a2d] transition-all shadow-sm ${className}`}
       aria-label={`Enroll in ${course}`}
-      
+
     >
-      
+
       {label}
       <span className="flex items-center justify-center w-6 h-6 bg-white/20 rounded-full group-hover:translate-x-1 transition-transform duration-300">
-    <ArrowRight className="w-4 h-4" strokeWidth={3} />
-  </span>
+        <ArrowRight className="w-4 h-4" strokeWidth={3} />
+      </span>
     </button>
   );
 }
@@ -727,7 +722,7 @@ export default function AdmissionExample() {
           <p className="text-gray-600 mb-8">
             Welcome to Edwin Academy! Click the buttons below to test the admission form with optional fields.
           </p>
-          
+
           <div className="space-y-4">
             <div className="flex flex-wrap gap-4">
               <StartLearningButton />
@@ -736,7 +731,7 @@ export default function AdmissionExample() {
                 Apply for Data Science
               </EnrollButton>
             </div>
-            
+
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-6">
               <h3 className="font-semibold text-blue-900 mb-2">✨ Changes Made:</h3>
               <ul className="text-sm text-blue-800 space-y-1">

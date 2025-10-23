@@ -15,35 +15,42 @@ import {
   GraduationCap,
   X,
 } from 'lucide-react';
-import { allCoursesData } from '../.././data/courses';
+import { useCourses } from '@/data/api';
 import Navbar from '@/components/ui/navigation-menu';
- import Link from 'next/link';
- import Footer from '@/components/ui/Footer';
- import Image from 'next/image';
+import Link from 'next/link';
+import Footer from '@/components/ui/Footer';
+import Image from 'next/image';
 
- // Define the Course interface
- interface Course {
-   id: string;
-   title: string;
-   shortDescription: string;
-   category: string;
-   duration: string;
-   level: string;
-   mode: string;
-   certification: string;
-   image: string;
-   overview: string;
-   modules: { title: string; content: string[]; }[];
-   careerOpportunities: string[];
-   tools: string[];
-   highlights: string[];
-   description?: string;
-   students?: number;
-   rating?: number;
-   slug?: string;
- }
+// Define the Course interface (matching the useCourses interface)
+interface CourseModule {
+  title: string;
+  content: string[];
+}
 
- export default function CoursesPage() {
+interface Course {
+  id: string;
+  title: string;
+  short_description: string;
+  category: string;
+  duration: string;
+  level: string;
+  mode: string;
+  certification: string;
+  image: string;
+  overview: string;
+  modules: CourseModule[];
+  career_opportunities: string[];
+  tools: string[];
+  highlights: string[];
+  created_at: string;
+  updated_at: string;
+  description?: string;
+  students?: number;
+  rating?: number;
+  slug?: string;
+}
+
+export default function CoursesPage() {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('all');
@@ -51,6 +58,9 @@ import Navbar from '@/components/ui/navigation-menu';
   const [showFilters, setShowFilters] = useState(false);
   const [selectedLevel, setSelectedLevel] = useState('all');
   const [sortBy, setSortBy] = useState('popular');
+
+  // Use the useCourses hook
+  const { courses: allCoursesData, loading, error } = useCourses();
 
   const categories = [
     { id: 'all', label: 'All Courses', icon: BookOpen },
@@ -88,7 +98,7 @@ import Navbar from '@/components/ui/navigation-menu';
         (course) =>
           (course.title?.toLowerCase() || '').includes(query) ||
           (course.description?.toLowerCase() || '').includes(query) ||
-          (course.shortDescription?.toLowerCase() || '').includes(query) ||
+          (course.short_description?.toLowerCase() || '').includes(query) ||
           (course.category?.toLowerCase() || '').includes(query)
       );
     }
@@ -107,7 +117,7 @@ import Navbar from '@/components/ui/navigation-menu';
     }
 
     return courses;
-  }, [activeCategory, searchQuery, selectedLevel, sortBy]);
+  }, [activeCategory, searchQuery, selectedLevel, sortBy, allCoursesData]);
 
   const clearAllFilters = () => {
     setSearchQuery('');
@@ -121,14 +131,55 @@ import Navbar from '@/components/ui/navigation-menu';
     (selectedLevel !== 'all' ? 1 : 0) +
     (searchQuery ? 1 : 0);
 
-  // const containerVariants = {
-  //   hidden: { opacity: 0 },
-  //   visible: { opacity: 1, transition: { staggerChildren: 0.08 } },
-  // };
-  // const itemVariants = {
-  //   hidden: { y: 30, opacity: 0 },
-  //   visible: { y: 0, opacity: 1, transition: { duration: 0.6 } },
-  // };
+  // Show loading state
+  if (loading) {
+    return (
+      <>
+        <Navbar />
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-gray-50">
+          <div className="max-w-7xl mx-auto text-center">
+            <div className="animate-pulse">
+              <div className="h-6 bg-gray-200 rounded w-48 mx-auto mb-4"></div>
+              <div className="h-12 bg-gray-200 rounded w-96 mx-auto mb-4"></div>
+              <div className="h-4 bg-gray-200 rounded w-64 mx-auto mb-20"></div>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                {[...Array(6)].map((_, index) => (
+                  <div key={index} className="h-[460px] bg-gray-200 rounded-2xl animate-pulse"></div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+        <Footer />
+      </>
+    );
+  }
+
+  // Show error state
+  if (error) {
+    return (
+      <>
+        <Navbar />
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-gray-50">
+          <div className="max-w-7xl mx-auto text-center">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-red-100 rounded-full mb-6">
+              <X className="w-10 h-10 text-red-600" />
+            </div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">Error loading courses</h3>
+            <p className="text-gray-600 mb-6">{error}</p>
+            <button
+              onClick={() => window.location.reload()}
+              className="px-6 py-3 bg-[#1725BB] text-white font-semibold rounded-xl hover:bg-[#1725BB]/90 transition-colors"
+            >
+              Try Again
+            </button>
+          </div>
+        </section>
+        <Footer />
+      </>
+    );
+  }
 
   return (
     <>
@@ -363,7 +414,7 @@ import Navbar from '@/components/ui/navigation-menu';
                     {/* Background Image */}
                     <div className="absolute inset-0 z-0">
                       <Image
-                        src={course.image}
+                        src={`${process.env.NEXT_PUBLIC_API_URL}${course.image}`} 
                         alt={course.title}
                         width={400}
                         height={460}
@@ -396,7 +447,7 @@ import Navbar from '@/components/ui/navigation-menu';
                           {course.title}
                         </h3>
                         <p className="text-sm text-gray-200 leading-relaxed line-clamp-2 mb-4">
-                          {course.shortDescription}
+                          {course.short_description}
                         </p>
                       </div>
 
@@ -417,7 +468,7 @@ import Navbar from '@/components/ui/navigation-menu';
                       </div>
 
                       {/* Button */}
-                      <Link href={`/course/${course.slug}`} className="block">
+                      <Link href={`/course/${course.slug || course.id}`} className="block">
                         <button className="w-full group/btn inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 lg:px-5 py-2 sm:py-2.5 lg:py-3 bg-[#FF6002] border border-white/25 rounded-full text-white text-xs sm:text-sm lg:text-base font-semibold backdrop-blur-sm transition-all duration-300 hover:bg-white/25 shadow-lg hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98]">
                           View Course
                           <span className="flex items-center justify-center w-4 sm:w-5 h-4 sm:h-5 bg-white/20 rounded-full group-hover/btn:translate-x-1 transition-transform duration-300">
