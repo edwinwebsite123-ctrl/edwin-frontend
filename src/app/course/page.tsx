@@ -139,9 +139,9 @@ export default function CoursesPage() {
         <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-gray-50">
           <div className="max-w-7xl mx-auto text-center">
             <div className="animate-pulse">
-              <div className="h-6 bg-gray-200 rounded w-48 mx-auto mb-4"></div>
-              <div className="h-12 bg-gray-200 rounded w-96 mx-auto mb-4"></div>
-              <div className="h-4 bg-gray-200 rounded w-64 mx-auto mb-20"></div>
+              <div className="h-6 bg-gray-200 rounded w-32 sm:w-48 mx-auto mb-4"></div>
+              <div className="h-12 bg-gray-200 rounded w-64 sm:w-96 mx-auto mb-4"></div>
+              <div className="h-4 bg-gray-200 rounded w-48 sm:w-64 mx-auto mb-20"></div>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {[...Array(6)].map((_, index) => (
