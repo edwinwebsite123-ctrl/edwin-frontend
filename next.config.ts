@@ -19,6 +19,10 @@ const nextConfig: NextConfig = {
         protocol: "http",
         hostname: "localhost",
         port: "8000",
+      },
+      {
+        protocol: "https",
+        hostname: "edwinweb.pythonanywhere.com",
       }
     ],
   },
