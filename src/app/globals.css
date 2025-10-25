@@ -98,10 +98,13 @@ h1, h2, h3, h4, h5, h6 ,span{
   font-family: var(--font-parkinsans);
   font-weight: 600;
   letter-spacing: -0.02em;
+  text-transform: uppercase;
+  
 }
 
 body, p,  li, a, input, textarea, button {
   font-family: var(--font-encodesans);
+  
 }
 
 .dark {

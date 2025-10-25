@@ -89,48 +89,7 @@ export default function EdwinExcelPage() {
       rating: 4.7,
       image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=600&fit=crop"
     },
-    {
-      id: 4,
-      code: "BCA",
-      name: "Bachelor of Computer Applications",
-      subtitle: "Information Technology",
-      description: "Comprehensive IT program covering programming, databases, and web technologies",
-      duration: "3 Years",
-      specializations: ["Software Development", "Web Design", "Database Management", "Cloud Computing"],
-      eligibility: "10+2 with Mathematics",
-      students: "3500",
-      modules: 30,
-      rating: 4.9,
-      image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&h=600&fit=crop"
-    },
-    {
-      id: 5,
-      code: "B.Sc",
-      name: "Bachelor of Science",
-      subtitle: "Science & Technology",
-      description: "Scientific education with practical lab work and research opportunities",
-      duration: "3 Years",
-      specializations: ["Physics", "Chemistry", "Mathematics", "Biology", "Computer Science", "Biotechnology"],
-      eligibility: "10+2 with Science stream",
-      students: "2900",
-      modules: 32,
-      rating: 4.8,
-      image: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800&h=600&fit=crop"
-    },
-    {
-      id: 6,
-      code: "B.Ed",
-      name: "Bachelor of Education",
-      subtitle: "Teacher Training",
-      description: "Professional teaching program with classroom training and practice",
-      duration: "2 Years",
-      specializations: ["Primary Education", "Secondary Education", "Special Education", "Educational Technology"],
-      eligibility: "Graduation in any discipline",
-      students: "1800",
-      modules: 20,
-      rating: 4.7,
-      image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&h=600&fit=crop"
-    }
+    
   ];
 
   const pgPrograms = [
@@ -190,34 +149,7 @@ export default function EdwinExcelPage() {
       rating: 4.9,
       image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&h=600&fit=crop"
     },
-    {
-      id: 11,
-      code: "M.Sc",
-      name: "Master of Science",
-      subtitle: "Research & Science",
-      description: "Research-oriented science program with laboratory and field work",
-      duration: "2 Years",
-      specializations: ["Physics", "Chemistry", "Mathematics", "Biotechnology", "Environmental Science", "Data Science"],
-      eligibility: "B.Sc in relevant discipline",
-      students: "1600",
-      modules: 20,
-      rating: 4.8,
-      image: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=800&h=600&fit=crop"
-    },
-    {
-      id: 12,
-      code: "M.Ed",
-      name: "Master of Education",
-      subtitle: "Educational Leadership",
-      description: "Advanced teaching methodology with educational research and leadership",
-      duration: "2 Years",
-      specializations: ["Curriculum Development", "Educational Psychology", "Educational Administration", "Guidance & Counseling"],
-      eligibility: "B.Ed degree from recognized university",
-      students: "1200",
-      modules: 16,
-      rating: 4.7,
-      image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=600&fit=crop"
-    }
+    
   ];
 
   const features = [

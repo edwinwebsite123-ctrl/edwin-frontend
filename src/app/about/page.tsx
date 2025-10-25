@@ -110,13 +110,13 @@ export default function AboutPage() {
       icon: Lightbulb,
       title: 'Curriculum Development',
       desc: 'Collaborating with industry experts to create programs that meet real-world demands and standards.',
-      color: 'from-[#9BF900] to-[#9BF900]/80'
+      color: 'from-[#1725BB] to-[#1725BB]/80'
     },
     {
       icon: Network,
       title: 'Corporate Partnerships',
       desc: 'Building strong relationships with leading companies for job placement and internship opportunities.',
-      color: 'from-[#FF6002] to-[#FF6002]/80'
+      color: 'from-[#1725BB] to-[#1725BB]/80'
     },
     {
       icon: TrendingUp,

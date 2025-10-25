@@ -1,8 +1,9 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Brain, Building, Users, ArrowRight, TrendingUp, Check, Clock, BookOpen, Star } from "lucide-react";
+import { Brain, Building, Users, ArrowRight, TrendingUp, Check, Clock, BookOpen, Star, ChevronRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const courses = [
   { 
@@ -300,52 +301,65 @@ export default function PopularCourses() {
         </motion.div>
 
         {/* CTA Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="mt-8 xs:mt-10 sm:mt-12 md:mt-16 lg:mt-20 relative overflow-hidden rounded-lg xs:rounded-xl sm:rounded-2xl p-4 xs:p-5 sm:p-6 md:p-8 lg:p-10 xl:p-12 bg-[#1725BB]"
-        >
-          <div className="absolute inset-0 bg-gradient-to-br from-[#1725BB] to-[#0f1a8f]"></div>
-
-          <div className="relative z-10 text-center">
-            <TrendingUp className="w-8 h-8 xs:w-9 xs:h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 text-[#9BF900] mx-auto mb-3 xs:mb-3.5 sm:mb-4 md:mb-5" />
-            <h2 className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-2 xs:mb-2.5 sm:mb-3 md:mb-4 uppercase px-2 xs:px-3 sm:px-4">
-              Excel in Your Future with Edwin Excel
-            </h2>
-            <p className="text-[11px] xs:text-xs sm:text-sm md:text-base lg:text-lg text-white/90 mb-4 xs:mb-5 sm:mb-6 md:mb-8 max-w-2xl mx-auto leading-relaxed px-2 xs:px-3 sm:px-4">
-              Discover career-driven <strong>Undergraduate</strong> and <strong>Postgraduate programs</strong> designed to help you build real-world skills, gain global exposure, and achieve professional excellence.
-            </p>
-
-            <div className="flex flex-col xs:flex-row gap-2 xs:gap-2.5 sm:gap-3 md:gap-4 justify-center items-center mb-4 xs:mb-5 sm:mb-6 md:mb-8 px-2 xs:px-3 sm:px-4">
-              <div className="flex items-center gap-1.5 xs:gap-2 text-white/90">
-                <Check className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-[#9BF900] flex-shrink-0" />
-                <span className="text-[10px] xs:text-xs sm:text-sm">UG & PG Programs</span>
-              </div>
-              <div className="flex items-center gap-1.5 xs:gap-2 text-white/90">
-                <Check className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-[#9BF900] flex-shrink-0" />
-                <span className="text-[10px] xs:text-xs sm:text-sm">Industry-Relevant Curriculum</span>
-              </div>
-              <div className="flex items-center gap-1.5 xs:gap-2 text-white/90">
-                <Check className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-[#9BF900] flex-shrink-0" />
-                <span className="text-[10px] xs:text-xs sm:text-sm">Placement Assistance</span>
-              </div>
+        <div className="mt-8 sm:mt-10 md:mt-16 lg:mt-20">
+          <div className="relative overflow-hidden rounded-xl sm:rounded-2xl bg-gradient-to-br from-[#1725BB] to-[#0f1a8f] p-4 xs:p-6 sm:p-8 md:p-12">
+            {/* Subtle Pattern Overlay */}
+            <div className="absolute inset-0 opacity-5">
+              <div
+                className="absolute inset-0"
+                style={{
+                  backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
+                  backgroundSize: "28px 28px",
+                }}
+              ></div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-2.5 xs:gap-3 sm:gap-4 justify-center px-2 xs:px-3 sm:px-4">
-              <button
-                onClick={() => window.location.href = '/edwinexcel'}
-                className="w-full sm:w-auto group inline-flex items-center justify-center gap-1.5 xs:gap-2 sm:gap-3 px-4 xs:px-5 sm:px-6 md:px-8 py-2.5 xs:py-3 sm:py-4 bg-[#FF6002] text-white rounded-full font-semibold text-xs xs:text-sm sm:text-base hover:bg-[#e65502] transition-all duration-300 shadow-lg hover:shadow-xl"
-              >
+            <div className="relative z-10 max-w-4xl mx-auto text-center px-2 sm:px-4">
+              {/* Heading */}
+              <h2 className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-2 xs:mb-3 sm:mb-4 uppercase leading-snug">
+                Ready to Excel in Your Career?
+              </h2>
+
+              {/* Subheading */}
+              <p className="text-xs xs:text-sm sm:text-base md:text-lg text-white/90 mb-5 xs:mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed">
+                Join <strong>Edwin Excel’s Online UG & PG Programs</strong> and study from anywhere in the world.
+              </p>
+
+              {/* Features */}
+              <div className="flex flex-wrap justify-center items-center gap-2.5 xs:gap-3 sm:gap-4 md:gap-6 mb-6 xs:mb-8">
+                <div className="flex items-center gap-1.5 xs:gap-2">
+                  <Check className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-[#9BF900] flex-shrink-0" />
+                  <span className="text-[10px] xs:text-xs sm:text-sm md:text-base text-white uppercase">100% Online</span>
+                </div>
+
+                <div className="flex items-center gap-1.5 xs:gap-2">
+                  <Check className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-[#9BF900] flex-shrink-0" />
+                  <span className="text-[10px] xs:text-xs sm:text-sm md:text-base text-white uppercase">UGC-DEB Approved</span>
+                </div>
+
+                <div className="flex items-center gap-1.5 xs:gap-2">
+                  <Check className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-[#9BF900] flex-shrink-0" />
+                  <span className="text-[10px] xs:text-xs sm:text-sm md:text-base text-white uppercase">NAAC A++ Accredited</span>
+                </div>
+
+                <div className="flex items-center gap-1.5 xs:gap-2">
+                  <Check className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-[#9BF900] flex-shrink-0" />
+                  <span className="text-[10px] xs:text-xs sm:text-sm md:text-base text-white uppercase">Globally Recognized</span>
+                </div>
+              </div>
+
+              {/* CTA Button */}
+              <Link href={'/edwinexcel'}>
+                 <button className="group inline-flex items-center gap-3 px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded-full font-semibold text-sm sm:text-base shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
                 Explore Edwin Excel
-                <span className="flex items-center justify-center w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 bg-white/20 rounded-full group-hover:translate-x-1 transition-transform duration-300">
-                  <ArrowRight className="w-2.5 h-2.5 xs:w-3 xs:h-3 sm:w-3.5 sm:h-3.5 md:w-5 md:h-5" strokeWidth={3} />
+                <span className="flex items-center justify-center w-6 h-6 bg-white/20 rounded-full group-hover:translate-x-1 transition-transform duration-300">
+                  <ChevronRight className="w-4 h-4" strokeWidth={3} />
                 </span>
               </button>
+              </Link>
             </div>
           </div>
-        </motion.div>
+        </div>
 
       </div>
     </section>
