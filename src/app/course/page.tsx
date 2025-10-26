@@ -405,7 +405,7 @@ function CoursesContent() {
                     <h3 className="text-2xl font-bold text-gray-900">
                       {categories.find(cat => cat.id === activeCategory)?.label || activeCategory} Courses
                     </h3>
-                    <span className="px-3 py-1 bg-[#1725BB] text-white text-sm font-semibold rounded-full">
+                    <span className="inline-flex items-center justify-center px-2 py-1 bg-[#1725BB] text-white text-xs font-medium rounded-full whitespace-nowrap sm:text-sm sm:font-semibold sm:px-3">
                       {matchingCourses.length} course{matchingCourses.length > 1 ? 's' : ''}
                     </span>
                   </div>
