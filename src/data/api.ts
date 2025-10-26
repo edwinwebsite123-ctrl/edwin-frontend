@@ -213,3 +213,158 @@ export function useTestimonials(): UseTestimonialsResult {
 
   return { testimonials, loading, error, refetch: fetchTestimonials };
 }
+
+
+export interface Faculty {
+  id: number;
+  name: string;
+  title: string;
+  faculty_image: string;
+  bg_image: string;
+}
+
+
+export const useFaculty = () => {
+  const [faculty, setFaculty] = useState<Faculty[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchFaculty = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch(`${baseUrl}/api/faculty/`);
+      if (!res.ok) throw new Error("Failed to fetch faculty data");
+      const data = await res.json();
+      setFaculty(data);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unknown error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchFaculty();
+  }, []);
+
+  return { faculty, loading, error, refetch: fetchFaculty };
+};
+
+
+
+export interface PlacementPoster {
+  id: number;
+  image: string; // image URL
+  alt: string;
+}
+
+
+export const usePlacementPosters = () => {
+  const [posters, setPosters] = useState<PlacementPoster[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchPosters = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch(`${baseUrl}/api/placement-posters/`);
+      if (!res.ok) throw new Error("Failed to fetch posters");
+      const data: PlacementPoster[] = await res.json();
+      setPosters(data);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unknown error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchPosters();
+  }, []);
+
+  return { posters, loading, error, refetch: fetchPosters };
+};
+
+
+
+export interface Program {
+  id: number;
+  code: string;
+  name: string;
+  subtitle: string;
+  description: string;
+  duration: string;
+  specializations: string[];
+  eligibility: string;
+  students: string;
+  modules: number;
+  rating: number;
+  image: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface UseProgramResult {
+  programs: Program[];
+  loading: boolean;
+  error: string | null;
+  refetch: () => Promise<void>;
+}
+
+
+export function useUGPrograms(): UseProgramResult {
+  const [programs, setPrograms] = useState<Program[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchPrograms = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch(`${baseUrl}/api/ug-programs/`);
+      if (!res.ok) throw new Error("Failed to fetch UG programs");
+
+      const data = await res.json();
+      setPrograms(data);
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchPrograms();
+  }, []);
+
+  return { programs, loading, error, refetch: fetchPrograms };
+}
+
+
+export function usePGPrograms(): UseProgramResult {
+  const [programs, setPrograms] = useState<Program[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchPrograms = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch(`${baseUrl}/api/pg-programs/`);
+      if (!res.ok) throw new Error("Failed to fetch PG programs");
+
+      const data = await res.json();
+      setPrograms(data);
+    } catch (err: unknown) {
+setError(err instanceof Error ? err.message : "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchPrograms();
+  }, []);
+
+  return { programs, loading, error, refetch: fetchPrograms };
+}

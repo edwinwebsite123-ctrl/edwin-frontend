@@ -21,20 +21,70 @@ import {
   ChevronDown,
   Calendar,
   BadgeCheck,
+  RefreshCw,
+  AlertCircle,
 } from 'lucide-react';
 import Footer from '@/components/ui/Footer';
 import Navbar from '@/components/ui/navigation-menu';
 import { AdmissionProvider, EnrollButton, StartLearningButton } from '@/components/ui/AdmissionButton';
 import Image from 'next/image';
 import EdwinExcelTestimonial from '@/components/ui/EdwinExcelTestimonial';
+import { useUGPrograms, usePGPrograms, Program } from '@/data/api';
+
+// Skeleton Loading Components
+const ProgramCardSkeleton = () => (
+  <div className="group cursor-pointer">
+    <div className="relative h-[460px] rounded-2xl overflow-hidden bg-gray-200 animate-pulse shadow-xl">
+      {/* Background Image Skeleton */}
+      <div className="absolute inset-0 z-0 bg-gray-300"></div>
+
+      {/* Top Labels Skeleton */}
+      <div className="absolute top-4 left-4 right-4 z-20 flex items-start justify-between">
+        <div className="w-16 h-6 bg-gray-400 rounded-full"></div>
+        <div className="w-16 h-6 bg-gray-400 rounded-full"></div>
+      </div>
+
+      {/* Content Skeleton */}
+      <div className="absolute bottom-0 left-0 right-0 z-30 p-6">
+        <div className="mb-4">
+          <div className="w-24 h-4 bg-gray-400 rounded mb-2"></div>
+          <div className="w-32 h-6 bg-gray-400 rounded mb-3"></div>
+          <div className="w-full h-12 bg-gray-400 rounded mb-4"></div>
+        </div>
+
+        {/* Course Stats Skeleton */}
+        <div className="grid grid-cols-3 gap-3 mb-4">
+          <div className="w-full h-4 bg-gray-400 rounded"></div>
+          <div className="w-full h-4 bg-gray-400 rounded"></div>
+          <div className="w-full h-4 bg-gray-400 rounded"></div>
+        </div>
+
+        {/* Button Skeleton */}
+        <div className="w-full h-12 bg-gray-400 rounded-xl"></div>
+      </div>
+    </div>
+  </div>
+);
+
+// const StatsSkeleton = () => (
+//   <div className="bg-white rounded-lg p-6 shadow-sm border border-slate-100 animate-pulse">
+//     <div className="w-8 h-8 bg-gray-300 rounded-lg mx-auto mb-3"></div>
+//     <div className="h-8 bg-gray-300 rounded w-3/4 mx-auto mb-2"></div>
+//     <div className="h-4 bg-gray-300 rounded w-1/2 mx-auto"></div>
+//   </div>
+// );
 
 export default function EdwinExcelPage() {
+  const { programs: ugPrograms, loading: ugLoading, error: ugError, refetch: refetchUG } = useUGPrograms();
+  const { programs: pgPrograms, loading: pgLoading, error: pgError, refetch: refetchPG } = usePGPrograms();
+
   const [isVisible, setIsVisible] = useState(false);
   const [activeTab, setActiveTab] = useState('ug');
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [scrolled, setScrolled] = useState(false);
   const [activeFaq, setActiveFaq] = useState<string | null>(null);
-
+  const [isRetryingUG, setIsRetryingUG] = useState(false);
+  const [isRetryingPG, setIsRetryingPG] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
@@ -45,112 +95,24 @@ export default function EdwinExcelPage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Sample program data with images
-  const ugPrograms = [
-    {
-      id: 1,
-      code: "BA",
-      name: "Bachelor of Arts",
-      subtitle: "Humanities & Social Sciences",
-      description: "Comprehensive humanities program covering literature, history, and social sciences with research opportunities",
-      duration: "3 Years",
-      specializations: ["English", "History", "Political Science", "Economics", "Psychology"],
-      eligibility: "10+2 or equivalent from a recognized board",
-      students: "2500",
-      modules: 24,
-      rating: 4.8,
-      image: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=800&h=600&fit=crop"
-    },
-    {
-      id: 2,
-      code: "B.Com",
-      name: "Bachelor of Commerce",
-      subtitle: "Commerce & Accounting",
-      description: "Foundation in accounting, finance, taxation, and business management with practical training",
-      duration: "3 Years",
-      specializations: ["Accounting", "Finance", "Banking", "Taxation", "Business Management"],
-      eligibility: "10+2 with Commerce or equivalent",
-      students: "3200",
-      modules: 28,
-      rating: 4.9,
-      image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&h=600&fit=crop"
-    },
-    {
-      id: 3,
-      code: "BBA",
-      name: "Bachelor of Business Administration",
-      subtitle: "Business Management",
-      description: "Strategic business education with focus on management and entrepreneurship skills",
-      duration: "3 Years",
-      specializations: ["Marketing", "Finance", "HR", "Operations", "International Business"],
-      eligibility: "10+2 from any recognized board",
-      students: "2800",
-      modules: 26,
-      rating: 4.7,
-      image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=600&fit=crop"
-    },
-    
-  ];
+  // Retry functions
+  const handleRetryUG = async () => {
+    setIsRetryingUG(true);
+    try {
+      await refetchUG();
+    } finally {
+      setIsRetryingUG(false);
+    }
+  };
 
-  const pgPrograms = [
-    {
-      id: 7,
-      code: "MA",
-      name: "Master of Arts",
-      subtitle: "Advanced Humanities",
-      description: "Advanced studies in humanities with research and thesis work",
-      duration: "2 Years",
-      specializations: ["English Literature", "History", "Political Science", "Sociology", "Public Administration"],
-      eligibility: "Bachelor's degree in relevant field",
-      students: "1500",
-      modules: 16,
-      rating: 4.8,
-      image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=800&h=600&fit=crop"
-    },
-    {
-      id: 8,
-      code: "M.Com",
-      name: "Master of Commerce",
-      subtitle: "Advanced Commerce",
-      description: "Advanced commerce education with specialization in finance and accounting",
-      duration: "2 Years",
-      specializations: ["Advanced Accounting", "Corporate Finance", "International Trade", "E-Commerce"],
-      eligibility: "B.Com or equivalent degree",
-      students: "1800",
-      modules: 18,
-      rating: 4.9,
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop"
-    },
-    {
-      id: 9,
-      code: "MBA",
-      name: "Master of Business Administration",
-      subtitle: "Executive Management",
-      description: "Executive management program with industry case studies and internships",
-      duration: "2 Years",
-      specializations: ["Marketing Management", "Financial Management", "HR Management", "Operations", "Business Analytics"],
-      eligibility: "Graduation in any discipline",
-      students: "2200",
-      modules: 20,
-      rating: 4.9,
-      image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&h=600&fit=crop"
-    },
-    {
-      id: 10,
-      code: "MCA",
-      name: "Master of Computer Applications",
-      subtitle: "Advanced IT",
-      description: "Advanced IT program with focus on software engineering and systems",
-      duration: "2 Years",
-      specializations: ["Software Engineering", "Data Science", "Cyber Security", "AI & ML", "Cloud Architecture"],
-      eligibility: "BCA/B.Sc (CS) or equivalent with Mathematics",
-      students: "2000",
-      modules: 22,
-      rating: 4.9,
-      image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&h=600&fit=crop"
-    },
-    
-  ];
+  const handleRetryPG = async () => {
+    setIsRetryingPG(true);
+    try {
+      await refetchPG();
+    } finally {
+      setIsRetryingPG(false);
+    }
+  };
 
   const features = [
     { icon: Globe, title: 'Top Universities', desc: 'Study from UGC-DEB approved & NAAC A++ accredited institutions across India with proven excellence' },
@@ -172,13 +134,7 @@ export default function EdwinExcelPage() {
     { icon: Calendar, text: 'Flexible Schedule' }
   ];
 
-  // const testimonials = [
-  //   { name: 'Priya Menon', role: 'MBA Graduate', text: 'Completed my MBA while working full-time. The flexible online classes and excellent faculty support made it possible. Now I have better career prospects!', rating: 5, location: 'Kochi, Kerala' },
-  //   { name: 'Rajesh Kumar', role: 'B.Com Graduate', text: 'Edwin Excel gave me a second chance at education. The affordable fees and quality teaching helped me complete my degree. Highly satisfied!', rating: 5, location: 'Kannur, Kerala' },
-  //   { name: 'Anjali Sharma', role: 'MCA Student', text: 'The quality of education and continuous support from the team is outstanding. Study materials are excellent and exams are well-structured.', rating: 5, location: 'Calicut, Kerala' }
-  // ];
-
-  const process = [
+  const steps = [
     { step: 1, title: 'Choose Your Course', desc: 'Browse our UG/PG programs and select the one that fits your career goals', icon: Target },
     { step: 2, title: 'Submit Documents', desc: 'Simple online application with minimal documentation required', icon: FileCheck },
     { step: 3, title: 'Get Enrolled', desc: 'Receive instant admission confirmation and payment details', icon: BadgeCheck },
@@ -219,14 +175,21 @@ export default function EdwinExcelPage() {
     { icon: '📚', title: 'Communicative English Training', desc: 'Improve your professional communication skills' }
   ];
 
-  // small helper to toggle FAQ
+  // Helper to toggle FAQ
   const toggleFaq = (i: string) => setActiveFaq(activeFaq === i ? null : i);
 
+  // Determine current programs and loading state
+  const currentPrograms = activeTab === 'ug' ? ugPrograms : pgPrograms;
+  const currentLoading = activeTab === 'ug' ? ugLoading : pgLoading;
+  const currentError = activeTab === 'ug' ? ugError : pgError;
+  const isRetrying = activeTab === 'ug' ? isRetryingUG : isRetryingPG;
+  const handleRetry = activeTab === 'ug' ? handleRetryUG : handleRetryPG;
 
   return (
     <div className="min-h-screen bg-white text-gray-800">
       {/* Navigation */}
-      <Navbar/>
+      <Navbar />
+
       {/* Hero Section */}
       <section className="pt-24 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-50 to-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-5">
@@ -236,7 +199,7 @@ export default function EdwinExcelPage() {
 
         <div className="max-w-6xl mx-auto relative">
           <div className={`text-center transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-            
+
             <div className="inline-flex items-center space-x-2 bg-blue-50 px-5 py-2.5 rounded-full mb-6 border border-blue-100">
               <Shield className="w-4 h-4 text-blue-700" />
               <span className="text-sm font-medium text-blue-900">Authorized Course Facilitator | UG & PG Programs</span>
@@ -251,7 +214,7 @@ export default function EdwinExcelPage() {
             <p className="text-lg sm:text-xl text-slate-700 mb-4 max-w-3xl mx-auto leading-relaxed">
               Earn your <strong>Bachelor&apos;s or Master&apos;s degree in 12 months</strong> from prestigious Indian universities
             </p>
-            
+
             <div className="flex flex-wrap items-center justify-center gap-3 text-sm text-slate-600 mb-10 max-w-3xl mx-auto">
               <span className="flex items-center space-x-1">
                 <CheckCircle className="w-4 h-4 text-green-600" />
@@ -369,125 +332,207 @@ export default function EdwinExcelPage() {
         </div>
       </section>
 
+      {/* Programs Section */}
       <section id="programs" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 via-blue-50/30 to-gray-50">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <div className="inline-block mb-4">
-            <span className="text-sm font-semibold text-blue-600 tracking-wider uppercase bg-blue-50 px-4 py-2 rounded-full">Academic Excellence</span>
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <div className="inline-block mb-4">
+              <span className="text-sm font-semibold text-blue-600 tracking-wider uppercase bg-blue-50 px-4 py-2 rounded-full">Academic Excellence</span>
+            </div>
+            <h3 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 text-gray-900 tracking-tight uppercase">
+              Available Programs
+            </h3>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">UGC-PSC Approved • NAAC A++ & A Graded Universities</p>
           </div>
-          <h3 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 text-gray-900 tracking-tight uppercase">
-            Available Programs
-          </h3>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">UGC-PSC Approved • NAAC A++ & A Graded Universities</p>
-        </div>
 
-        <div className="flex justify-center mb-16">
-          <div className="inline-flex bg-white rounded-2xl p-1.5 shadow-sm border border-gray-200">
-            <button
-              onClick={() => setActiveTab('ug')}
-              className={`px-8 py-3.5 rounded-xl font-semibold transition-all duration-300 text-sm ${
-                activeTab === 'ug' 
-                  ? 'bg-blue-600 text-white shadow-md' 
+          {/* Tab Navigation */}
+          <div className="flex justify-center mb-16">
+            <div className="inline-flex bg-white rounded-2xl p-1.5 shadow-sm border border-gray-200">
+              <button
+                onClick={() => setActiveTab('ug')}
+                className={`px-8 py-3.5 rounded-xl font-semibold transition-all duration-300 text-sm ${activeTab === 'ug'
+                  ? 'bg-blue-600 text-white shadow-md'
                   : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-              }`}
-            >
-              Undergraduate ({ugPrograms.length})
-            </button>
-            <button
-              onClick={() => setActiveTab('pg')}
-              className={`px-8 py-3.5 rounded-xl font-semibold transition-all duration-300 text-sm ${
-                activeTab === 'pg' 
-                  ? 'bg-blue-600 text-white shadow-md' 
+                  }`}
+              >
+                Undergraduate ({ugLoading ? '...' : ugPrograms.length})
+              </button>
+              <button
+                onClick={() => setActiveTab('pg')}
+                className={`px-8 py-3.5 rounded-xl font-semibold transition-all duration-300 text-sm ${activeTab === 'pg'
+                  ? 'bg-blue-600 text-white shadow-md'
                   : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-              }`}
-            >
-              Postgraduate ({pgPrograms.length})
-            </button>
+                  }`}
+              >
+                Postgraduate ({pgLoading ? '...' : pgPrograms.length})
+              </button>
+            </div>
           </div>
-        </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {(activeTab === 'ug' ? ugPrograms : pgPrograms).map((program) => (
-            <AdmissionProvider key={program.id}>
-              <div className="group cursor-pointer">
-                <div className="relative h-[460px] rounded-2xl overflow-hidden bg-black shadow-xl transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
-                  {/* Background Image */}
-                  <div className="absolute inset-0 z-0">
-                    <Image
-                      src={program.image}
-                      alt={program.name}
-                      width={400}
-                      height={460}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent" />
-                  </div>
+          {/* Refresh Button */}
+          {!currentLoading && currentPrograms.length > 0 && (
+            <div className="flex justify-center mb-8">
+              <button
+                onClick={handleRetry}
+                disabled={isRetrying}
+                className="flex items-center gap-2 text-blue-600 hover:text-blue-700 transition-colors text-sm disabled:opacity-50"
+              >
+                <RefreshCw className={`w-4 h-4 ${isRetrying ? 'animate-spin' : ''}`} />
+                {isRetrying ? 'Refreshing...' : 'Refresh Programs'}
+              </button>
+            </div>
+          )}
 
-                  {/* Top Labels */}
-                  <div className="absolute top-4 left-4 right-4 z-20 flex items-start justify-between">
-                    <span className="px-3 py-1.5 bg-[#1725BB] text-white text-xs font-bold rounded-full">
-                      {program.code}
-                    </span>
-                    <div className="flex items-center space-x-1 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full">
-                      <Star className="w-4 h-4 fill-[#9BF900] text-[#9BF900]" />
-                      <span className="text-sm font-bold text-gray-900">
-                        {program.rating}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="absolute bottom-0 left-0 right-0 z-30 p-6">
-                    <div className="mb-4">
-                      <p className="text-xs font-semibold text-[#9BF900] mb-1 uppercase tracking-wide">
-                        {program.subtitle}
-                      </p>
-                      <h3 className="text-2xl font-bold text-white mb-3 leading-snug">
-                        {program.name}
-                      </h3>
-                      <p className="text-sm text-gray-200 leading-relaxed line-clamp-2 mb-4">
-                        {program.description}
-                      </p>
-                    </div>
-
-                    {/* Course Stats */}
-                    <div className="grid grid-cols-3 gap-3 mb-4 text-xs text-gray-300">
-                      <div className="flex items-center gap-1">
-                        <Clock className="w-3.5 h-3.5" />
-                        <span>{program.duration}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Users className="w-3.5 h-3.5" />
-                        <span>{program.students}+</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <BookOpen className="w-3.5 h-3.5" />
-                        <span>{program.modules} Modules</span>
-                      </div>
-                    </div>
-
-                    {/* Button */}
-                    <EnrollButton course={program.name}>Enroll Now</EnrollButton>
-                  </div>
-                </div>
+          {/* Loading Overlay */}
+          {isRetrying && currentPrograms.length > 0 && (
+            <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+              <div className="bg-white rounded-lg p-6 flex items-center gap-3">
+                <RefreshCw className="w-6 h-6 animate-spin text-blue-600" />
+                <span className="text-gray-700">Updating programs...</span>
               </div>
-            </AdmissionProvider>
-          ))}
-        </div>
+            </div>
+          )}
 
-        <div className="text-center mt-16 bg-white rounded-2xl p-10 shadow-sm border border-gray-100">
-          <p className="text-gray-600 mb-6 text-lg">Can&apos;t find your program? We offer many more courses!</p>
-          <a 
-            href="tel:+917736911702" 
-            className="inline-flex items-center space-x-2 bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-blue-700 transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5"
-          >
-            <span>Contact us for complete course list</span>
-            <ArrowRight className="w-5 h-5" />
-          </a>
+          {/* Error State */}
+          {currentError && currentPrograms.length === 0 && (
+            <div className="flex flex-col items-center justify-center py-16 space-y-6">
+              <AlertCircle className="w-16 h-16 text-red-500" />
+              <div className="text-center space-y-2">
+                <p className="text-red-500 text-lg font-semibold">Failed to load {activeTab === 'ug' ? 'undergraduate' : 'postgraduate'} programs</p>
+                <p className="text-gray-600 text-sm max-w-md">{currentError}</p>
+              </div>
+              <button
+                onClick={handleRetry}
+                disabled={isRetrying}
+                className="flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <RefreshCw className={`w-4 h-4 ${isRetrying ? 'animate-spin' : ''}`} />
+                {isRetrying ? 'Retrying...' : 'Try Again'}
+              </button>
+            </div>
+          )}
+
+          {/* Empty State */}
+          {!currentLoading && !currentError && currentPrograms.length === 0 && (
+            <div className="flex flex-col items-center justify-center py-16 space-y-6">
+              <div className="text-gray-500 text-lg text-center">
+                <p>No {activeTab === 'ug' ? 'undergraduate' : 'postgraduate'} programs to display yet.</p>
+                <p className="text-sm mt-2">Check back later for updates.</p>
+              </div>
+              <button
+                onClick={handleRetry}
+                className="flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                <RefreshCw className="w-4 h-4" />
+                Refresh
+              </button>
+            </div>
+          )}
+
+          {/* Programs Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {currentLoading && currentPrograms.length === 0 ? (
+              // Initial loading skeletons
+              Array.from({ length: 6 }).map((_, index) => (
+                <ProgramCardSkeleton key={index} />
+              ))
+            ) : isRetrying ? (
+              // Refresh loading with skeletons
+              Array.from({ length: Math.min(currentPrograms.length, 6) }).map((_, index) => (
+                <ProgramCardSkeleton key={index} />
+              ))
+            ) : (
+              // Actual program data
+              currentPrograms.map((program: Program) => (
+                <AdmissionProvider key={program.id}>
+                  <div className="group cursor-pointer">
+                    <div className="relative h-[460px] rounded-2xl overflow-hidden bg-black shadow-xl transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+                      {/* Background Image */}
+                      <div className="absolute inset-0 z-0">
+                        {program.image && (
+                          <Image
+                            src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${program.image}`}
+                            alt={program.name}
+                            width={400}
+                            height={460}
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            loading="lazy"
+                            onError={(e) => {
+                              // Fallback image if program image fails to load
+                              e.currentTarget.src = '/programs/fallback.jpg';
+                            }}
+                          />
+                        )}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent" />
+                      </div>
+
+
+                      {/* Top Labels */}
+                      <div className="absolute top-4 left-4 right-4 z-20 flex items-start justify-between">
+                        <span className="px-3 py-1.5 bg-[#1725BB] text-white text-xs font-bold rounded-full">
+                          {program.code}
+                        </span>
+                        <div className="flex items-center space-x-1 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full">
+                          <Star className="w-4 h-4 fill-[#9BF900] text-[#9BF900]" />
+                          <span className="text-sm font-bold text-gray-900">
+                            {program.rating}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Content */}
+                      <div className="absolute bottom-0 left-0 right-0 z-30 p-6">
+                        <div className="mb-4">
+                          <p className="text-xs font-semibold text-[#9BF900] mb-1 uppercase tracking-wide">
+                            {program.subtitle}
+                          </p>
+                          <h3 className="text-2xl font-bold text-white mb-3 leading-snug">
+                            {program.name}
+                          </h3>
+                          <p className="text-sm text-gray-200 leading-relaxed line-clamp-2 mb-4">
+                            {program.description}
+                          </p>
+                        </div>
+
+                        {/* Course Stats */}
+                        <div className="grid grid-cols-3 gap-3 mb-4 text-xs text-gray-300">
+                          <div className="flex items-center gap-1">
+                            <Clock className="w-3.5 h-3.5" />
+                            <span>{program.duration}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Users className="w-3.5 h-3.5" />
+                            <span>{program.students}+</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <BookOpen className="w-3.5 h-3.5" />
+                            <span>{program.modules} Modules</span>
+                          </div>
+                        </div>
+
+                        {/* Button */}
+                        <EnrollButton course={program.name}>Enroll Now</EnrollButton>
+                      </div>
+                    </div>
+                  </div>
+                </AdmissionProvider>
+              ))
+            )}
+          </div>
+
+          {/* Contact for More Programs */}
+          <div className="text-center mt-16 bg-white rounded-2xl p-10 shadow-sm border border-gray-100">
+            <p className="text-gray-600 mb-6 text-lg">Can&apos;t find your program? We offer many more courses!</p>
+            <a
+              href="tel:+917736911702"
+              className="inline-flex items-center space-x-2 bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-blue-700 transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5"
+            >
+              <span>Contact us for complete course list</span>
+              <ArrowRight className="w-5 h-5" />
+            </a>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
       {/* NIOS Section (continued) */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#1725BB] text-white relative overflow-hidden">
@@ -528,7 +573,7 @@ export default function EdwinExcelPage() {
                 <a href="#contact" className="inline-flex items-center space-x-2  rounded-full hover:bg-white/10 transition">
                   <AdmissionProvider>
                     <div>
-                      <StartLearningButton/>
+                      <StartLearningButton />
                     </div>
                   </AdmissionProvider>
                 </a>
@@ -567,7 +612,7 @@ export default function EdwinExcelPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-slate-50 via-white to-slate-50"></div>
         <div className="absolute top-0 right-0 w-96 h-96 bg-blue-100 rounded-full filter blur-3xl opacity-20"></div>
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-100 rounded-full filter blur-3xl opacity-20"></div>
-        
+
         <div className="relative max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center mb-20">
@@ -587,13 +632,13 @@ export default function EdwinExcelPage() {
           {/* Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {highlights.map((highlight, i) => (
-              <div 
-                key={i} 
+              <div
+                key={i}
                 className="group relative bg-white p-8 rounded-2xl border border-slate-200 hover:border-blue-500 shadow-sm hover:shadow-xl transition-all duration-500 ease-out"
               >
                 {/* Accent Line */}
                 <div className="absolute top-0 left-0 w-0 h-1 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-t-2xl group-hover:w-full transition-all duration-500"></div>
-                
+
                 {/* Icon Container */}
                 <div className="relative mb-6">
                   <div className="w-16 h-16 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
@@ -602,7 +647,7 @@ export default function EdwinExcelPage() {
                     </span>
                   </div>
                 </div>
-                
+
                 {/* Content */}
                 <h4 className="font-bold text-xl mb-3 text-slate-900 group-hover:text-blue-600 transition-colors duration-300">
                   {highlight.title}
@@ -610,7 +655,7 @@ export default function EdwinExcelPage() {
                 <p className="text-slate-600 leading-relaxed">
                   {highlight.desc}
                 </p>
-                
+
                 {/* Hover Effect Background */}
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-transparent opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity duration-500 -z-10"></div>
               </div>
@@ -627,7 +672,7 @@ export default function EdwinExcelPage() {
         </div>
 
         <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-8">
-          {process.map((p, i) => (
+          {steps.map((p, i) => (
             <div key={i} className="bg-white border border-gray-200 p-8 rounded-xl hover:border-blue-300 hover:shadow-xl transition-all duration-300 group">
               <div className="w-14 h-14 bg-[#FF6002] rounded-lg flex items-center justify-center mb-6 group-hover:bg-blue-700 transition-colors">
                 <p className="text-white font-bold text-xl">{p.step}</p>
@@ -640,7 +685,7 @@ export default function EdwinExcelPage() {
       </section>
 
       {/* Testimonials Section */}
-      <EdwinExcelTestimonial/>
+      <EdwinExcelTestimonial />
 
       {/* FAQ Section */}
       <section className="py-24 px-4 sm:px-6 lg:px-8 bg-white">
@@ -689,7 +734,8 @@ export default function EdwinExcelPage() {
       </section>
 
       {/* Contact / Footer */}
-      <Footer/>
+      <Footer />
+
       {/* JSON-LD Structured Data */}
       <script
         type="application/ld+json"
@@ -705,7 +751,7 @@ export default function EdwinExcelPage() {
               "telephone": "+91 77369 11702",
               "contactType": "customer service",
               "areaServed": "IN",
-              "availableLanguage": ["English", "Malayalam","Hindi"]
+              "availableLanguage": ["English", "Malayalam", "Hindi"]
             }]
           })
         }}

@@ -7,20 +7,7 @@ import Navbar from '@/components/ui/navigation-menu';
 import Footer from '@/components/ui/Footer';
 import Link from 'next/link';
 import { usePlacements, Placement } from '@/data/api';
-
-// Poster Gallery Data - Replace with actual poster images
-const placementPosters = [
-  { id: 1, image: '/placements/old/1.jpg', alt: 'Batch 2024 Placements' },
-  { id: 2, image: '/placements/old/2.jpg', alt: 'TCS Recruitment Drive' },
-  { id: 3, image: '/placements/old/3.jpg', alt: 'Top Performers 2024' },
-  { id: 4, image: '/placements/old/4.jpg', alt: 'Infosys Campus Drive' },
-  { id: 5, image: '/placements/old/5.jpg', alt: 'Success Stories' },
-  { id: 6, image: '/placements/old/6.jpg', alt: 'Corporate Partnerships' },
-  { id: 7, image: '/placements/old/7.jpg', alt: 'Achievement Gallery' },
-  { id: 8, image: '/placements/old/8.jpg', alt: 'Placement Highlights' },
-  { id: 9, image: '/placements/old/9.jpg', alt: 'Placement Highlights' },
-  { id: 10, image: '/placements/old/10.jpg', alt: 'Placement Highlights' },
-];
+import { usePlacementPosters, PlacementPoster } from '@/data/api';
 
 // Skeleton Loading Components
 const PlacementCardSkeleton = () => (
@@ -52,18 +39,38 @@ const StatsSkeleton = () => (
   </div>
 );
 
+const PosterSkeleton = () => (
+  <div className="group relative overflow-hidden rounded-2xl shadow-lg bg-gray-200 animate-pulse">
+    <div className="relative w-full aspect-[3/4] bg-gradient-to-br from-gray-200 to-gray-300">
+      <div className="absolute inset-0 bg-gradient-to-br from-[#1725BB]/10 to-[#FF6002]/10" />
+      <div className="w-full h-full bg-gray-300"></div>
+    </div>
+  </div>
+);
+
 // ======== Main Component ========
 export default function PlacementPage() {
   const { placements, loading, error, refetch } = usePlacements();
+  const { posters: placementPosters, loading: postersLoading, error: postersError, refetch: refetchPosters } = usePlacementPosters();
   const [isRetrying, setIsRetrying] = useState(false);
+  const [isRetryingPosters, setIsRetryingPosters] = useState(false);
 
-  // Retry function
+  // Retry functions
   const handleRetry = async () => {
     setIsRetrying(true);
     try {
       await refetch();
     } finally {
       setIsRetrying(false);
+    }
+  };
+
+  const handleRetryPosters = async () => {
+    setIsRetryingPosters(true);
+    try {
+      await refetchPosters();
+    } finally {
+      setIsRetryingPosters(false);
     }
   };
 
@@ -293,33 +300,104 @@ export default function PlacementPage() {
               <p className="text-gray-600 mt-2 max-w-2xl mx-auto text-base lg:text-lg px-4">
                 Browse through our collection of placement announcements and achievement posters
               </p>
+
+              {/* Refresh button for posters */}
+              {!postersLoading && placementPosters.length > 0 && (
+                <button
+                  onClick={handleRetryPosters}
+                  disabled={isRetryingPosters}
+                  className="mt-4 flex items-center gap-2 text-[#1725BB] hover:text-[#1725BB]/80 transition-colors text-sm disabled:opacity-50 mx-auto"
+                >
+                  <RefreshCw className={`w-4 h-4 ${isRetryingPosters ? 'animate-spin' : ''}`} />
+                  {isRetryingPosters ? 'Refreshing...' : 'Refresh Posters'}
+                </button>
+              )}
             </div>
+
+            {/* Loading overlay for posters refresh */}
+            {isRetryingPosters && placementPosters.length > 0 && (
+              <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+                <div className="bg-white rounded-lg p-6 flex items-center gap-3">
+                  <RefreshCw className="w-6 h-6 animate-spin text-[#1725BB]" />
+                  <span className="text-gray-700">Updating posters...</span>
+                </div>
+              </div>
+            )}
+
+            {/* Error State for Posters */}
+            {postersError && placementPosters.length === 0 && (
+              <div className="flex flex-col items-center justify-center py-16 space-y-6">
+                <AlertCircle className="w-16 h-16 text-red-500" />
+                <div className="text-center space-y-2">
+                  <p className="text-red-500 text-lg font-semibold">Failed to load placement posters</p>
+                  <p className="text-gray-600 text-sm max-w-md">{postersError}</p>
+                </div>
+                <button
+                  onClick={handleRetryPosters}
+                  disabled={isRetryingPosters}
+                  className="flex items-center gap-2 bg-[#1725BB] text-white px-6 py-3 rounded-lg hover:bg-[#1725BB]/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <RefreshCw className={`w-4 h-4 ${isRetryingPosters ? 'animate-spin' : ''}`} />
+                  {isRetryingPosters ? 'Retrying...' : 'Try Again'}
+                </button>
+              </div>
+            )}
+
+            {/* Empty State for Posters */}
+            {!postersLoading && !postersError && placementPosters.length === 0 && (
+              <div className="flex flex-col items-center justify-center py-16 space-y-6">
+                <div className="text-gray-500 text-lg text-center">
+                  <p>No placement posters to display yet.</p>
+                  <p className="text-sm mt-2">Check back later for updates.</p>
+                </div>
+                <button
+                  onClick={handleRetryPosters}
+                  className="flex items-center gap-2 bg-[#1725BB] text-white px-6 py-3 rounded-lg hover:bg-[#1725BB]/90 transition-colors"
+                >
+                  <RefreshCw className="w-4 h-4" />
+                  Refresh
+                </button>
+              </div>
+            )}
 
             {/* Poster Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-              {placementPosters.map((poster, index) => (
-                <div
-                  key={poster.id}
-                  className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer hover:-translate-y-2"
-                >
-                  {/* Poster Image */}
-                  <div className="relative w-full aspect-[3/4] bg-gradient-to-br from-gray-200 to-gray-300">
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#1725BB]/10 to-[#FF6002]/10" />
+              {postersLoading && placementPosters.length === 0 ? (
+                // Initial loading skeletons for posters
+                Array.from({ length: 8 }).map((_, index) => (
+                  <PosterSkeleton key={index} />
+                ))
+              ) : isRetryingPosters ? (
+                // Refresh loading with skeletons for posters
+                Array.from({ length: Math.min(placementPosters.length, 8) }).map((_, index) => (
+                  <PosterSkeleton key={index} />
+                ))
+              ) : (
+                // Actual posters data
+                placementPosters.map((poster: PlacementPoster, index) => (
+                  <div
+                    key={poster.id}
+                    className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer hover:-translate-y-2"
+                  >
+                    {/* Poster Image */}
+                    <div className="relative w-full aspect-[3/4] bg-gradient-to-br from-gray-200 to-gray-300">
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#1725BB]/10 to-[#FF6002]/10" />
 
-                    <Image
-                      src={poster.image}
-                      alt={poster.alt}
-                      fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
-                      className="object-cover"
-                      priority={index < 4}
-                      onError={(e) => {
-                        e.currentTarget.style.display = "none";
-                      }}
-                    />
+                      <Image
+                        src={`${process.env.NEXT_PUBLIC_API_URL}${poster.image}`}
+                        alt={poster.alt}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                        className="object-cover"
+                        priority={index < 4}
+                        onError={(e) => {
+                          e.currentTarget.style.display = "none";
+                        }}
+                      />
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))
+              )}
             </div>
           </div>
         </section>
