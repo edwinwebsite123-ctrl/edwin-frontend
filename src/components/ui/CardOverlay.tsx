@@ -19,6 +19,7 @@ const courses = [
     description: "Explore cutting-edge IT courses that build your foundation in software, data, and systems.",
     image: "/card-1.png",
     icon: Laptop,
+    category: "it"
   },
   {
     id: 2,
@@ -26,6 +27,7 @@ const courses = [
     description: "Master the art of business management, finance, and entrepreneurship.",
     image: "/card-2.png",
     icon: Briefcase,
+    category: 'management'
   },
   {
     id: 3,
@@ -33,6 +35,7 @@ const courses = [
     description: "Advance your career in medical and healthcare fields with specialized programs.",
     image: "/card-3.png",
     icon: HeartPulse,
+    category: 'healthcare'
   },
   {
     id: 4,
@@ -40,6 +43,7 @@ const courses = [
     description: "Unleash your imagination with design, arts, and multimedia creative courses.",
     image: "/card-5.png",
     icon: Brush,
+    category: 'creative'
   },
   {
     id: 5,
@@ -47,6 +51,7 @@ const courses = [
     description: "Comprehensive undergraduate and postgraduate programs for career excellence.",
     image: "/card-4.png",
     icon: GraduationCap,
+    category: 'education'
   },
   {
     id: 6,
@@ -54,9 +59,9 @@ const courses = [
     description: "Discover a wide variety of skill-based professional courses by Edwin Academy.",
     image: "/exc.png",
     icon: Globe,
+    category: null
   },
 ];
-
 export default function CourseCategoriesSection() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [hoveredId, setHoveredId] = useState<number | null>(null);
@@ -176,7 +181,7 @@ export default function CourseCategoriesSection() {
                     <p className="text-sm sm:text-[15px] text-gray-200 leading-relaxed mb-4">
                       {course.description}
                     </p>
-                    <Link href="/course">
+                     <Link href={`/course?category=${course.category || 'all'}`}>
                       <motion.button
                         whileHover={{ scale: 1.02, y: -2 }}
                         whileTap={{ scale: 0.98 }}
