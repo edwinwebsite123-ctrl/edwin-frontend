@@ -368,3 +368,50 @@ setError(err instanceof Error ? err.message : "Something went wrong");
 
   return { programs, loading, error, refetch: fetchPrograms };
 }
+
+
+export interface GalleryItem {
+  id: number;
+  src: string | null;
+  title: string | null;
+  date: string | null;
+}
+
+export interface GalleryResponse {
+  programs: GalleryItem[];
+  events: GalleryItem[];
+  convocations: GalleryItem[];
+  achievements: GalleryItem[];
+}
+
+export function usePGGallery() {
+  const [data, setData] = useState<GalleryResponse>({
+    programs: [],
+    events: [],
+    convocations: [],
+    achievements: [],
+  });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchGallery = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch(`${baseUrl}/api/gallery/`);
+      if (!res.ok) throw new Error("Failed to fetch gallery data");
+      const json: GalleryResponse = await res.json();
+      setData(json);
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchGallery();
+  }, [fetchGallery]);
+
+  return { ...data, loading, error, refetch: fetchGallery };
+}
