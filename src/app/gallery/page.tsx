@@ -2,19 +2,20 @@
 
 import React, { useState, useCallback } from 'react';
 import Image from 'next/image';
-import { 
-  X, 
-  ChevronLeft, 
-  ChevronRight, 
-  Calendar, 
-  Award, 
-  GraduationCap, 
+import {
+  X,
+  ChevronLeft,
+  ChevronRight,
+  Calendar,
+  Award,
+  GraduationCap,
   ImageIcon,
   RefreshCw,
   AlertCircle,
   Users
 } from 'lucide-react';
 import { usePGGallery } from '@/data/api';
+import Navbar from '@/components/ui/navigation-menu';
 
 // Skeleton Loading Component
 const GallerySkeleton = () => (
@@ -114,6 +115,9 @@ const GalleryPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-slate-50 to-indigo-50">
+      {/* Navigation */}
+      <Navbar />
+
       {/* Header */}
       <header className="text-center py-12">
         <h1 className="text-5xl font-extrabold text-slate-900 tracking-tight">Campus Gallery</h1>
