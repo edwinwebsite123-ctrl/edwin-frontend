@@ -451,7 +451,7 @@ export default function EdwinExcelPage() {
                       <div className="absolute inset-0 z-0">
                         {program.image && (
                           <Image
-                            src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${program.image}`}
+                            src={`${process.env.NEXT_PUBLIC_API_URL}${program.image}`}
                             alt={program.name}
                             width={400}
                             height={460}

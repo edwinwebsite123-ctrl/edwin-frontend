@@ -86,19 +86,19 @@ export default function PlacementPage() {
               backgroundSize: '40px 40px'
             }}></div>
           </div>
-          
+
           <div className="relative z-10 text-center py-16 sm:py-20 lg:py-24 px-4 sm:px-6 max-w-5xl mx-auto">
             <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-full mb-4 sm:mb-6 border border-white/20">
               <Award className="w-3 h-3 sm:w-4 sm:h-4" />
               <span className="text-xs sm:text-sm font-medium">Industry Leading Placements</span>
             </div>
-            
+
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight px-4 uppercase">
               Empowering Careers Through Excellence
             </h1>
-            
+
             <p className="max-w-3xl mx-auto text-white/90 text-sm sm:text-base lg:text-lg leading-relaxed px-4">
-              Edwin Academy takes pride in transforming students into industry-ready professionals. 
+              Edwin Academy takes pride in transforming students into industry-ready professionals.
               Our placement record speaks for itself — our alumni are thriving in leading global companies.
             </p>
           </div>
@@ -253,17 +253,20 @@ export default function PlacementPage() {
 
                     {/* Student Image */}
                     <div className="absolute top-28 sm:top-32 left-1/2 -translate-x-1/2 z-10 w-[320px] h-[320px] sm:w-[320px] sm:h-[320px]">
-                      <Image
-                        src={`${process.env.NEXT_PUBLIC_API_URL}${placement.student_image}`}
-                        alt={placement.name}
-                        fill
-                        className="object-contain drop-shadow-2xl grayscale group-hover:grayscale-0 transition-all duration-500"
-                        loading="lazy"
-                        onError={(e) => {
-                          e.currentTarget.src = '/placements/default-student.png';
-                        }}
-                      />
+                      {placement.student_image && (
+                        <Image
+                          src={`${process.env.NEXT_PUBLIC_API_URL}${placement.student_image}`}
+                          alt={placement.name}
+                          fill
+                          className="object-contain drop-shadow-2xl grayscale group-hover:grayscale-0 transition-all duration-500"
+                          loading="lazy"
+                          onError={(e) => {
+                            e.currentTarget.src = '/placements/default-student.png';
+                          }}
+                        />
+                      )}
                     </div>
+
 
                     {/* Bottom Info */}
                     <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 flex items-end justify-between bg-gradient-to-t from-black/70 via-black/30 to-transparent z-20">
@@ -383,18 +386,21 @@ export default function PlacementPage() {
                     <div className="relative w-full aspect-[3/4] bg-gradient-to-br from-gray-200 to-gray-300">
                       <div className="absolute inset-0 bg-gradient-to-br from-[#1725BB]/10 to-[#FF6002]/10" />
 
-                      <Image
-                        src={`${process.env.NEXT_PUBLIC_API_URL}${poster.image}`}
-                        alt={poster.alt}
-                        fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
-                        className="object-cover"
-                        priority={index < 4}
-                        onError={(e) => {
-                          e.currentTarget.style.display = "none";
-                        }}
-                      />
+                      {poster.image && (
+                        <Image
+                          src={`${process.env.NEXT_PUBLIC_API_URL}${poster.image}`}
+                          alt={poster.alt}
+                          fill
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                          className="object-cover"
+                          priority={index < 4}
+                          onError={(e) => {
+                            e.currentTarget.style.display = "none";
+                          }}
+                        />
+                      )}
                     </div>
+
                   </div>
                 ))
               )}
@@ -410,16 +416,16 @@ export default function PlacementPage() {
               backgroundSize: '40px 40px'
             }}></div>
           </div>
-          
+
           <div className="relative z-10 text-center py-16 sm:py-20 lg:py-24 px-4 sm:px-6 max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 sm:mb-6 leading-tight uppercase">
               Ready to Build Your Career?
             </h2>
-            
+
             <p className="max-w-2xl mx-auto text-white/90 text-sm sm:text-base lg:text-lg mb-8 sm:mb-10 leading-relaxed">
               Join Edwin Academy today and take your first step toward a successful and fulfilling career.
             </p>
-            
+
             <Link href="/contact">
               <button className="group inline-flex items-center gap-3 px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded-full font-semibold text-sm sm:text-base shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
                 Apply Now

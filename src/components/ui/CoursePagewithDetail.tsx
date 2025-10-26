@@ -27,13 +27,13 @@ export default function CourseDetail() {
   const { id } = useParams();
   const router = useRouter();
   const { courses: allCoursesData, loading, error } = useCourses();
-  
+
   const course = allCoursesData.find((c) => c.id === id);
 
   useEffect(() => {
     if (course) {
       document.title = `${course.title} | Professional Course | Your Platform`;
-      
+
       const metaDescription = document.querySelector('meta[name="description"]');
       if (metaDescription) {
         metaDescription.setAttribute('content', `${course.title} - ${course.duration}. ${course.short_description.substring(0, 140)}...`);
@@ -149,8 +149,8 @@ export default function CourseDetail() {
     <>
       <Navbar />
 
-      <motion.div 
-        initial={{ opacity: 0 }} 
+      <motion.div
+        initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
         className="min-h-screen bg-white"
@@ -166,11 +166,11 @@ export default function CourseDetail() {
               backgroundSize: '40px 40px'
             }} />
           </div>
-          
+
           {/* Accent Shapes */}
           <div className="absolute top-20 right-20 w-64 h-64 bg-[#9BF900] rounded-full opacity-10 blur-3xl" />
           <div className="absolute bottom-20 left-20 w-96 h-96 bg-[#00D0FF] rounded-full opacity-10 blur-3xl" />
-          
+
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
             {/* View All Courses Button */}
             <motion.button
@@ -187,7 +187,7 @@ export default function CourseDetail() {
 
             <div className="max-w-4xl">
               {/* Category Badge */}
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
@@ -197,7 +197,7 @@ export default function CourseDetail() {
                 {course.category}
               </motion.div>
 
-              <motion.h1 
+              <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
@@ -205,8 +205,8 @@ export default function CourseDetail() {
               >
                 {course.title}
               </motion.h1>
-              
-              <motion.p 
+
+              <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
@@ -216,7 +216,7 @@ export default function CourseDetail() {
               </motion.p>
 
               {/* Key Stats */}
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
@@ -245,7 +245,7 @@ export default function CourseDetail() {
             {/* Main Content Column */}
             <article className="lg:col-span-2 space-y-6 sm:space-y-8">
 
-              
+
               {/* Course Overview */}
               <section className="bg-white rounded-xl sm:rounded-2xl border border-gray-100 p-4 sm:p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-start gap-3 sm:gap-4 mb-4 sm:mb-6">
@@ -342,13 +342,18 @@ export default function CourseDetail() {
                       </summary>
                       <div className="px-4 sm:px-6 pb-4 sm:pb-6 pt-2 bg-gray-50">
                         <ul className="space-y-2 sm:space-y-3">
-                          {mod.content.map((topic, j) => (
-                            <li key={j} className="flex items-start gap-2 sm:gap-3 text-gray-700">
-                              <div className="w-2 h-2 bg-[#FF6002] rounded-full mt-2 flex-shrink-0" />
-                              <span className="leading-relaxed text-xs sm:text-sm md:text-base break-words">{topic}</span>
-                            </li>
-                          ))}
+                          {Array.isArray(mod.content) && mod.content.length > 0 ? (
+                            mod.content.map((topic, j) => (
+                              <li key={j} className="flex items-start gap-2 sm:gap-3 text-gray-700">
+                                <div className="w-2 h-2 bg-[#FF6002] rounded-full mt-2 flex-shrink-0" />
+                                <span className="leading-relaxed text-xs sm:text-sm md:text-base break-words">{topic}</span>
+                              </li>
+                            ))
+                          ) : (
+                            <li className="text-gray-500 italic text-sm">No topics available</li>
+                          )}
                         </ul>
+
                       </div>
                     </details>
                   ))}
@@ -373,26 +378,32 @@ export default function CourseDetail() {
                 </div>
               </section>
 
-              
+
             </article>
 
             {/* Sidebar - Sticky Enrollment Card */}
             <aside className="lg:col-span-1">
               <div className="sticky top-24 bg-white rounded-xl sm:rounded-2xl shadow-xl border-2 border-gray-100 overflow-hidden hover:shadow-2xl transition-shadow">
                 <div className="relative">
-                  <Image
-                    src={`${process.env.NEXT_PUBLIC_API_URL}${course.image}`} 
-                    alt={`${course.title} course thumbnail`}
-                    width={400}
-                    height={224}
-                    className="w-full h-48 sm:h-56 object-cover"
-                    priority={false}
-                  />
+                  {course.image && (
+                    <Image
+                      src={`${process.env.NEXT_PUBLIC_API_URL}${course.image}`}
+                      alt={`${course.title} course thumbnail`}
+                      width={400}
+                      height={224}
+                      className="w-full h-48 sm:h-56 object-cover"
+                      priority={false}
+                      onError={(e) => {
+                        e.currentTarget.style.display = "none"; // or set a default image
+                      }}
+                    />
+                  )}
                   {/* <div className="absolute top-3 sm:top-4 right-3 sm:right-4 px-2.5 sm:px-3 py-1 sm:py-1.5 bg-[#9BF900] text-[#1725BB] text-xs font-bold rounded-full shadow-lg">
-                    POPULAR
-                  </div> */}
+    POPULAR
+  </div> */}
                 </div>
-                
+
+
                 <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
                   <div>
                     <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 leading-tight break-words">
@@ -447,7 +458,7 @@ export default function CourseDetail() {
           </div>
         </main>
       </motion.div>
-      <Footer/>
+      <Footer />
     </>
   );
 }

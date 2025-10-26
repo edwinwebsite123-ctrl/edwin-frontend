@@ -64,7 +64,7 @@ export default function EdwinTalks() {
               <div className="w-4 h-4 bg-gray-300 rounded"></div>
               <div className="h-4 bg-gray-300 rounded w-32"></div>
             </div>
-            
+
             <div className="h-16 bg-gray-300 rounded w-64 mx-auto mb-6"></div>
             <div className="w-20 h-1 mx-auto mb-6 rounded-full bg-gray-300"></div>
             <div className="h-6 bg-gray-300 rounded w-96 mx-auto"></div>
@@ -101,13 +101,13 @@ export default function EdwinTalks() {
                 Industry Experts Program
               </span>
             </div>
-            
+
             <h2 className="text-5xl md:text-6xl font-bold mb-6 uppercase" style={{ color: '#1725BB' }}>
               Edwin Talks
             </h2>
-            
+
             <div className="w-20 h-1 mx-auto mb-6 rounded-full" style={{ backgroundColor: '#9BF900' }}></div>
-            
+
             <p className="text-gray-600 text-lg max-w-2xl mx-auto">
               Exclusive sessions with visionary leaders shaping the future
             </p>
@@ -147,13 +147,13 @@ export default function EdwinTalks() {
                 Industry Experts Program
               </span>
             </div>
-            
+
             <h2 className="text-5xl md:text-6xl font-bold mb-6 uppercase" style={{ color: '#1725BB' }}>
               Edwin Talks
             </h2>
-            
+
             <div className="w-20 h-1 mx-auto mb-6 rounded-full" style={{ backgroundColor: '#9BF900' }}></div>
-            
+
             <p className="text-gray-600 text-lg max-w-2xl mx-auto">
               Exclusive sessions with visionary leaders shaping the future
             </p>
@@ -189,13 +189,13 @@ export default function EdwinTalks() {
               Industry Experts Program
             </span>
           </div>
-          
+
           <h2 className="text-5xl md:text-6xl font-bold mb-6 uppercase" style={{ color: '#1725BB' }}>
             Edwin Talks
           </h2>
-          
+
           <div className="w-20 h-1 mx-auto mb-6 rounded-full" style={{ backgroundColor: '#9BF900' }}></div>
-          
+
           <p className="text-gray-600 text-lg max-w-2xl mx-auto">
             Exclusive sessions with visionary leaders shaping the future
           </p>
@@ -231,25 +231,27 @@ export default function EdwinTalks() {
           ) : (
             // Show actual talks data
             talks.map((talk: EdwinTalk) => (
-              <div 
-                key={talk.id} 
+              <div
+                key={talk.id}
                 className="group bg-white rounded-lg overflow-hidden border border-gray-200 hover:border-gray-300 transition-all duration-300 hover:shadow-xl"
               >
                 <div className="aspect-[4/5] relative overflow-hidden bg-gray-100">
-                  <Image
-                    src={`${process.env.NEXT_PUBLIC_API_URL}${talk.image}`}
-                    alt={talk.title}
-                    width={400}
-                    height={500}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                    onError={(e) => {
-                      // Fallback image if the talk image fails to load
-                      e.currentTarget.src = '/edwintalks/fallback.jpg';
-                    }}
-                  />
+                  {talk.image && (
+                    <Image
+                      src={`${process.env.NEXT_PUBLIC_API_URL}${talk.image}`}
+                      alt={talk.title}
+                      width={400}
+                      height={500}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                      onError={(e) => {
+                        // Fallback image if the talk image fails to load
+                        e.currentTarget.src = '/edwintalks/fallback.jpg';
+                      }}
+                    />
+                  )}
                 </div>
-                
+
                 <div className="h-1.5 w-full" style={{ backgroundColor: '#1725BB' }}></div>
               </div>
             ))
@@ -283,7 +285,7 @@ export default function EdwinTalks() {
                 <X size={24} />
               </button>
             </div>
-            
+
             <div className="mb-6">
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Image URL
@@ -296,7 +298,7 @@ export default function EdwinTalks() {
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
               />
             </div>
-            
+
             <div className="flex gap-3">
               <button
                 onClick={() => setShowModal(false)}

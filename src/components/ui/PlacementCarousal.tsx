@@ -154,7 +154,7 @@ export default function PlacementCarousel() {
             Celebrating our talented students who secured placements at leading companies.
           </p>
         </div>
-        
+
         <div className="flex flex-col items-center justify-center h-64 space-y-4">
           <AlertCircle className="w-16 h-16 text-red-500" />
           <div className="text-center space-y-2">
@@ -189,7 +189,7 @@ export default function PlacementCarousel() {
             Celebrating our talented students who secured placements at leading companies.
           </p>
         </div>
-        
+
         <div className="flex flex-col items-center justify-center h-64 space-y-4">
           <div className="text-gray-500 text-lg text-center">
             <p>No placements to display yet.</p>
@@ -220,7 +220,7 @@ export default function PlacementCarousel() {
         <p className="text-gray-600 mt-2 max-w-2xl mx-auto text-sm lg:text-base px-4">
           Celebrating our talented students who secured placements at leading companies.
         </p>
-        
+
         {/* Refresh button when data is loaded but might be stale */}
         <button
           onClick={handleRetry}
@@ -288,17 +288,19 @@ export default function PlacementCarousel() {
 
                     {/* Student Image */}
                     <div className="absolute top-32 sm:top-32 left-1/2 -translate-x-1/2 z-10 w-[320px] h-[320px] sm:w-[320px] sm:h-[320px]">
-                      <Image
-                        src={`${process.env.NEXT_PUBLIC_API_URL}${placement.student_image}`}
-                        alt={placement.name}
-                        width={320}
-                        height={320}
-                        className="w-full h-full object-contain drop-shadow-2xl filter grayscale"
-                        loading="lazy"
-                        onError={(e) => {
-                          e.currentTarget.src = '/placements/default-student.png';
-                        }}
-                      />
+                      {placement.student_image && (
+                        <Image
+                          src={`${process.env.NEXT_PUBLIC_API_URL}${placement.student_image}`}
+                          alt={placement.name}
+                          width={320}
+                          height={320}
+                          className="w-full h-full object-contain drop-shadow-2xl filter grayscale"
+                          loading="lazy"
+                          onError={(e) => {
+                            e.currentTarget.src = '/placements/default-student.png';
+                          }}
+                        />
+                      )}
                     </div>
 
                     {/* Bottom Info */}
@@ -343,11 +345,10 @@ export default function PlacementCarousel() {
                 <button
                   key={index}
                   onClick={() => goToSlide(index)}
-                  className={`transition-all duration-300 rounded-full ${
-                    currentIndex === index
+                  className={`transition-all duration-300 rounded-full ${currentIndex === index
                       ? 'w-8 sm:w-10 h-2.5 sm:h-3 bg-[#FF6002]'
                       : 'w-2.5 sm:w-3 h-2.5 sm:h-3 bg-gray-400 hover:bg-gray-500'
-                  }`}
+                    }`}
                   aria-label={`Go to slide ${index + 1}`}
                 />
               )

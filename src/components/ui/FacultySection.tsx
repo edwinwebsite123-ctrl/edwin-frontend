@@ -55,19 +55,21 @@ const FacultyCard = ({ name, title, facultyImage, bgImage }: FacultyCardProps) =
 
       {/* Faculty Image */}
       <div className="absolute inset-0 flex items-center justify-center z-10 px-4">
-        <Image
-          src={`${process.env.NEXT_PUBLIC_API_URL}${facultyImage}`}
-          alt={name}
-          width={320}
-          height={420}
-          className="w-full h-full object-cover drop-shadow-2xl"
-          loading="lazy"
-          onError={(e) => {
-            // Fallback image if faculty image fails to load
-            e.currentTarget.src = "/api/placeholder/320/420";
-          }}
-        />
+        {facultyImage && (
+          <Image
+            src={`${process.env.NEXT_PUBLIC_API_URL}${facultyImage}`}
+            alt={name}
+            width={320}
+            height={420}
+            className="w-full h-full object-cover drop-shadow-2xl"
+            loading="lazy"
+            onError={(e) => {
+              e.currentTarget.src = "/api/placeholder/320/420";
+            }}
+          />
+        )}
       </div>
+
 
       {/* Gradient Overlay */}
       <div className="absolute inset-0 z-20 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
@@ -347,11 +349,10 @@ export default function FacultySection() {
                   <button
                     key={index}
                     onClick={() => goToSlide(index)}
-                    className={`transition-all duration-300 rounded-full ${
-                      currentIndex === index
+                    className={`transition-all duration-300 rounded-full ${currentIndex === index
                         ? 'w-8 sm:w-10 h-2.5 sm:h-3 bg-gray-800'
                         : 'w-2.5 sm:w-3 h-2.5 sm:h-3 bg-gray-400 hover:bg-gray-500'
-                    }`}
+                      }`}
                     aria-label={`Go to slide ${index + 1}`}
                   />
                 )
