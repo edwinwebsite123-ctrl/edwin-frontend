@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import WhatsAppButton from "@/components/ui/WhatsAppButton";
 
 const parkinsans = localFont({
   src: [
@@ -179,6 +180,7 @@ export default function RootLayout({
         className={`${parkinsans.variable} ${encodeSans.variable} antialiased`}
       >
         {children}
+        <WhatsAppButton />
       </body>
     </html>
   );
