@@ -1,56 +1,128 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Brain, Building, Users, ArrowRight, TrendingUp, Check, Clock, BookOpen, Star, ChevronRight } from "lucide-react";
+import { Brain, Building, Users, ArrowRight, TrendingUp, Check, Clock, BookOpen, Star, ChevronRight, RefreshCw } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-const courses = [
-  { 
-    id: 1, 
-    title: "Diploma in Human Resource Management", 
-    category: "Management",
-    description: "Explore essential HR skills and earn industry-relevant certification with this practical and theory-based...",
-    icon: Users, 
-    duration: "6 Months",
-    modules: "13 Modules",
-    students: "2,400+",
-    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop",
-    slug: "hr-management"
-  },
-  { 
-    id: 2, 
-    title: "Hospital Management Diploma", 
-    category: "Healthcare",
-    description: "Specialized program in healthcare administration, hospital operations, and medical facility leadership...",
-    icon: Building, 
-    duration: "8 Months",
-    modules: "15 Modules",
-    students: "1,800+",
-    image: "https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=800&h=600&fit=crop",
-    slug: "hospital-management"
-  },
-  { 
-    id: 3, 
-    title: "AI Integrated Medical Coding", 
-    category: "Healthcare Tech",
-    description: "Master medical coding standards (ICD-10, CPT, HCPCS) with cutting-edge AI tools for accuracy...",
-    icon: Brain, 
-    duration: "5 Months",
-    modules: "12 Modules",
-    students: "1,500+",
-    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=600&fit=crop",
-    slug: "ai-medical-coding"
-  },
-];
+export interface CourseModule {
+  title: string;
+  content: string[];
+}
+
+export interface Course {
+  id: string;
+  title: string;
+  short_description: string;
+  category: string;
+  duration: string;
+  level: string;
+  mode: string;
+  certification: string;
+  image: string;
+  overview: string;
+  modules: CourseModule[];
+  career_opportunities: string[];
+  tools: string[];
+  highlights: string[];
+  created_at: string;
+  updated_at: string;
+}
+
+interface UseCoursesResult {
+  courses: Course[];
+  loading: boolean;
+  error: string | null;
+  refetch: () => Promise<void>;
+  refreshData: () => Promise<void>;
+  handleRefreshData: () => Promise<void>;
+  isRefreshing: boolean;
+}
+
+const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
+
+export const useTopCourses = (): UseCoursesResult => {
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
+
+  const fetchCourses = async (): Promise<void> => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch(`${baseUrl}/api/courses/top-choice/`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Failed to fetch courses: ${errorText || response.statusText}`);
+      }
+
+      const data: Course[] = await response.json();
+      setCourses(data);
+    } catch (err) {
+      console.error("Error fetching top courses:", err);
+      setError(err instanceof Error ? err.message : "An unknown error occurred");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchCourses();
+  }, []);
+
+  // Refresh data function to be called after toggling top choice
+  const refreshData = async (): Promise<void> => {
+    await fetchCourses();
+  };
+
+  const handleRefreshData = async (): Promise<void> => {
+    setIsRefreshing(true);
+    try {
+      await refreshData();
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
+
+  return { courses, loading, error, refetch: fetchCourses, refreshData, handleRefreshData, isRefreshing };
+};
+
+// Skeleton Loading Component
+const CourseSkeleton = () => (
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 xs:gap-5 sm:gap-6 lg:gap-7">
+    {Array.from({ length: 3 }).map((_, idx) => (
+      <div key={idx} className="relative h-[480px] xs:h-[500px] sm:h-[520px] lg:h-[460px] rounded-xl xs:rounded-2xl overflow-hidden bg-gray-200 animate-pulse">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent"></div>
+        <div className="absolute bottom-0 left-0 right-0 p-3.5 xs:p-4 sm:p-5 md:p-6 z-30 text-left">
+          <div className="h-4 bg-gray-400 rounded w-1/4 mb-3"></div>
+          <div className="h-6 bg-gray-400 rounded w-3/4 mb-3"></div>
+          <div className="h-4 bg-gray-400 rounded w-full mb-2"></div>
+          <div className="h-4 bg-gray-400 rounded w-2/3 mb-4"></div>
+          <div className="flex gap-3 mb-4">
+            <div className="h-4 bg-gray-400 rounded w-1/4"></div>
+            <div className="h-4 bg-gray-400 rounded w-1/4"></div>
+            <div className="h-4 bg-gray-400 rounded w-1/4"></div>
+          </div>
+          <div className="h-12 bg-gray-400 rounded-full"></div>
+        </div>
+      </div>
+    ))}
+  </div>
+);
 
 export default function PopularCourses() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [hoveredId, setHoveredId] = useState<number | null>(null);
-  
+  const { courses, loading, error, refetch, handleRefreshData, isRefreshing } = useTopCourses();
+  const [, setHoveredId] = useState<string | null>(null);
+
   const statsRef = useRef(null);
   const isStatsInView = useInView(statsRef, { once: true, amount: 0.3 });
-  
+
   const [counts, setCounts] = useState({
     students: 0,
     instructors: 0,
@@ -98,6 +170,29 @@ export default function PopularCourses() {
     return 1 - Math.pow(1 - x, 4);
   };
 
+  // Get appropriate icon based on course category
+  const getCourseIcon = (category: string) => {
+    if (category.toLowerCase().includes('hr') || category.toLowerCase().includes('human resource')) {
+      return Users;
+    } else if (category.toLowerCase().includes('hospital') || category.toLowerCase().includes('healthcare')) {
+      return Building;
+    } else if (category.toLowerCase().includes('ai') || category.toLowerCase().includes('tech')) {
+      return Brain;
+    }
+    return BookOpen;
+  };
+
+  // Format student count for display
+  const formatStudentCount = (index: number) => {
+    const counts = ["2,400+", "1,800+", "1,500+"];
+    return counts[index] || "1,000+";
+  };
+
+  // Format module count for display
+  const formatModuleCount = (modules: CourseModule[]) => {
+    return `${modules?.length || 12} Modules`;
+  };
+
   return (
     <section className="bg-white py-10 xs:py-12 sm:py-16 lg:py-20 xl:py-24 px-3 xs:px-4 sm:px-6">
       <div className="max-w-7xl mx-auto">
@@ -114,7 +209,7 @@ export default function PopularCourses() {
             <span className="text-[#1725BB] font-bold text-[10px] xs:text-xs sm:text-sm tracking-wider uppercase">Most Popular Courses</span>
             <TrendingUp className="w-3 xs:w-3.5 sm:w-4 h-3 xs:h-3.5 sm:h-4 text-[#FF6002]" />
           </motion.div>
-          
+
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -122,9 +217,9 @@ export default function PopularCourses() {
             viewport={{ once: true }}
             className="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-gray-900 mb-2.5 xs:mb-3 sm:mb-4 lg:mb-5 leading-tight uppercase px-2"
           >
-           Top-Rated Programs <span className="text-[#1725BB]">Students Love</span>
+            Top-Rated Programs <span className="text-[#1725BB]">Students Love</span>
           </motion.h1>
-          
+
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -132,118 +227,151 @@ export default function PopularCourses() {
             viewport={{ once: true }}
             className="text-xs xs:text-sm sm:text-base lg:text-lg text-gray-600 leading-relaxed px-2"
           >
-           Join thousands of successful learners who chose these industry-leading programs to advance their careers and achieve professional excellence.
+            Join thousands of successful learners who chose these industry-leading programs to advance their careers and achieve professional excellence.
           </motion.p>
+
+          {/* Refresh button when data is loaded but might be stale */}
+          <button
+            onClick={handleRefreshData}
+            disabled={isRefreshing}
+            className="mt-4 flex items-center gap-2 text-[#1725BB] hover:text-[#1725BB]/80 transition-colors text-sm disabled:opacity-50"
+          >
+            <RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+            {isRefreshing ? 'Refreshing...' : 'Refresh Data'}
+          </button>
         </div>
+
+        {/* Error State */}
+        {error && !loading && (
+          <div className="text-center py-12">
+            <div className="text-red-500 text-lg font-semibold mb-4">Failed to load courses</div>
+            <button
+              onClick={() => refetch()}
+              className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              Try Again
+            </button>
+          </div>
+        )}
 
         {/* Course Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 xs:gap-5 sm:gap-6 lg:gap-7 relative">
-          {courses.map((course, idx) => {
-         
-            return (
-              <motion.div
-                key={course.id}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.1, duration: 0.6 }}
-                viewport={{ once: true }}
-                onMouseEnter={() => setHoveredId(course.id)}
-                onMouseLeave={() => setHoveredId(null)}
-                className="group cursor-pointer relative z-10"
-              >
-                <div className="relative h-[480px] xs:h-[500px] sm:h-[520px] lg:h-[460px] rounded-xl xs:rounded-2xl overflow-hidden bg-black transition-all duration-400 hover:shadow-2xl hover:-translate-y-2">
-                  {/* Popular Badge */}
-                  <div className="absolute top-2.5 xs:top-3 sm:top-4 left-2.5 xs:left-3 sm:left-4 z-30">
-                    <motion.div 
-                      initial={{ scale: 0.8, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      transition={{ delay: idx * 0.1 + 0.3, duration: 0.5, type: "spring" }}
-                      className="relative inline-flex items-center gap-1 xs:gap-1.5 sm:gap-2 bg-gradient-to-r from-[#FF6002] to-[#ff8833] px-2 xs:px-2.5 sm:px-3 md:px-4 py-1 xs:py-1.5 sm:py-2 rounded-full shadow-lg overflow-hidden"
-                    >
-                      <div className="absolute inset-0 bg-white/20 animate-pulse"></div>
-                      <TrendingUp className="w-3 xs:w-3.5 sm:w-4 h-3 xs:h-3.5 sm:h-4 text-white relative z-10" strokeWidth={2.5} />
-                      <span className="text-white font-bold text-[9px] xs:text-[10px] sm:text-xs tracking-wide uppercase relative z-10">Top Choice</span>
-                    </motion.div>
-                  </div>
+        {loading ? (
+          <CourseSkeleton />
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 xs:gap-5 sm:gap-6 lg:gap-7 relative">
+            {courses.map((course, idx) => {
+              const imageUrl = course.image
+                ? `${baseUrl}${course.image}`
+                : `https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop`;
 
-                  {/* Rating Badge */}
-                  <div className="absolute top-2.5 xs:top-3 sm:top-4 right-2.5 xs:right-3 sm:right-4 z-30">
-                    <motion.div 
-                      initial={{ scale: 0.8, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      transition={{ delay: idx * 0.1 + 0.2, duration: 0.5 }}
-                      whileHover={{ scale: 1.1 }}
-                      className="flex items-center gap-1 xs:gap-1.5 bg-white/95 backdrop-blur-sm px-2 xs:px-2.5 sm:px-3 py-1 xs:py-1.5 sm:py-2 rounded-full shadow-lg"
-                    >
-                      <Star className="w-3 xs:w-3.5 sm:w-4 h-3 xs:h-3.5 sm:h-4 text-[#FF6002]" fill="#FF6002" strokeWidth={2} />
-                      <span className="text-gray-900 font-bold text-[10px] xs:text-xs">4.9</span>
-                    </motion.div>
-                  </div>
-
-                  {/* Background Image */}
-                  <div className="absolute inset-0 z-10">
-                    <Image
-                      src={course.image}
-                      alt={course.title}
-                      width={400}
-                      height={460}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent"></div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="absolute bottom-0 left-0 right-0 p-3.5 xs:p-4 sm:p-5 md:p-6 z-30 text-left">
-                    {/* Category Label */}
-                    <div className="mb-2 xs:mb-2.5 sm:mb-3">
-                      <span className="inline-block text-[#9BF900] font-bold text-[10px] xs:text-xs sm:text-sm tracking-wider uppercase">
-                        {course.category}
-                      </span>
+              return (
+                <motion.div
+                  key={course.id}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.1, duration: 0.6 }}
+                  viewport={{ once: true }}
+                  onMouseEnter={() => setHoveredId(course.id)}
+                  onMouseLeave={() => setHoveredId(null)}
+                  className="group cursor-pointer relative z-10"
+                >
+                  <div className="relative h-[480px] xs:h-[500px] sm:h-[520px] lg:h-[460px] rounded-xl xs:rounded-2xl overflow-hidden bg-black transition-all duration-400 hover:shadow-2xl hover:-translate-y-2">
+                    {/* Popular Badge */}
+                    <div className="absolute top-2.5 xs:top-3 sm:top-4 left-2.5 xs:left-3 sm:left-4 z-30">
+                      <motion.div
+                        initial={{ scale: 0.8, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ delay: idx * 0.1 + 0.3, duration: 0.5, type: "spring" }}
+                        className="relative inline-flex items-center gap-1 xs:gap-1.5 sm:gap-2 bg-gradient-to-r from-[#FF6002] to-[#ff8833] px-2 xs:px-2.5 sm:px-3 md:px-4 py-1 xs:py-1.5 sm:py-2 rounded-full shadow-lg overflow-hidden"
+                      >
+                        <div className="absolute inset-0 bg-white/20 animate-pulse"></div>
+                        <TrendingUp className="w-3 xs:w-3.5 sm:w-4 h-3 xs:h-3.5 sm:h-4 text-white relative z-10" strokeWidth={2.5} />
+                        <span className="text-white font-bold text-[9px] xs:text-[10px] sm:text-xs tracking-wide uppercase relative z-10">Top Choice</span>
+                      </motion.div>
                     </div>
 
-                    {/* Title */}
-                    <h3 className="text-base xs:text-lg sm:text-xl md:text-2xl font-bold text-white mb-2 xs:mb-2.5 sm:mb-3 leading-tight">
-                      {course.title}
-                    </h3>
-
-                    {/* Description */}
-                    <p className="text-xs xs:text-sm sm:text-base text-gray-300 leading-relaxed mb-3 xs:mb-3.5 sm:mb-4 line-clamp-2">
-                      {course.description}
-                    </p>
-
-                    {/* Course Meta Info */}
-                    <div className="flex items-center gap-2 xs:gap-2.5 sm:gap-3 md:gap-4 mb-3.5 xs:mb-4 sm:mb-5 text-white/90 flex-wrap">
-                      <div className="flex items-center gap-1 xs:gap-1.5">
-                        <Clock className="w-3 xs:w-3.5 sm:w-4 h-3 xs:h-3.5 sm:h-4 text-[#9BF900]" />
-                        <span className="text-[10px] xs:text-xs sm:text-sm font-medium">{course.duration}</span>
-                      </div>
-                      <div className="flex items-center gap-1 xs:gap-1.5">
-                        <Users className="w-3 xs:w-3.5 sm:w-4 h-3 xs:h-3.5 sm:h-4 text-[#9BF900]" />
-                        <span className="text-[10px] xs:text-xs sm:text-sm font-medium">{course.students}</span>
-                      </div>
-                      <div className="flex items-center gap-1 xs:gap-1.5">
-                        <BookOpen className="w-3 xs:w-3.5 sm:w-4 h-3 xs:h-3.5 sm:h-4 text-[#9BF900]" />
-                        <span className="text-[10px] xs:text-xs sm:text-sm font-medium">{course.modules}</span>
-                      </div>
+                    {/* Rating Badge */}
+                    <div className="absolute top-2.5 xs:top-3 sm:top-4 right-2.5 xs:right-3 sm:right-4 z-30">
+                      <motion.div
+                        initial={{ scale: 0.8, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ delay: idx * 0.1 + 0.2, duration: 0.5 }}
+                        whileHover={{ scale: 1.1 }}
+                        className="flex items-center gap-1 xs:gap-1.5 bg-white/95 backdrop-blur-sm px-2 xs:px-2.5 sm:px-3 py-1 xs:py-1.5 sm:py-2 rounded-full shadow-lg"
+                      >
+                        <Star className="w-3 xs:w-3.5 sm:w-4 h-3 xs:h-3.5 sm:h-4 text-[#FF6002]" fill="#FF6002" strokeWidth={2} />
+                        <span className="text-gray-900 font-bold text-[10px] xs:text-xs">4.9</span>
+                      </motion.div>
                     </div>
 
-                    {/* View Course Button */}
-                    <button
-                      onClick={() => window.location.href = `/course/${course.slug}`}
-                      className="w-full group/btn inline-flex items-center justify-center gap-1.5 xs:gap-2 px-3 xs:px-4 sm:px-5 py-2 xs:py-2.5 sm:py-3 bg-[#FF6002] border border-white/25 rounded-full text-white text-[11px] xs:text-xs sm:text-sm lg:text-base font-semibold backdrop-blur-sm transition-all duration-300 hover:bg-white/25 shadow-lg"
-                    >
-                      View Course
-                      <span className="flex items-center justify-center w-3.5 xs:w-4 sm:w-5 h-3.5 xs:h-4 sm:h-5 bg-white/20 rounded-full group-hover/btn:translate-x-1 transition-transform duration-300">
-                        <ArrowRight className="w-2.5 xs:w-3 sm:w-3.5 h-2.5 xs:h-3 sm:h-3.5" strokeWidth={3} />
-                      </span>
-                    </button>
+                    {/* Background Image */}
+                    {imageUrl && (
+                      <div className="absolute inset-0 z-10">
+                        <Image
+                          src={imageUrl}
+                          alt={course.title}
+                          width={400}
+                          height={460}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent"></div>
+                      </div>
+                    )}
+
+
+                    {/* Content */}
+                    <div className="absolute bottom-0 left-0 right-0 p-3.5 xs:p-4 sm:p-5 md:p-6 z-30 text-left">
+                      {/* Category Label */}
+                      <div className="mb-2 xs:mb-2.5 sm:mb-3">
+                        <span className="inline-block text-[#9BF900] font-bold text-[10px] xs:text-xs sm:text-sm tracking-wider uppercase">
+                          {course.category}
+                        </span>
+                      </div>
+
+                      {/* Title */}
+                      <h3 className="text-base xs:text-lg sm:text-xl md:text-2xl font-bold text-white mb-2 xs:mb-2.5 sm:mb-3 leading-tight">
+                        {course.title}
+                      </h3>
+
+                      {/* Description */}
+                      <p className="text-xs xs:text-sm sm:text-base text-gray-300 leading-relaxed mb-3 xs:mb-3.5 sm:mb-4 line-clamp-2">
+                        {course.short_description || course.overview}
+                      </p>
+
+                      {/* Course Meta Info */}
+                      <div className="flex items-center gap-2 xs:gap-2.5 sm:gap-3 md:gap-4 mb-3.5 xs:mb-4 sm:mb-5 text-white/90 flex-wrap">
+                        <div className="flex items-center gap-1 xs:gap-1.5">
+                          <Clock className="w-3 xs:w-3.5 sm:w-4 h-3 xs:h-3.5 sm:h-4 text-[#9BF900]" />
+                          <span className="text-[10px] xs:text-xs sm:text-sm font-medium">{course.duration}</span>
+                        </div>
+                        <div className="flex items-center gap-1 xs:gap-1.5">
+                          <Users className="w-3 xs:w-3.5 sm:w-4 h-3 xs:h-3.5 sm:h-4 text-[#9BF900]" />
+                          <span className="text-[10px] xs:text-xs sm:text-sm font-medium">{formatStudentCount(idx)}</span>
+                        </div>
+                        <div className="flex items-center gap-1 xs:gap-1.5">
+                          <BookOpen className="w-3 xs:w-3.5 sm:w-4 h-3 xs:h-3.5 sm:h-4 text-[#9BF900]" />
+                          <span className="text-[10px] xs:text-xs sm:text-sm font-medium">{formatModuleCount(course.modules)}</span>
+                        </div>
+                      </div>
+
+                      {/* View Course Button */}
+                      <button
+                        onClick={() => window.location.href = `/course/${course.id}`}
+                        className="w-full group/btn inline-flex items-center justify-center gap-1.5 xs:gap-2 px-3 xs:px-4 sm:px-5 py-2 xs:py-2.5 sm:py-3 bg-[#FF6002] border border-white/25 rounded-full text-white text-[11px] xs:text-xs sm:text-sm lg:text-base font-semibold backdrop-blur-sm transition-all duration-300 hover:bg-white/25 shadow-lg"
+                      >
+                        View Course
+                        <span className="flex items-center justify-center w-3.5 xs:w-4 sm:w-5 h-3.5 xs:h-4 sm:h-5 bg-white/20 rounded-full group-hover/btn:translate-x-1 transition-transform duration-300">
+                          <ArrowRight className="w-2.5 xs:w-3 sm:w-3.5 h-2.5 xs:h-3 sm:h-3.5" strokeWidth={3} />
+                        </span>
+                      </button>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        )}
 
         {/* Stats Bar */}
         <motion.div
@@ -255,7 +383,7 @@ export default function PopularCourses() {
           className="grid grid-cols-2 md:grid-cols-4 gap-3 xs:gap-4 sm:gap-5 md:gap-6 mt-8 xs:mt-10 sm:mt-12 lg:mt-16 mb-8 xs:mb-10 sm:mb-12 lg:mb-16 p-4 xs:p-5 sm:p-6 md:p-8 bg-[#1725BB] rounded-lg xs:rounded-xl"
         >
           <div className="text-center">
-            <motion.div 
+            <motion.div
               className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-bold text-[#9BF900] mb-0.5 xs:mb-1"
               initial={{ scale: 0.5 }}
               animate={isStatsInView ? { scale: 1 } : { scale: 0.5 }}
@@ -266,7 +394,7 @@ export default function PopularCourses() {
             <div className="text-[10px] xs:text-xs sm:text-sm text-white/90">Active Students</div>
           </div>
           <div className="text-center">
-            <motion.div 
+            <motion.div
               className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-bold text-[#9BF900] mb-0.5 xs:mb-1"
               initial={{ scale: 0.5 }}
               animate={isStatsInView ? { scale: 1 } : { scale: 0.5 }}
@@ -277,7 +405,7 @@ export default function PopularCourses() {
             <div className="text-[10px] xs:text-xs sm:text-sm text-white/90">Expert Instructors</div>
           </div>
           <div className="text-center">
-            <motion.div 
+            <motion.div
               className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-bold text-[#9BF900] mb-0.5 xs:mb-1"
               initial={{ scale: 0.5 }}
               animate={isStatsInView ? { scale: 1 } : { scale: 0.5 }}
@@ -288,7 +416,7 @@ export default function PopularCourses() {
             <div className="text-[10px] xs:text-xs sm:text-sm text-white/90">Success Rate</div>
           </div>
           <div className="text-center">
-            <motion.div 
+            <motion.div
               className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-bold text-[#9BF900] mb-0.5 xs:mb-1"
               initial={{ scale: 0.5 }}
               animate={isStatsInView ? { scale: 1 } : { scale: 0.5 }}
@@ -322,7 +450,7 @@ export default function PopularCourses() {
 
               {/* Subheading */}
               <p className="text-xs xs:text-sm sm:text-base md:text-lg text-white/90 mb-5 xs:mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed">
-                Join <strong>Edwin Excel’s Online UG & PG Programs</strong> and study from anywhere in the world.
+                Join <strong>Edwin Excel&apos;s Online UG & PG Programs</strong> and study from anywhere in the world.
               </p>
 
               {/* Features */}
@@ -350,17 +478,16 @@ export default function PopularCourses() {
 
               {/* CTA Button */}
               <Link href={'/edwinexcel'}>
-                 <button className="group inline-flex items-center gap-3 px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded-full font-semibold text-sm sm:text-base shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-                Explore Edwin Excel
-                <span className="flex items-center justify-center w-6 h-6 bg-white/20 rounded-full group-hover:translate-x-1 transition-transform duration-300">
-                  <ChevronRight className="w-4 h-4" strokeWidth={3} />
-                </span>
-              </button>
+                <button className="group inline-flex items-center gap-3 px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded-full font-semibold text-sm sm:text-base shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                  Explore Edwin Excel
+                  <span className="flex items-center justify-center w-6 h-6 bg-white/20 rounded-full group-hover:translate-x-1 transition-transform duration-300">
+                    <ChevronRight className="w-4 h-4" strokeWidth={3} />
+                  </span>
+                </button>
               </Link>
             </div>
           </div>
         </div>
-
       </div>
     </section>
   );

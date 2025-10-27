@@ -72,6 +72,43 @@ export const useCourses = (): UseCoursesResult => {
 };
 
 
+export const useTopCourses = (): UseCoursesResult => {
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchCourses = async (): Promise<void> => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch(`${baseUrl}/api/courses/top-choice/`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Failed to fetch courses: ${errorText || response.statusText}`);
+      }
+
+      const data: Course[] = await response.json();
+      setCourses(data);
+    } catch (err) {
+      console.error("Error fetching top courses:", err);
+      setError(err instanceof Error ? err.message : "An unknown error occurred");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchCourses();
+  }, []);
+
+  return { courses, loading, error, refetch: fetchCourses };
+};
+
 export interface Placement {
   id: number;
   name: string;
