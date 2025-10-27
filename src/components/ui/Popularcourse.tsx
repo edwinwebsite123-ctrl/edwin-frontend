@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Brain, Building, Users, ArrowRight, TrendingUp, Check, Clock, BookOpen, Star, ChevronRight, RefreshCw } from "lucide-react";
+import { Users, ArrowRight, TrendingUp, Check, Clock, BookOpen, Star, ChevronRight, RefreshCw } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -168,18 +168,6 @@ export default function PopularCourses() {
 
   const easeOutQuart = (x: number) => {
     return 1 - Math.pow(1 - x, 4);
-  };
-
-  // Get appropriate icon based on course category
-  const getCourseIcon = (category: string) => {
-    if (category.toLowerCase().includes('hr') || category.toLowerCase().includes('human resource')) {
-      return Users;
-    } else if (category.toLowerCase().includes('hospital') || category.toLowerCase().includes('healthcare')) {
-      return Building;
-    } else if (category.toLowerCase().includes('ai') || category.toLowerCase().includes('tech')) {
-      return Brain;
-    }
-    return BookOpen;
   };
 
   // Format student count for display

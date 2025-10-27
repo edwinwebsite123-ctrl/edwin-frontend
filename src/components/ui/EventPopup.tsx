@@ -1,27 +1,62 @@
 import { useState, useEffect } from 'react';
 import { X, Calendar, MapPin } from 'lucide-react';
 
+interface Event {
+  id: number;
+  title: string;
+  description: string;
+  date: string;
+  location: string;
+  phone_number: string;
+  registration_message: string;
+  is_active: boolean;
+}
+
 export default function EventPopup() {
   const [isVisible, setIsVisible] = useState(false);
+  const [event, setEvent] = useState<Event | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 1000);
-    return () => clearTimeout(timer);
+    fetchEvent();
   }, []);
+
+  const fetchEvent = async () => {
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/events/`);
+      if (response.ok) {
+        const events = await response.json();
+        if (events.length > 0) {
+          const activeEvent = events[0]; // Get the latest active event
+          setEvent(activeEvent);
+          // Show popup after 1 second if event is active
+          if (activeEvent.is_active) {
+            setTimeout(() => {
+              setIsVisible(true);
+            }, 1000);
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching event:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleClose = () => {
     setIsVisible(false);
   };
 
   const handleRegister = () => {
-    const phone = '917736911702';
-    const message = encodeURIComponent('Hello! I would like to register for the Grand Convocation 2025 at Edwin Academy on October 18, 2025.');
-    window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+    if (event) {
+      const phone = event.phone_number;
+      const message = encodeURIComponent(event.registration_message);
+      window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+    }
   };
 
-  if (!isVisible) return null;
+  if (loading || !event || !event.is_active || !isVisible) return null;
 
   return (
     <>
@@ -46,11 +81,11 @@ export default function EventPopup() {
             </div>
 
             <h2 className="relative text-xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-3 leading-tight">
-              GRAND CONVOCATION 2025 ✨
+              {event.title} ✨
             </h2>
 
             <p className="relative text-xs sm:text-sm md:text-base text-white/90 mb-4 sm:mb-5 leading-relaxed">
-              A day to celebrate achievement, dedication, and success! Join us at Edwin Academy as we honour our graduates and their inspiring journeys.
+              {event.description}
             </p>
 
             <div className="relative space-y-2 sm:space-y-3 mb-4 sm:mb-6">
@@ -60,7 +95,7 @@ export default function EventPopup() {
                 </div>
                 <div className="min-w-0">
                   <p className="text-xs text-white/70">Date</p>
-                  <p className="text-xs sm:text-sm font-semibold truncate">October 18, 2025</p>
+                  <p className="text-xs sm:text-sm font-semibold truncate">{new Date(event.date).toLocaleDateString()}</p>
                 </div>
               </div>
 
@@ -70,7 +105,7 @@ export default function EventPopup() {
                 </div>
                 <div className="min-w-0">
                   <p className="text-xs text-white/70">Location</p>
-                  <p className="text-xs sm:text-sm font-semibold">Calicut Tower, Mavoor Road, Calicut</p>
+                  <p className="text-xs sm:text-sm font-semibold">{event.location}</p>
                 </div>
               </div>
             </div>

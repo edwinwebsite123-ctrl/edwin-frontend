@@ -17,7 +17,7 @@ import FAQSection from '@/components/ui/FAQ'
 import TestimonialSection from '@/components/ui/Testimonial'
 import Footer from '@/components/ui/Footer'
 import EdwinTalks from '@/components/ui/EdwinTalks'
-
+import EventPopup from '@/components/ui/EventPopup'
 
 
 
@@ -225,7 +225,7 @@ export default function HeroSection() {
       
 
       {/* <CourseCardList/> */}
-      {/* <EventPopup/> */}
+      <EventPopup/>
       <CardOverlay />
       <BannerCTA />
 
