@@ -142,7 +142,7 @@ export default function Footer() {
                   className="text-gray-300 hover:text-[#9BF900] transition-colors duration-300"
                   aria-label="Call Edwin Academy"
                 >
-                  +91 77369 11702 , +91 70251 43536
+                  +91 70251 43536 , +91 751-0471702
                 </a>
               </div>
             </address>

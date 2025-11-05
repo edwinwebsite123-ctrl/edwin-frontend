@@ -6,7 +6,7 @@ export default function WhatsAppButton() {
   const [isHovered, setIsHovered] = useState(false);
   
   // Edwin Academy contact details
-  const phoneNumber = '+917736911702'; // Replace with actual number (format: country code + number, no + or spaces)
+  const phoneNumber = '+9170251 43536'; // Replace with actual number (format: country code + number, no + or spaces)
   const defaultMessage = 'Hi! I’d like to know more about your courses.';
   
   const handleWhatsAppClick = () => {

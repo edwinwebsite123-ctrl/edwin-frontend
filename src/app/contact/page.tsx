@@ -283,7 +283,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <p className="font-semibold text-gray-900 text-sm mb-1">Phone</p>
-                      <p className="text-gray-600 text-sm">+91 77369 11702</p>
+                      <p className="text-gray-600 text-sm">+91 70251 43536</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
@@ -292,7 +292,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <p className="font-semibold text-gray-900 text-sm mb-1">Phone</p>
-                      <p className="text-gray-600 text-sm">+91 70251 43536</p>
+                      <p className="text-gray-600 text-sm">+91 751-0471702</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
