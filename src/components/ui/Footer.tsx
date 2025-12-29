@@ -120,7 +120,7 @@ export default function Footer() {
               <div className="flex items-start gap-3 text-sm">
                 <MapPin className="w-5 h-5 text-[#9BF900] flex-shrink-0 mt-0.5" aria-hidden="true" />
                 <span className="text-gray-300 leading-relaxed">
-                  Kochi: 6th Floor, Kandamkulathi Tower, MG Road, Kochi
+                  Kochi: 2nd Floor, Jose Annexe Building, MG Road
                 </span>
               </div>
 
