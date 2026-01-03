@@ -25,17 +25,17 @@ export default function BlogDetailPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (params.id) {
+    if (params.slug) {
       fetchBlog();
     }
-  }, [params.id]);
+  }, [params.slug]);
 
   const fetchBlog = async () => {
     try {
       setLoading(true);
       setError(null);
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/blogs/${params.id}/`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/blogs/${params.slug}/`);
       if (!response.ok) {
         throw new Error("Blog not found");
       }

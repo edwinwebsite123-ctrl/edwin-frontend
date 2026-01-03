@@ -457,6 +457,7 @@ export function usePGGallery() {
 export interface Blog {
   id: number;
   title: string;
+  slug: string;
   date: string;
   image: string;
   content: string;
