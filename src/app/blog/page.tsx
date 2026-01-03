@@ -6,6 +6,24 @@ import Link from "next/link";
 import Navbar from "@/components/ui/navigation-menu";
 import Footer from "@/components/ui/Footer";
 
+// Function to create content preview
+const createContentPreview = (content: string, maxLength: number = 150): string => {
+  if (!content) return "";
+  
+  // Remove HTML tags if present
+  const plainText = content.replace(/<[^>]*>/g, '');
+  
+  if (plainText.length <= maxLength) return plainText;
+  
+  // Find the last complete word within the limit
+  const truncated = plainText.substring(0, maxLength);
+  const lastSpaceIndex = truncated.lastIndexOf(' ');
+  
+  return lastSpaceIndex > 0 
+    ? truncated.substring(0, lastSpaceIndex) + '...'
+    : truncated + '...';
+};
+
 export default function BlogPage() {
   const { blogs, loading, error } = useBlogs();
 
@@ -92,6 +110,10 @@ export default function BlogPage() {
                       <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-[#1725BB] transition-colors">
                         {blog.title}
                       </h3>
+                      {/* Content Preview */}
+                      <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
+                        {createContentPreview(blog.content)}
+                      </p>
                       <div className="flex items-center text-sm text-gray-600">
                         <span>Read more</span>
                         <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -107,6 +129,22 @@ export default function BlogPage() {
         </div>
       </div>
       <Footer />
+      
+      {/* CSS for line clamping */}
+      <style jsx>{`
+        .line-clamp-2 {
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+        .line-clamp-3 {
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+      `}</style>
     </>
   );
 }
