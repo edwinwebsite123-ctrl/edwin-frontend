@@ -3,6 +3,8 @@
 import { useBlogs } from "@/data/api";
 import Image from "next/image";
 import Link from "next/link";
+import { RefreshCw } from "lucide-react";
+import { useState } from "react";
 import Navbar from "@/components/ui/navigation-menu";
 import Footer from "@/components/ui/Footer";
 
@@ -20,9 +22,27 @@ const createContentPreview = (content: string, maxLength: number = 150): string 
     ? truncated.substring(0, lastSpaceIndex) + '...'
     : truncated + '...';
 };
-
 export default function BlogPage() {
-  const { blogs, loading, error } = useBlogs();
+
+  const { blogs, loading, error, refetch } = useBlogs();
+
+  const [isRetrying, setIsRetrying] = useState(false);
+
+  const handleRetry = async () => {
+
+    setIsRetrying(true);
+
+    try {
+
+      await refetch();
+
+    } finally {
+
+      setIsRetrying(false);
+
+    }
+
+  };
 
   if (loading) {
     return (
@@ -43,7 +63,15 @@ export default function BlogPage() {
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
             <h2 className="text-2xl font-bold text-gray-900 mb-2">Error loading blogs</h2>
-            <p className="text-gray-600">{error}</p>
+            <p className="text-gray-600 mb-4">{error}</p>
+            <button
+              onClick={handleRetry}
+              disabled={isRetrying}
+              className="flex items-center gap-2 bg-[#1725BB] text-white px-6 py-3 rounded-lg hover:bg-[#1725BB]/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <RefreshCw className={`w-4 h-4 ${isRetrying ? 'animate-spin' : ''}`} />
+              {isRetrying ? 'Retrying...' : 'Try Again'}
+            </button>
           </div>
         </div>
         <Footer />
@@ -70,13 +98,41 @@ export default function BlogPage() {
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Stay updated with our latest thoughts, tips, and industry insights.
             </p>
+            {!loading && blogs.length > 0 && (
+              <button
+                onClick={handleRetry}
+                disabled={isRetrying}
+                className="mt-4 flex items-center gap-2 text-[#1725BB] hover:text-[#1725BB]/80 transition-colors text-sm disabled:opacity-50 mx-auto"
+              >
+                <RefreshCw className={`w-4 h-4 ${isRetrying ? 'animate-spin' : ''}`} />
+                {isRetrying ? 'Refreshing...' : 'Refresh Data'}
+              </button>
+            )}
           </div>
+
+          {/* Loading overlay for refresh */}
+          {isRetrying && blogs.length > 0 && (
+            <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+              <div className="bg-white rounded-lg p-6 flex items-center gap-3">
+                <RefreshCw className="w-6 h-6 animate-spin text-[#1725BB]" />
+                <span className="text-gray-700">Updating blogs...</span>
+              </div>
+            </div>
+          )}
 
           {/* Blog Grid */}
           {blogs.length === 0 ? (
             <div className="text-center py-20">
               <h3 className="text-2xl font-bold text-gray-900 mb-2">No blogs available</h3>
-              <p className="text-gray-600">Check back later for new content.</p>
+              <p className="text-gray-600 mb-4">Check back later for new content.</p>
+              <button
+                onClick={handleRetry}
+                disabled={isRetrying}
+                className="flex items-center gap-2 bg-[#1725BB] text-white px-6 py-3 rounded-lg hover:bg-[#1725BB]/90 transition-colors disabled:opacity-50"
+              >
+                <RefreshCw className={`w-4 h-4 ${isRetrying ? 'animate-spin' : ''}`} />
+                {isRetrying ? 'Refreshing...' : 'Refresh'}
+              </button>
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
