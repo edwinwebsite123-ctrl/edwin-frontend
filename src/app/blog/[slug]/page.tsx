@@ -119,7 +119,7 @@ export default function BlogDetailPage() {
 
           {/* Content */}
           <div className="prose prose-lg max-w-none">
-            <div className="whitespace-pre-wrap">{blog.content}</div>
+            <div dangerouslySetInnerHTML={{ __html: blog.content }} />
           </div>
         </div>
       </div>

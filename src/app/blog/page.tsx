@@ -9,17 +9,14 @@ import Footer from "@/components/ui/Footer";
 // Function to create content preview
 const createContentPreview = (content: string, maxLength: number = 150): string => {
   if (!content) return "";
-  
-  // Remove HTML tags if present
-  const plainText = content.replace(/<[^>]*>/g, '');
-  
-  if (plainText.length <= maxLength) return plainText;
-  
+
+  if (content.length <= maxLength) return content;
+
   // Find the last complete word within the limit
-  const truncated = plainText.substring(0, maxLength);
+  const truncated = content.substring(0, maxLength);
   const lastSpaceIndex = truncated.lastIndexOf(' ');
-  
-  return lastSpaceIndex > 0 
+
+  return lastSpaceIndex > 0
     ? truncated.substring(0, lastSpaceIndex) + '...'
     : truncated + '...';
 };
@@ -112,9 +109,7 @@ export default function BlogPage() {
                         {blog.title}
                       </h3>
                       {/* Content Preview */}
-                      <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
-                        {createContentPreview(blog.content)}
-                      </p>
+                      <div className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3" dangerouslySetInnerHTML={{ __html: createContentPreview(blog.content) }} />
                       <div className="flex items-center text-sm text-gray-600">
                         <span>Read more</span>
                         <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
