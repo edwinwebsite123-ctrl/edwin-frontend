@@ -452,3 +452,59 @@ export function usePGGallery() {
 
   return { ...data, loading, error, refetch: fetchGallery };
 }
+
+
+export interface Blog {
+  id: number;
+  title: string;
+  date: string;
+  image: string;
+  content: string;
+  status: string;
+  created_at: string;
+  updated_at: string;
+}
+
+interface UseBlogsResult {
+  blogs: Blog[];
+  loading: boolean;
+  error: string | null;
+  refetch: () => Promise<void>;
+}
+
+export const useBlogs = (): UseBlogsResult => {
+  const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchBlogs = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const response = await fetch(`${baseUrl}/api/blogs/`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Failed to fetch blogs: ${errorText || response.statusText}`);
+      }
+
+      const data: Blog[] = await response.json();
+      setBlogs(data);
+    } catch (err) {
+      console.error("Error fetching blogs:", err);
+      setError(err instanceof Error ? err.message : "An unknown error occurred");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchBlogs();
+  }, []);
+
+  return { blogs, loading, error, refetch: fetchBlogs };
+};
