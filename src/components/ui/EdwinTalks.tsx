@@ -201,14 +201,14 @@ export default function EdwinTalks() {
           </p>
 
           {/* Refresh button */}
-          <button
+          {/* <button
             onClick={handleRetry}
             disabled={isRetrying}
             className="mt-4 flex items-center gap-2 text-[#1725BB] hover:text-[#1725BB]/80 transition-colors text-sm disabled:opacity-50 mx-auto"
           >
             <RefreshCw className={`w-4 h-4 ${isRetrying ? 'animate-spin' : ''}`} />
             {isRetrying ? 'Refreshing...' : 'Refresh'}
-          </button>
+          </button> */}
         </div>
 
         {/* Loading overlay for refresh */}
