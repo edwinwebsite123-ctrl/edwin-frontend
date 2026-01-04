@@ -126,7 +126,7 @@ const GalleryPage = () => {
         </p>
 
         {/* Refresh button */}
-        {!loading && (programs.length > 0 || events.length > 0 || convocations.length > 0 || achievements.length > 0) && (
+        {/* {!loading && (programs.length > 0 || events.length > 0 || convocations.length > 0 || achievements.length > 0) && (
           <button
             onClick={handleRetry}
             disabled={isRetrying}
@@ -135,7 +135,7 @@ const GalleryPage = () => {
             <RefreshCw className={`w-4 h-4 ${isRetrying ? 'animate-spin' : ''}`} />
             {isRetrying ? 'Refreshing...' : 'Refresh Gallery'}
           </button>
-        )}
+        )} */}
       </header>
 
       {/* Loading overlay for refresh */}

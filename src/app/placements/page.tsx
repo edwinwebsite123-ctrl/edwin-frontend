@@ -305,7 +305,7 @@ export default function PlacementPage() {
               </p>
 
               {/* Refresh button for posters */}
-              {!postersLoading && placementPosters.length > 0 && (
+              {/* {!postersLoading && placementPosters.length > 0 && (
                 <button
                   onClick={handleRetryPosters}
                   disabled={isRetryingPosters}
@@ -314,7 +314,7 @@ export default function PlacementPage() {
                   <RefreshCw className={`w-4 h-4 ${isRetryingPosters ? 'animate-spin' : ''}`} />
                   {isRetryingPosters ? 'Refreshing...' : 'Refresh Posters'}
                 </button>
-              )}
+              )} */}
             </div>
 
             {/* Loading overlay for posters refresh */}
