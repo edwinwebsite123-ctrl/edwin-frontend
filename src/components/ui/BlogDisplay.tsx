@@ -4,6 +4,21 @@ import Link from 'next/link';
 import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import { Blog } from '@/data/api';
 
+// Function to create content preview
+const createContentPreview = (content: string, maxLength: number = 150): string => {
+  if (!content) return "";
+
+  if (content.length <= maxLength) return content;
+
+  // Find the last complete word within the limit
+  const truncated = content.substring(0, maxLength);
+  const lastSpaceIndex = truncated.lastIndexOf(' ');
+
+  return lastSpaceIndex > 0
+    ? truncated.substring(0, lastSpaceIndex) + '...'
+    : truncated + '...';
+};
+
 interface BlogCarouselProps {
   blogs?: Blog[];
   loading?: boolean;
@@ -196,7 +211,7 @@ export default function BlogCarousel({ blogs: propBlogs, loading = false, error 
 
           {/* Carousel Container */}
           <div className="relative">
-            <div className="overflow-hidden">
+            <div className="overflow-hidden py-4">
               <div
                 className="flex transition-transform duration-700 ease-in-out"
                 style={{
@@ -216,77 +231,75 @@ export default function BlogCarousel({ blogs: propBlogs, loading = false, error 
                     }}
                   >
                     {/* Card */}
-                    <div
-                      className="relative h-auto bg-white rounded-2xl sm:rounded-3xl overflow-hidden border border-gray-200 hover:shadow-xl transition-all duration-500 group mx-auto"
-                      style={{
-                        maxWidth: cardsPerView === 1 ? '400px' : '100%',
-                      }}
-                    >
-                      {/* Image Container */}
-                      <div className="relative w-full aspect-[4/3] overflow-hidden bg-gray-100">
-                        {(blog.image) ? (
-                          <Image
-                            src={
-                              blog.image!.startsWith('http')
-                                ? blog.image!
-                                : `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}${blog.image}`
-                            }
-                            alt={blog.title}
-                            width={600}
-                            height={450}
-                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                          />
-                        ) : (
-                          <div className="w-full h-full bg-gray-100 flex items-center justify-center">
-                            <svg
-                              className="w-16 h-16 text-gray-400"
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="1.5"
-                                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-                              />
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="1.5"
-                                d="M8.5 9h7M8.5 12h7M8.5 15h4"
-                              />
+                    <Link href={`/edwinfeaturednews/${blog.slug}`} className="group">
+                      <div
+                        className=" bg-white rounded-2xl overflow-hidden 
+    shadow-[0_10px_30px_rgba(0,0,0,0.08)]
+    hover:shadow-[0_16px_40px_rgba(0,0,0,0.12)]
+    transition-all duration-300 ease-out
+    hover:-translate-y-1
+    flex flex-col h-full m-2"
+                        style={{
+                          maxWidth: cardsPerView === 1 ? '400px' : '100%',
+                        }}
+                      >
+                        {/* Image */}
+                        <div className="relative h-48 overflow-hidden">
+                          {(blog.image) ? (
+                            <Image
+                              src={
+                                blog.image!.startsWith('http')
+                                  ? blog.image!
+                                  : `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}${blog.image}`
+                              }
+                              alt={blog.title}
+                              fill
+                              className="object-cover group-hover:scale-110 transition-transform duration-300"
+                            />
+                          ) : (
+                            <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+                              <svg
+                                className="w-16 h-16 text-gray-400"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="1.5"
+                                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                                />
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="1.5"
+                                  d="M8.5 9h7M8.5 12h7M8.5 15h4"
+                                />
+                              </svg>
+                            </div>
+                          )}
+
+
+                        </div>
+
+                        {/* Content */}
+                        <div className="flex-grow p-6">
+                          <p className="text-sm text-[#FF6002] font-semibold mb-2">{blog.date}</p>
+                          <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-[#1725BB] transition-colors">
+                            {blog.title}
+                          </h3>
+                          {/* Content Preview */}
+                          <div className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3" dangerouslySetInnerHTML={{ __html: createContentPreview(blog.content) }} />
+                          <div className="flex items-center text-sm text-gray-600">
+                            <span>Read more</span>
+                            <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
                             </svg>
                           </div>
-                        )}
-
-
+                        </div>
                       </div>
-
-                      {/* Content */}
-                      <div className="p-5 sm:p-6">
-                        {/* Date */}
-                        <p className="text-sm text-gray-500 mb-3">
-                          {blog.date}
-                        </p>
-
-                        {/* Title */}
-                        <h3 className="text-base sm:text-lg font-medium text-gray-900 leading-relaxed mb-4 line-clamp-3">
-                          {blog.title}
-                        </h3>
-
-                        {/* Read More Button */}
-                        <Link
-                          href={`/edwinfeaturednews/${blog.slug}`}
-                          className="inline-flex items-center gap-2 text-blue-600 font-medium text-sm hover:gap-3 transition-all duration-300 group/btn"
-                        >
-                          <span>Read More</span>
-                          <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center group-hover/btn:bg-blue-700 transition-colors duration-300">
-                            <ArrowRight className="w-4 h-4 text-white" />
-                          </div>
-                        </Link>
-                      </div>
-                    </div>
+                    </Link>
                   </div>
                 ))}
               </div>
@@ -333,6 +346,12 @@ export default function BlogCarousel({ blogs: propBlogs, loading = false, error 
 
       {/* CSS Animations */}
       <style>{`
+        .line-clamp-2 {
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
         .line-clamp-3 {
           display: -webkit-box;
           -webkit-line-clamp: 3;
