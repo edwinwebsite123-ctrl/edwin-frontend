@@ -159,7 +159,7 @@ export default function PlacementPage() {
               </p>
 
               {/* Refresh button */}
-              {!loading && placements.length > 0 && (
+              {/* {!loading && placements.length > 0 && (
                 <button
                   onClick={handleRetry}
                   disabled={isRetrying}
@@ -168,7 +168,7 @@ export default function PlacementPage() {
                   <RefreshCw className={`w-4 h-4 ${isRetrying ? 'animate-spin' : ''}`} />
                   {isRetrying ? 'Refreshing...' : 'Refresh Data'}
                 </button>
-              )}
+              )} */}
             </div>
 
             {/* Loading overlay for refresh */}

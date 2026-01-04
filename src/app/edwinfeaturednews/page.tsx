@@ -98,7 +98,7 @@ export default function BlogPage() {
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Stay updated with our latest thoughts, tips, and industry insights.
             </p>
-            {!loading && blogs.length > 0 && (
+            {/* {!loading && blogs.length > 0 && (
               <button
                 onClick={handleRetry}
                 disabled={isRetrying}
@@ -107,7 +107,7 @@ export default function BlogPage() {
                 <RefreshCw className={`w-4 h-4 ${isRetrying ? 'animate-spin' : ''}`} />
                 {isRetrying ? 'Refreshing...' : 'Refresh Data'}
               </button>
-            )}
+            )} */}
           </div>
 
           {/* Loading overlay for refresh */}

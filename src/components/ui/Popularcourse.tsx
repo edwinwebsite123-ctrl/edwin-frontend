@@ -219,14 +219,14 @@ export default function PopularCourses() {
           </motion.p>
 
           {/* Refresh button when data is loaded but might be stale */}
-          <button
+          {/* <button
             onClick={handleRefreshData}
             disabled={isRefreshing}
             className="mt-4 flex items-center gap-2 text-[#1725BB] hover:text-[#1725BB]/80 transition-colors text-sm disabled:opacity-50"
           >
             <RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin' : ''}`} />
             {isRefreshing ? 'Refreshing...' : 'Refresh Data'}
-          </button>
+          </button> */}
         </div>
 
         {/* Error State */}

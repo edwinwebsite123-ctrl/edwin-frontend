@@ -222,14 +222,14 @@ export default function PlacementCarousel() {
         </p>
 
         {/* Refresh button when data is loaded but might be stale */}
-        <button
+        {/* <button
           onClick={handleRetry}
           disabled={isRetrying}
           className="mt-4 flex items-center gap-2 text-[#1725BB] hover:text-[#1725BB]/80 transition-colors text-sm disabled:opacity-50"
         >
           <RefreshCw className={`w-4 h-4 ${isRetrying ? 'animate-spin' : ''}`} />
           {isRetrying ? 'Refreshing...' : 'Refresh Data'}
-        </button>
+        </button> */}
       </div>
 
       {/* Loading overlay for refresh */}
