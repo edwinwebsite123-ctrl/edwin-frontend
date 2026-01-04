@@ -8,6 +8,8 @@ export default function Footer() {
     { name: 'Home', href: '/', ariaLabel: 'Go to homepage' },
     { name: 'About Us', href: '/about', ariaLabel: 'Learn about Edwin Academy' },
     { name: 'Edwin Excel', href: '/edwinexcel', ariaLabel: 'Learn about Edwin Excel' },
+    { name: 'Gallery', href: '/gallery', ariaLabel: 'Learn about Gallery' },
+    { name: 'Blogs', href: '/edwinfeaturednews', ariaLabel: 'Learn about Blogs' },
   ];
 
   const courses = [
