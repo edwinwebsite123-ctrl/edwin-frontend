@@ -1,8 +1,16 @@
-import { useState, useEffect, useRef, useCallback  } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
+import { Blog } from '@/data/api';
 
-export default function BlogCarousel() {
+interface BlogCarouselProps {
+  blogs?: Blog[];
+  loading?: boolean;
+  error?: string | null;
+}
+
+export default function BlogCarousel({ blogs: propBlogs, loading = false, error = null }: BlogCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardsPerView, setCardsPerView] = useState(3);
   const [isVisible, setIsVisible] = useState(false);
@@ -49,47 +57,80 @@ export default function BlogCarousel() {
 
 
 
-  const blogs = [
+  // Use provided blogs or fallback to default blogs if none provided
+  const defaultBlogs = [
     {
+      id: 1,
       title: "Our visionary CEO, Dr. Muhammed Ameen, has been conferred with his Doctorate from Hawkins University, USA.",
+      slug: "ceo-doctorate-award",
       date: "January 26, 2024",
-      image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=600&fit=crop"
+      image: "/hero/banner-1.jpg",
+      content: "Our visionary CEO, Dr. Muhammed Ameen, has been conferred with his Doctorate from Hawkins University, USA.",
+      status: "published",
+      created_at: "2024-01-26T00:00:00Z",
+      updated_at: "2024-01-26T00:00:00Z"
     },
     {
+      id: 2,
       title: "Edwin Academy launches new AI and Machine Learning program to empower next generation developers.",
+      slug: "ai-ml-program-launch",
       date: "February 15, 2024",
-      image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=600&fit=crop"
+      image: "/hero/banner-2.jpg",
+      content: "Edwin Academy launches new AI and Machine Learning program to empower next generation developers.",
+      status: "published",
+      created_at: "2024-02-15T00:00:00Z",
+      updated_at: "2024-02-15T00:00:00Z"
     },
     {
+      id: 3,
       title: "100% placement record achieved for the 2024 batch with top companies recruiting our graduates.",
+      slug: "100-percent-placement-2024",
       date: "March 10, 2024",
-      image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&h=600&fit=crop"
+      image: "/popular/ai.png",
+      content: "100% placement record achieved for the 2024 batch with top companies recruiting our graduates.",
+      status: "published",
+      created_at: "2024-03-10T00:00:00Z",
+      updated_at: "2024-03-10T00:00:00Z"
     },
     {
+      id: 4,
       title: "New state-of-the-art campus inauguration ceremony attended by industry leaders and dignitaries.",
+      slug: "campus-inauguration-ceremony",
       date: "March 28, 2024",
-      image: "https://images.unsplash.com/photo-1562774053-701939374585?w=800&h=600&fit=crop"
+      image: "/popular/digital.png",
+      content: "New state-of-the-art campus inauguration ceremony attended by industry leaders and dignitaries.",
+      status: "published",
+      created_at: "2024-03-28T00:00:00Z",
+      updated_at: "2024-03-28T00:00:00Z"
     },
     {
+      id: 5,
       title: "Edwin Academy partners with Fortune 500 companies to provide industry-integrated training programs.",
+      slug: "fortune-500-partnership",
       date: "April 05, 2024",
-      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop"
+      image: "/popular/code.png",
+      content: "Edwin Academy partners with Fortune 500 companies to provide industry-integrated training programs.",
+      status: "published",
+      created_at: "2024-04-05T00:00:00Z",
+      updated_at: "2024-04-05T00:00:00Z"
     }
   ];
 
-  const nextSlide = useCallback(() => {
-  setCurrentIndex((prev) =>
-    prev + 1 >= blogs.length - cardsPerView + 1 ? 0 : prev + 1
-  );
-}, [cardsPerView, blogs.length]);
+  const blogs = propBlogs || defaultBlogs;
 
-// Autoplay
-useEffect(() => {
-  const interval = setInterval(() => {
-    nextSlide();
-  }, 5000);
-  return () => clearInterval(interval);
-}, [nextSlide]);
+  const nextSlide = useCallback(() => {
+    setCurrentIndex((prev) =>
+      prev + 1 >= blogs.length - cardsPerView + 1 ? 0 : prev + 1
+    );
+  }, [cardsPerView, blogs.length]);
+
+  // Autoplay
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [nextSlide]);
 
   const prevSlide = () => {
     setCurrentIndex((prev) =>
@@ -169,13 +210,43 @@ useEffect(() => {
                     >
                       {/* Image Container */}
                       <div className="relative w-full aspect-[4/3] overflow-hidden bg-gray-100">
-                        <Image
-                          src={blog.image}
-                          alt={blog.title}
-                          width={600}
-                          height={450}
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                        />
+                        {(blog.image) ? (
+                          <Image
+                            src={
+                              blog.image!.startsWith('http')
+                                ? blog.image!
+                                : `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}${blog.image}`
+                            }
+                            alt={blog.title}
+                            width={600}
+                            height={450}
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+                            <svg
+                              className="w-16 h-16 text-gray-400"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="1.5"
+                                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                              />
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="1.5"
+                                d="M8.5 9h7M8.5 12h7M8.5 15h4"
+                              />
+                            </svg>
+                          </div>
+                        )}
+
+
                       </div>
 
                       {/* Content */}
@@ -191,12 +262,15 @@ useEffect(() => {
                         </h3>
 
                         {/* Read More Button */}
-                        <button className="inline-flex items-center gap-2 text-blue-600 font-medium text-sm hover:gap-3 transition-all duration-300 group/btn">
+                        <Link
+                          href={`/edwinfeaturednews/${blog.slug}`}
+                          className="inline-flex items-center gap-2 text-blue-600 font-medium text-sm hover:gap-3 transition-all duration-300 group/btn"
+                        >
                           <span>Read More</span>
                           <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center group-hover/btn:bg-blue-700 transition-colors duration-300">
                             <ArrowRight className="w-4 h-4 text-white" />
                           </div>
-                        </button>
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -230,8 +304,8 @@ useEffect(() => {
                     key={index}
                     onClick={() => goToSlide(index)}
                     className={`transition-all duration-300 rounded-full ${currentIndex === index
-                        ? 'w-8 sm:w-10 h-2.5 sm:h-3 bg-gray-900'
-                        : 'w-2.5 sm:w-3 h-2.5 sm:h-3 bg-gray-300 hover:bg-gray-400'
+                      ? 'w-8 sm:w-10 h-2.5 sm:h-3 bg-gray-900'
+                      : 'w-2.5 sm:w-3 h-2.5 sm:h-3 bg-gray-300 hover:bg-gray-400'
                       }`}
                     aria-label={`Go to blog ${index + 1}`}
                   />

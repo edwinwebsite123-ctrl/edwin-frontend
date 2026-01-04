@@ -18,10 +18,13 @@ import TestimonialSection from '@/components/ui/Testimonial'
 import Footer from '@/components/ui/Footer'
 import EdwinTalks from '@/components/ui/EdwinTalks'
 import EventPopup from '@/components/ui/EventPopup'
+import BlogCarousel from '@/components/ui/BlogDisplay'
+import { useBlogs } from '@/data/api'
 
 
 
 export default function HeroSection() {
+  const { blogs, loading, error } = useBlogs();
 
   // // Counter animation hook
   // const useCounter = (end: number, duration: number = 2000, start: number = 0) => {
@@ -234,11 +237,14 @@ export default function HeroSection() {
       <EdwinTalks />
       <FacultySection />
       <EdwinAcademySections />
+      {/* Blog Carousel Section */}
+      <BlogCarousel blogs={blogs} loading={loading} error={error} />
+      
       <FAQSection />
       <TestimonialSection />
-     
+      
+      
       <Footer />
-
 
 
 
