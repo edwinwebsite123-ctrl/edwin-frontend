@@ -138,7 +138,7 @@ export default function BlogPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {blogs.map((blog) => (
                 <Link key={blog.id} href={`/edwinfeaturednews/${blog.slug}`} className="group">
-                  <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                  <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2 flex flex-col h-full">
                     {/* Image */}
                     <div className="relative h-48 overflow-hidden">
                       {blog.image ? (
@@ -159,7 +159,7 @@ export default function BlogPage() {
                     </div>
 
                     {/* Content */}
-                    <div className="p-6">
+                    <div className="flex-grow p-6">
                       <p className="text-sm text-[#FF6002] font-semibold mb-2">{blog.date}</p>
                       <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-[#1725BB] transition-colors">
                         {blog.title}
