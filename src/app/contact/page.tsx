@@ -79,7 +79,7 @@ export default function ContactPage() {
     },
     {
       city: "Kochi",
-      address: "6th Floor, Kandamkulathi Tower, MG Road, Kochi",
+      address: "2nd Floor, Jose Annexe Building, M.G. Road, Kochi",
       phone: "+91 (484) 345-6789",
       email: "kochi@edwinacademy.com",
     },
