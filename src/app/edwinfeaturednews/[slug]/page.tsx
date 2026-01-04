@@ -70,7 +70,7 @@ export default function BlogDetailPage() {
           <div className="text-center">
             <h2 className="text-2xl font-bold text-gray-900 mb-2">Blog not found</h2>
             <p className="text-gray-600 mb-6">The blog you&apos;re looking for doesn&apos;t exist.</p>
-            <Link href="/blog" className="px-6 py-3 bg-[#1725BB] text-white font-semibold rounded-xl hover:bg-[#1725BB]/90 transition-colors">
+            <Link href="/edwinfeaturednews" className="px-6 py-3 bg-[#1725BB] text-white font-semibold rounded-xl hover:bg-[#1725BB]/90 transition-colors">
               Back to Blogs
             </Link>
           </div>
@@ -87,7 +87,7 @@ export default function BlogDetailPage() {
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="mb-8">
-            <Link href="/blog" className="inline-flex items-center gap-2 text-[#1725BB] hover:text-[#1725BB]/80 mb-4">
+            <Link href="/edwinfeaturednews" className="inline-flex items-center gap-2 text-[#1725BB] hover:text-[#1725BB]/80 mb-4">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
               </svg>
