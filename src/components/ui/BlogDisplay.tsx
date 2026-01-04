@@ -131,7 +131,7 @@ export default function BlogCarousel({ blogs: propBlogs, loading = false, error 
     }
   ];
 
-  const blogs = propBlogs || defaultBlogs;
+  const blogs = (propBlogs || defaultBlogs).slice(0, 5);
 
   const nextSlide = useCallback(() => {
     setCurrentIndex((prev) =>
