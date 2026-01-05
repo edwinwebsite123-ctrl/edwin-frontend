@@ -68,19 +68,19 @@ export default function ContactPage() {
     {
       city: "Kannur",
       address: "9th Floor, Thana Square Kannur",
-      phone: "+91 (497) 123-4567",
+      phone: "+91 75104 71702",
       email: "kannur@edwinacademy.com",
     },
     {
       city: "Calicut",
       address: "2nd Floor, The Ladder Link Road, Calicut",
-      phone: "+91 (495) 234-5678",
+      phone: "+91 62350 01445",
       email: "calicut@edwinacademy.com",
     },
     {
       city: "Kochi",
       address: "2nd Floor, Jose Annexe Building, M.G. Road, Kochi",
-      phone: "+91 (484) 345-6789",
+      phone: "+91 76569 00900",
       email: "kochi@edwinacademy.com",
     },
   ];
