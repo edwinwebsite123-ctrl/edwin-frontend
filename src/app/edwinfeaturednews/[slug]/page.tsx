@@ -105,7 +105,7 @@ export default function BlogDetailPage() {
                 alt={blog.title}
                 width={800}
                 height={400}
-                className="w-full h-64 md:h-96 object-cover rounded-xl"
+                className="w-full h-full md:h-[500px] object-cover rounded-xl"
               />
             ) : (
               <div className="w-full h-64 md:h-96 bg-gray-100 rounded-xl flex items-center justify-center">
